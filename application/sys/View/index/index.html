@@ -20,7 +20,7 @@ $menusuper = $main['menudemo'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
-    <link rel="stylesheet" href="/static/Sham.css" media="all">
+
 
 </head>
 <body class="layui-layout-body">
@@ -36,7 +36,7 @@ $menusuper = $main['menudemo'];
             </a>
         </li>
         <li class="layui-nav-item layui-hide-xs" lay-unselect>
-        <a lay-href="/main/index/document?md=Main.md" lay-attr="/main/index/document?md=Main.md" title="规划">
+        <a lay-href="/main/index/document" title="前台">
         <i class="layui-icon layui-icon-website"></i>
         </a>
         </li>
@@ -209,7 +209,7 @@ $menusuper = $main['menudemo'];
     </li>
 
 
-{if !empty($menusuper)}
+
 <!-- 手动定义的测试调试 -->
 <li data-name="set" class="layui-nav-item">
     <a href="javascript:;" lay-tips="设置" lay-direction="2">
@@ -217,17 +217,19 @@ $menusuper = $main['menudemo'];
         <cite>{$menusuper['title']}</cite>
     </a>
     <dl class="layui-nav-child">
+        <dd><a lay-href="https://fly.layui.com/docs/2/">文档</a></dd>
+        <dd><a lay-href="/views/s/s_list.html">Pagelist</a></dd>
 
         {foreach $menusuper['child'] as $k=>$value}
         <dd class="layui-nav-itemed">
             <!--<a lay-href="{$value['ads']}">{$value['title']}</a>-->
-            <a lay-href="{$value['ads']}" target="_blank">{$value['title']}</a>
+            <a href="{$value['ads']}" target="_blank">{$value['title']}</a>
         </dd>
         {/foreach}
     </dl>
 </li>
 <!-- 手动定义的测试调试 -->
-{/if}
+
 
 
 
@@ -267,7 +269,7 @@ $menusuper = $main['menudemo'];
     </div>
     <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
         <ul class="layui-tab-title" id="LAY_app_tabsheader">
-            <li lay-id="{$homeurl}" lay-attr="{$homeurl}" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+            <li lay-id="{$homeurl}" lay-attr="home/console.html" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
         </ul>
     </div>
 </div>
@@ -286,7 +288,6 @@ $menusuper = $main['menudemo'];
 </div>
 
 <script src="../layuiadmin/layui/layui.js"></script>
-
 <script>
     layui.config({
         version: new Date().getTime(),

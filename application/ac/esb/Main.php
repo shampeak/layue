@@ -11,11 +11,11 @@ use think\Request;
 
 class Main extends Base{
 
+    public $my;
+
     public function __construct(){
         //注册所有的ads
-    }
-
-    public function get(){
+        $this->my = esb('my');
     }
 
     public function getHavenewmessage(){
@@ -50,21 +50,30 @@ class Main extends Base{
      * 默认的打开页面，console 页面或者welcome页面
      */
     public function getHomeurl(){
-        return '/main/index/welcome';
+        return $this->my['root'];
     }
 
     /*
      * 用户真实姓名
      */
     public function getTruename(){
-        return 'Sham';
+        return $this->my['truename'];
     }
 
     /*
      * 测试调试阶段加载的菜单，调试结束之后去掉
      */
     public function getMenudemo(){
+//        return [];
         return @include_once(APP_PATH.'eMenu.php');
+    }
+
+    public function getLoginurl(){
+        return '/login';
+    }
+
+    public function getLogoutjson(){
+        return '/main/json/logout';
     }
 
 }

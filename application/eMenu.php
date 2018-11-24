@@ -12,16 +12,23 @@
 return [
     'title' => 'Demo',
     'child' => [
-            [
-                'title' => '模板页面',
-                'ads' => '/views/'
-            ],
+        [
+            'title' => '菜单管理',
+            'ads' => '/super/menu'
+        ],
 
-//        [
-//            'title' => 'Demo',
-//            'child' => [
-//
-//            ]
-//        ],
+        [
+            'title' => '文档',
+            'ads' => 'https://fly.layui.com/docs/2/'
+        ],
+        [
+            'title' => 'Pagelist',
+            'ads' => '/views/s/s_list.html'
+        ],
+        [
+            'title' => '模板页面',
+            'ads' => '/views/'
+        ],
+
     ]
 ];

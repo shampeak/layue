@@ -86,7 +86,8 @@ layui.extend({
   view().autoRender();
   
   //加载公共模块
-  layui.use('common');
+    layui.use('common');
+    //layui.use('sham');
 
   //对外输出
   exports('index', {

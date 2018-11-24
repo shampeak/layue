@@ -10,10 +10,12 @@
 // +----------------------------------------------------------------------
 
 return [
-    'Dt'    => 'app\ac\esb\Dt',
     'Main'    => 'app\ac\esb\Main',
-    'Map'   => 'app\ac\esb\Map',
+    'Role'    => 'app\ac\esb\Role',
+    'My'   => 'app\ac\esb\My',
 
+    'Dt'    => 'app\ac\esb\Dt',
+    'Map'   => 'app\ac\esb\Map',
 
     //前端
     'Siteset'   => 'app\ac\esb\Siteset',

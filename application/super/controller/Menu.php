@@ -1,5 +1,5 @@
 <?php
-namespace app\index\controller;
+namespace app\super\controller;
 
 use think\Controller;
 use think\Model;
@@ -7,19 +7,20 @@ use think\Request;
 use think\Db;
 use think\Loader;
 
-class Index extends Controller{
+class Menu extends Controller{
 
     public function __construct()
     {
         parent::__construct();
     }
 
+
     public function index(request $request)
     {
-        $this->redirect('/main');
-       // return view('index/index',[]);
-
+        return view('index/index',[]);
     }
+
+
 
 
 }

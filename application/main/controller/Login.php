@@ -17,11 +17,7 @@ class Login extends Controller{
     public function index(request $request)
     {
 
-        return view('login/index',[]);
-    }
-
-    public function welcome(){
-        echo 'welcome';
+        return view('index/login',[]);
     }
 
 }

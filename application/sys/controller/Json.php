@@ -15,6 +15,16 @@ class Json extends Controller
         parent::__construct();
     }
 
+
+    public function index()
+    {
+        return [
+            'login',
+            'logout',
+        ];
+    }
+
+
     public function login(request $request)
     {
 
@@ -47,6 +57,12 @@ class Json extends Controller
         ];
     }
 
+    public function newmessage()
+    {
+        return true;
+    }
+
+
     public function upload(request $request)
     {
         // 获取表单上传文件 例如上传了001.jpg
@@ -62,5 +78,7 @@ class Json extends Controller
             ];
         }
     }
+
+
 
 }
