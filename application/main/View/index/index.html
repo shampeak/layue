@@ -80,8 +80,8 @@ $menusuper = $main['menudemo'];
                 <cite>{$truename}</cite>
             </a>
             <dl class="layui-nav-child">
-                <dd><a lay-href="/main/index/info">基本资料</a></dd>
-                <dd><a lay-href="/main/index/password">修改密码</a></dd>
+                <dd><a lay-href="/sys/my/info">基本资料</a></dd>
+                <dd><a lay-href="/sys/my/password">修改密码</a></dd>
                 <hr>
                 <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
             </dl>
@@ -116,53 +116,55 @@ $menusuper = $main['menudemo'];
         <cite>主页</cite>
     </a>
     <dl class="layui-nav-child">
-        <!--<dd data-name="console" class="layui-this">-->
-            <!--<a lay-href="home/console.html">控制台</a>-->
-        <!--</dd>-->
-        <!--<dd data-name="console">-->
-            <!--<a lay-href="home/homepage1.html">主页一</a>-->
-        <!--</dd>-->
-        <!--<dd data-name="console">-->
-            <!--<a lay-href="home/homepage2.html">主页二</a>-->
-        <!--</dd>-->
-        <dd><a lay-href="/wsite/set">网站设置</a></dd>
-        <dd><a target="_blank" href="/wsite/page">页面管理</a></dd> <!-- 页面模板列表，可以编辑，设置 -->
-        <!--<dd><a  lay-href="/wsite/sp">碎片管理</a></dd> <!-- 页面碎片管理，编辑，调用 -->
-        <dd><a target="_blank" lay-href="/wsite/cat">分类管理</a></dd>
-        <dd><a target="_blank" lay-href="/wsite/ar">文章管理</a></dd>
+        <dd><a lay-href="/main/console">控制台</a></dd>
 
     </dl>
 </li>
 
+    <li data-name="user" class="layui-nav-item">
+        <a href="javascript:;" lay-tips="设置" lay-direction="2">
+            <i class="layui-icon layui-icon-set"></i>
+            <cite>应用</cite>
+        </a>
+        <dl class="layui-nav-child">
 
-    <!--<li data-name="user" class="layui-nav-item">-->
-        <!--<a href="javascript:;" lay-tips="用户" lay-direction="2">-->
-            <!--<i class="layui-icon layui-icon-user"></i>-->
-            <!--<cite>官网</cite>-->
-        <!--</a>-->
-        <!--<dl class="layui-nav-child">-->
-            <!--<dd><a target="_blank" href="user/user/list.html">网站设置</a></dd>-->
-            <!--<dd><a target="_blank" href="user/user/list.html">页面管理</a></dd> <!-- 页面模板列表，可以编辑，设置 -->-->
-            <!--<dd><a target="_blank" href="user/user/list.html">碎片管理</a></dd> <!-- 页面碎片管理，编辑，调用 -->-->
-            <!--<dd><a target="_blank" href="user/user/list.html">文章分类管理</a></dd>-->
-            <!--<dd><a target="_blank" href="user/user/list.html">文章管理</a></dd>-->
-        <!--</dl>-->
-    <!--</li>-->
+            <dd class="layui-nav-itemed">
+                <a href="javascript:;">站点管理</a>
+                <dl class="layui-nav-child">
+                    <dd><a target="_blank" lay-href="/wsite/page">频道管理</a></dd> <!-- 页面模板列表，可以编辑，设置 -->
+                    <dd><a target="_blank" lay-href="/wsite/page">页面管理</a></dd> <!-- 页面模板列表，可以编辑，设置 -->
+                    <dd><a  lay-href="/wsite/sp">碎片管理</a></dd> <!-- 页面碎片管理，编辑，调用 -->
+                </dl>
+            </dd>
+
+            <dd class="layui-nav-itemed">
+                <a href="javascript:;">内容系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a target="_blank" lay-href="/wsite/cat">分类管理</a></dd>
+                    <dd><a target="_blank" lay-href="/wsite/ar">文章管理</a></dd>
+                </dl>
+            </dd>
+
+            <dd class="layui-nav-itemed">
+                <a href="javascript:;">广告系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a target="_blank" lay-href="/wsite/page">首页广告</a></dd>
+                </dl>
+            </dd>
+            <dd class="layui-nav-itemed">
+                <a href="javascript:;">客户系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a target="_blank" lay-href="/wsite/page">客户管理</a></dd>
+                    <dd><a target="_blank" lay-href="/wsite/page">项目管理</a></dd>
+                    <dd><a target="_blank" lay-href="/wsite/page">留言管理</a></dd>
+                </dl>
+            </dd>
 
 
-    <!--<li data-name="user" class="layui-nav-item">-->
-        <!--<a href="javascript:;" lay-tips="用户" lay-direction="2">-->
-            <!--<i class="layui-icon layui-icon-user"></i>-->
-            <!--<cite>应用</cite>-->
-        <!--</a>-->
-        <!--<dl class="layui-nav-child">-->
-            <!--<dd><a lay-href="user/user/list.html">日志管理</a></dd>-->
-            <!--<dd><a lay-href="user/user/list.html">消息管理</a></dd>-->
-            <!--<dd><a lay-href="user/user/list.html">菜单管理</a></dd>-->
-            <!--<dd><a lay-href="user/user/list.html">Ads管理</a></dd> <!-- 设定ad的名字，确定模块名 -->-->
 
-        <!--</dl>-->
-    <!--</li>-->
+        </dl>
+    </li>
+
 
 
     <li data-name="user" class="layui-nav-item">
@@ -172,13 +174,13 @@ $menusuper = $main['menudemo'];
         </a>
         <dl class="layui-nav-child">
             <dd>
-                <a lay-href="user/user/list.html">网站用户</a>
+                <a lay-href="/sys/user">网站用户</a>
             </dd>
             <dd>
-                <a lay-href="user/administrators/list.html">后台管理员</a>
+                <a lay-href="/sys/administrator">后台管理员</a>
             </dd>
             <dd>
-                <a lay-href="user/administrators/role.html">角色管理</a>
+                <a lay-href="/sys/role">角色管理</a>
             </dd>
         </dl>
     </li>
@@ -193,18 +195,46 @@ $menusuper = $main['menudemo'];
         </a>
         <dl class="layui-nav-child">
             <dd class="layui-nav-itemed">
+                <a href="javascript:;">应用管理</a>
+                <dl class="layui-nav-child">
+                    <dd><a lay-href="/sys/setup">应用</a></dd>
+                    <dd><a lay-href="/sys/setup">插件</a></dd>
+                </dl>
+            </dd>
+
+            <dd class="layui-nav-itemed">
+                <a href="javascript:;">数据字典</a>
+                <dl class="layui-nav-child">
+                    <dd><a lay-href="/sys/setup">地区</a></dd>
+                </dl>
+            </dd>
+            <dd class="layui-nav-itemed">
                 <a href="javascript:;">系统设置</a>
                 <dl class="layui-nav-child">
-                    <dd><a lay-href="/main/website/set">网站设置</a></dd>
+                    <dd><a lay-href="/sys/setup">网站设置</a></dd>
+                    <dd><a lay-href="/sys/setup">数据备份</a></dd>
+                    <dd><a lay-href="/sys/setup">系统服务</a></dd>
+                    <dd><a lay-href="/sys/setup">缓存管理</a></dd>
+                    <dd><a lay-href="/sys/setup">模板文件</a></dd>
+                    <dd><a target="_blank" lay-href="/sys/message">消息管理</a></dd>
+                    <dd><a target="_blank" lay-href="/sys/log">日志管理</a></dd>
                 </dl>
             </dd>
             <dd class="layui-nav-itemed">
                 <a href="javascript:;">我的设置</a>
                 <dl class="layui-nav-child">
-                    <dd><a lay-href="/main/index/info">基本资料</a></dd>
-                    <dd><a lay-href="/main/index/password">修改密码</a></dd>
+                    <dd><a lay-href="/sys/my/info">基本资料</a></dd>
+                    <dd><a lay-href="/sys/my/password">修改密码</a></dd>
                 </dl>
             </dd>
+            <dd class="layui-nav-itemed">
+                <a href="javascript:;">超级设置</a>
+                <dl class="layui-nav-child">
+                    <dd><a lay-href="/super/ads">Ads设置</a></dd>
+                    <dd><a lay-href="/super/menu">菜单设置</a></dd>
+                </dl>
+            </dd>
+
         </dl>
     </li>
 
@@ -212,16 +242,15 @@ $menusuper = $main['menudemo'];
 {if !empty($menusuper)}
 <!-- 手动定义的测试调试 -->
 <li data-name="set" class="layui-nav-item">
-    <a href="javascript:;" lay-tips="设置" lay-direction="2">
-        <i class="layui-icon layui-icon-set"></i>
+    <a href="javascript:;" lay-tips="{$menusuper['title']}" lay-direction="2">
+        <i class="{$menusuper['icon']}"></i>
         <cite>{$menusuper['title']}</cite>
     </a>
     <dl class="layui-nav-child">
 
         {foreach $menusuper['child'] as $k=>$value}
         <dd class="layui-nav-itemed">
-            <!--<a lay-href="{$value['ads']}">{$value['title']}</a>-->
-            <a lay-href="{$value['ads']}" target="_blank">{$value['title']}</a>
+            <a {if $value['ads'] == '/views/'}href{else}lay-href{/if}="{$value['ads']}" target="_blank">{$value['title']}</a>
         </dd>
         {/foreach}
     </dl>

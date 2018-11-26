@@ -1,5 +1,5 @@
 <?php
-namespace app\main\controller;
+namespace app\sys\controller;
 
 use think\Controller;
 use think\Model;
@@ -7,7 +7,7 @@ use think\Request;
 use think\Db;
 use think\Loader;
 
-class Login extends Controller{
+class Role extends Base{
 
     public function __construct()
     {
@@ -17,11 +17,7 @@ class Login extends Controller{
     public function index(request $request)
     {
 
-        return view('login/index',[]);
-    }
-
-    public function welcome(){
-        echo 'welcome';
+        return view('role/index',[]);
     }
 
 }

@@ -15,57 +15,30 @@ class Ini{
     public function __construct(){
     }
 
-    public function getEsb()
+    public function register($type = '0')        //$type 鉴权方式 0:allow/1:permit/2:deny
     {
-        $filepath = APP_PATH;
-        $file = $filepath.'config_esb.php';
-        $ar = [];
-        if (file_exists($file)) {             // $dname 路径名
-            $nr = @file_get_contents($file);
-            $ar = \json_decode($nr,true);
-            $ar = is_array($ar)?$ar:[];
+        $ads = esb()['env']['ads'];
+        $method = esb()['Env']['Method'];
+
+        $str = trim($ads,'/');
+        $ar = explode('/',$str);
+        $a = $d = $s = '';
+        $a = array_shift($ar);
+        if($ar) $d = array_shift($ar);
+        if($ar) $s = array_shift($ar);
+
+        $row = \app\model\Ads::where([
+            'ads'   => $ads,
+        ])->find();
+        if(empty($row)){
+            \app\model\Ads::insert([
+                'ads'   => $ads,
+                'a'   => $a,
+                'd'   => $d,
+                's'   => $s,
+                'type'  => $type,
+            ]);
         }
-        return $ar;
-    }
-
-    public function runDevelomentEsb()
-    {
-        //调试模式下
-        $mconfig = [];
-        //========================================================
-        $filepath = APP_PATH;
-        $dir = opendir($filepath);
-        while($dname = readdir($dir)) {
-            if ($dname != "." && $dname != "..") {
-                $file = rtrim($filepath, DS) . DS . $dname . DS . 'config.php';
-
-
-                if (file_exists($file)) {             // $dname 路径名
-                    $_mconfig = @include($file);
-                    if (isset($_mconfig['Esb'])) {
-                        $_mconfig = $_mconfig['Esb'];
-                        $_mconfig = is_array($_mconfig)?$_mconfig:[];
-                        $mconfig = array_merge($mconfig, $_mconfig);
-                    }
-                }
-            }
-        }
-        if(!file_exists(APP_PATH . 'config_esb.php')){
-            @file_put_contents(APP_PATH . 'config_esb.php', json_encode($mconfig));
-        }
-    }
-
-
-    public function runDevelomentMdo()
-    {
-    }
-
-
-    public function run()
-    {
-        echo '12121';
-        return '1234567890-';
-
         return true;
     }
 

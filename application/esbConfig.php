@@ -17,6 +17,9 @@ return [
     'Dt'    => 'app\ac\esb\Dt',
     'Map'   => 'app\ac\esb\Map',
 
+    'Ads'   => 'app\ac\esb\Ads',
+    'Env'   => 'app\ac\esb\Env',
+
     //前端
     'Siteset'   => 'app\ac\esb\Siteset',
     'Sitear'   => 'app\ac\esb\Sitear',

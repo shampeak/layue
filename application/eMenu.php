@@ -11,6 +11,8 @@
 
 return [
     'title' => 'Demo',
+    'icon' => 'layui-icon layui-icon-set',
+    'ads' => '',
     'child' => [
         [
             'title' => '菜单管理',
@@ -29,6 +31,9 @@ return [
             'title' => '模板页面',
             'ads' => '/views/'
         ],
-
+        [
+            'title' => '示例',
+            'ads' => 'https://www.layui.com/demo/'
+        ],
     ]
 ];

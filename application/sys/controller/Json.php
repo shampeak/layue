@@ -7,7 +7,7 @@ use think\Request;
 use think\Db;
 use think\Loader;
 
-class Json extends Controller
+class Json extends Base
 {
 
     public function __construct()
@@ -55,11 +55,6 @@ class Json extends Controller
             'msg' => '退出成功',
             'data' => ''
         ];
-    }
-
-    public function newmessage()
-    {
-        return true;
     }
 
 

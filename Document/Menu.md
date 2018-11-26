@@ -12,6 +12,8 @@
 <a href=?md=Main.md>Main</a>
 |
 
+<a target=_blank href=/views/>模板文件</a>
+|
 
 
 

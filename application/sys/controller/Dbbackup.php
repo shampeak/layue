@@ -1,5 +1,5 @@
 <?php
-namespace app\index\controller;
+namespace app\sys\controller;
 
 use think\Controller;
 use think\Model;
@@ -7,7 +7,7 @@ use think\Request;
 use think\Db;
 use think\Loader;
 
-class Join extends Controller{
+class Dbbackup extends Base{
 
     public function __construct()
     {
@@ -16,9 +16,7 @@ class Join extends Controller{
 
     public function index(request $request)
     {
-
-        return view('index/join',[]);
+        return view('dbbackup/index',[]);
     }
-
 
 }

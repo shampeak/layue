@@ -7,7 +7,7 @@ use think\Request;
 use think\Db;
 use think\Loader;
 
-class Console extends Controller{
+class Console extends Base{
 
     public function __construct()
     {

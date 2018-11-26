@@ -1,5 +1,5 @@
 <?php
-namespace app\main\controller;
+namespace app\sys\controller;
 
 use think\Controller;
 use think\Model;
@@ -7,7 +7,7 @@ use think\Request;
 use think\Db;
 use think\Loader;
 
-class Message extends Controller{
+class Message extends Base{
 
     public function __construct()
     {

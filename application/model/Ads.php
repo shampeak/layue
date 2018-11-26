@@ -12,7 +12,7 @@ namespace app\model;
 class Ads extends \think\Model
 {
     protected $table = 'sys_ads';
-    protected $pk = 'Id';
+    protected $pk = 'adsId';
 
 }
 

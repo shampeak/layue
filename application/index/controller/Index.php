@@ -7,7 +7,7 @@ use think\Request;
 use think\Db;
 use think\Loader;
 
-class Index extends Controller{
+class Index extends Base{
 
     public function __construct()
     {

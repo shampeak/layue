@@ -18,7 +18,7 @@ class Base extends Controller{
             echo '权限错误';
             die();
         }
-
+        ac('ini')->register();
     }
 
     /*

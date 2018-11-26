@@ -7,7 +7,7 @@ use think\Request;
 use think\Db;
 use think\Loader;
 
-class Json extends Controller
+class Json extends Base
 {
 
     public function __construct()

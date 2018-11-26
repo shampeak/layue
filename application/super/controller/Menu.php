@@ -7,7 +7,7 @@ use think\Request;
 use think\Db;
 use think\Loader;
 
-class Menu extends Controller{
+class Menu extends Base{
 
     public function __construct()
     {
@@ -17,7 +17,7 @@ class Menu extends Controller{
 
     public function index(request $request)
     {
-        return view('index/index',[]);
+        return view('menu/index',[]);
     }
 
 

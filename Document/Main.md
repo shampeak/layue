@@ -28,20 +28,30 @@ Truename             真实姓名
 Menudemo             测试用的左侧菜单
 ```
 
-My
+Sys
 ---
+
 ```
+
 /sys/my/info
 /sys/my/avatar
 /sys/my/password
 
-/sys/menu/          菜单管理
+/sys/administrator  
+/sys/user           用户
+/sys/role           角色
 
-/sys/administrator
-/sys/user
-/sys/role
-/sys/ads            Ads管理
+/super/ads          Ads管理
+/super/menu/        菜单管理
+
 /sys/setup
+/sys/dbbackup
+/sys/service        服务
+/sys/cache          缓存管理
+/sys/tempfile       模板文件
+/sys/message        消息
+/sys/log            日志
+
 
 
 

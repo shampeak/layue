@@ -68,13 +68,5 @@ class Main extends Base{
         return @include_once(APP_PATH.'eMenu.php');
     }
 
-    public function getLoginurl(){
-        return '/login';
-    }
-
-    public function getLogoutjson(){
-        return '/main/json/logout';
-    }
-
 }
 

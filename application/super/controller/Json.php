@@ -1,5 +1,5 @@
 <?php
-namespace app\main\controller;
+namespace app\super\controller;
 
 use think\Controller;
 use think\Model;
@@ -7,7 +7,7 @@ use think\Request;
 use think\Db;
 use think\Loader;
 
-class Json extends Controller
+class Json extends Base
 {
 
     public function __construct()
@@ -15,68 +15,69 @@ class Json extends Controller
         parent::__construct();
     }
 
-
-    public function index()
+    public function menudelete(request $request)
     {
+        //==========================================
+        //
+        //==========================================
+        $id = intval($request->get('id'));
+        md('Adsindex')->where('id',$id)->delete();
+
         return [
-            'login',
-            'logout',
+            'code'  => 0,
+            'msg'   => '删除Menu完成'
+        ];
+    }
+
+    public function adsedit(request $request)
+    {
+        $post = $request->post();
+        $adsid = intval($post['adsId']);
+        $post['hidden'] = isset($post['hidden'])?1:0;
+        $post['enable'] = isset($post['enable'])?1:0;
+        $post['menulevel'] = isset($post['menulevel'])?1:0;
+        md('Ads')->where('adsId',$adsid)->update($post);
+        return [
+            'code'  => 0,
+            'msg'   => '更新完成'
         ];
     }
 
 
-    public function login(request $request)
+    public function adsdelete(request $request)
     {
+        //==========================================
+        //
+        //==========================================
+        $id = intval($request->get('id'));
+        md('Ads')->where('adsId',$id)->delete();
 
-        $par = $request->get();
-        if($par['username'] == 111 && $par['password'] == 111){
-            return [
-                'code' => 0,
-                'msg' => '登陆成功',
-                'data' => [
-                    'access_token' => ''
-                ]
-            ];
+        return [
+            'code'  => 0,
+            'msg'   => '删除Ads完成'
+        ];
+    }
+
+    public function adslist(request $request)
+    {
+        //==========================================
+        //
+        //==========================================
+        $key = $request->get('key');
+        if($key){
+            $where = "ads like '%$key%'";
         }else{
-            return [
-                'code' => -100,
-                'msg' => '登陆失败',
-                'data' => [
-                    'access_token' => ''
-                ]
-            ];
+            $where = "1=1";
         }
-    }
-
-    public function logout()
-    {
+        $list = md('Ads')->where($where)->select();
+        $count = md('Ads')->where($where)->count();
         return [
-            'code' => 0,
-            'msg' => '退出成功',
-            'data' => ''
+            'code'  => 0
+            ,"msg"  => ""
+            ,"count"=> $count
+            ,"data" => $list
         ];
-    }
-
-    public function newmessage()
-    {
-        return true;
-    }
-
-
-    public function upload(request $request)
-    {
-        // 获取表单上传文件 例如上传了001.jpg
-        $file = request()->file('file');
-
-        // 移动到框架应用根目录/public/uploads/ 目录下
-        if($file){
-            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
-            return [
-                'status'  => 0,
-                'url'   => '/uploads/'.$info->getSaveName(),
-                'msg'   => '修改完成',
-            ];
-        }
+        return $list;
     }
 
 

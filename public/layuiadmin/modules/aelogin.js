@@ -24,6 +24,10 @@ layui.define('form', function(exports){
 
     var $body = $('body');
 
+    var ns = getcookie('__loginname');
+    $('#LAY-user-login-username').val(ns);
+
+
     form.render();
     //提交
     form.on('submit(LAY-user-login-submit)', function(obj){
