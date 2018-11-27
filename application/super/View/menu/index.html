@@ -1,5 +1,6 @@
-
-
+{php}
+$list = md('adsindex')->order('Id','desc')->select();
+{/php}
 
 <!DOCTYPE html>
 <html>
@@ -28,18 +29,24 @@
 
     <div class="layui-col-md4">
         <div class="layui-card">
-            <div class="layui-card-header">顶级菜单</div>
+            <div class="layui-card-header">顶级菜单
+                <button class="layui-btn layui-btn-xs layuiadmin-btn-admin" data-type="add">添加</button>
+
+            </div>
             <div class="layui-card-body">
                 <table class="layui-table"> <!-- lay-size="sm" -->
                     <tbody>
+                    {foreach $list as $key=>$value}
                     <tr>
-                        <td>Titleextend
-
-                            <button class="pull-right layui-btn layui-btn-xs">编辑</button>
-                            <button class="pull-right layui-btn layui-btn-xs">删除</button>
-
+                        <td>
+                            <i class="{$value['icon']}"></i> {$value['title']}
+                        </td>
+                        <td>
+                            <a data-value="{$value['Id']}" class="pull-right layui-btn layui-btn-xs super_menu_edit">编辑</a>
+                            <a data-value="{$value['Id']}" class="pull-right layui-btn layui-btn-xs super_menu_delete">删除</a>
                         </td>
                     </tr>
+                    {/foreach}
                     </tbody>
                 </table>
             </div>
@@ -96,7 +103,53 @@
         base: '../../../layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index']);
+    }).use(['index','super'], function(){
+        var $ = layui.$
+                ,form = layui.form
+                ,admin = layui.admin
+                ,table = layui.table;
+
+        //事件
+        var active = {
+            add: function(){
+                layer.open({
+                    type: 2
+                    ,title: '添加菜单'
+                    ,content: '/super/menu/addnew'
+                    ,area: ['800px', '550px']
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index, layero){
+
+                        //============================================
+                        //获取iframe元素的值
+                        var formar = layero.find('iframe').contents().find("#layuiadmin-app-form-menuaddnew");
+                        //============================================
+                        admin.req({
+                            url: '/super/json/menuaddnew'
+                            ,type:formar.attr("method")
+                            ,data: formar.serialize()
+                            ,done: function(res){
+                                location.reload();
+                                //table.reload('LAY-ads-manage');
+                            }
+                        });
+                        layer.close(index);
+                        //============================================
+                        //End
+                        //============================================
+                    }
+                });
+            }
+        }
+
+
+        $('.layui-btn.layuiadmin-btn-admin').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+
+    });
 </script>
 </body>
 </html>

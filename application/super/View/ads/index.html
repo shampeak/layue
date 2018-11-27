@@ -47,23 +47,29 @@
             </script>
 
         </div>
-        <div class="layui-card-body">
-<pre>
-鉴权 type ::  0:allow/1:permit/2:deny
----
-菜单 ：$where = "menulevel <> 0";
-有效菜单 ：$where = "menulevel <> 0 and enable = 1";
-隐藏菜单 ：$where = "menulevel <> 0 and enable = 1 and hidden = 1";
+        <!--<div class="layui-card-body">-->
+<!--<pre>-->
+<!--鉴权 type ::  0:allow/1:permit/2:deny-->
+<!------->
+<!--菜单 ：$where = "menulevel <> 0";-->
+<!--有效菜单 ：$where = "menulevel <> 0 and enable = 1";-->
+<!--隐藏菜单 ：$where = "menulevel <> 0 and enable = 1 and hidden = 1";-->
 
 
-</pre>
-        </div>
+<!--</pre>-->
+        <!--</div>-->
 
     </div>
 </div>
+<blockquote class="layui-elem-quote layui-quote-nm layui-hide" id="footer">layui {{ layui.v }} 提供强力驱动</blockquote>
 
 <script src="../../../layuiadmin/layui/layui.js"></script>
 <script>
+    layui.config({
+        version: new Date().getTime(), //为了更新 js 缓存，可忽略
+    });
+
+
     layui.config({
         base: '../../../layuiadmin/' //静态资源所在路径
     }).extend({
@@ -82,7 +88,15 @@
             });
         });
 
+
+
     });
+
+//    //底部信息
+//    var footerTpl = lay('#footer')[0].innerHTML;
+//    lay('#footer').html(layui.laytpl(footerTpl).render({}))
+//            .removeClass('layui-hide');
+
 </script>
 </body>
 </html>

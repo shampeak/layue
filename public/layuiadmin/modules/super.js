@@ -9,20 +9,76 @@
 
 
 layui.define(['table', 'form'], function(exports){
-  var $ = layui.$
-  ,table = layui.table
-  ,admin = layui.admin
-  ,form = layui.form;
+    var $ = layui.$
+        ,table = layui.table
+        ,admin = layui.admin
+        ,form = layui.form;
+    var $body = $('body');
 
+
+    /*
+     * 修改菜单
+     *
+     */
+    $body.on('click', '.super_menu_edit', function(obj){
+        var id = $(this).attr('data-value');
+
+        layer.open({
+            type: 2
+            ,title: '编辑Menu'
+            ,content: '/super/menu/edit?id='+id
+            ,area: ['420px', '450px']
+            ,btn: ['确定', '取消']
+            ,yes: function(index, layero){
+                //获取iframe元素的值
+                //============================================
+                //var formar = layero.find('iframe').contents().find("#layuiadmin-app-form-adsedit");
+                ////============================================
+                //admin.req({
+                //    url: '/super/json/adsedit'
+                //    ,type:formar.attr("method")
+                //    ,data: formar.serialize()
+                //    ,done: function(res){
+                //        table.reload('LAY-ads-manage');
+                //    }
+                //});
+                layer.close(index);
+            }
+            ,success: function(layero, index){
+            }
+        })
+    });
+
+    $body.on('click', '.super_menu_delete', function(obj){
+        var id = $(this).attr('data-value');
+
+        layer.confirm('确定删除选中的Ads吗？', function(index){
+            admin.req({
+                url: '/super/json/menudelete'
+                ,type:'GET'
+                ,data: 'id='+id
+                ,success: function(res){
+                }
+            });
+            //此处只是演示，实际应用需把下述代码放入上述Ajax回调中
+            layer.msg('删除成功', {
+                icon: 1
+            });
+//
+            //parent.location.reload();
+            location.reload();
+
+            layer.close(index);
+            //table.reload(thisTabs.id); //刷新表格
+        });
+
+    });
 
   //Ads管理
   table.render({
     elem: '#LAY-ads-manage'
     ,url: '/super/json/adslist' //模拟接口
     ,cols: [[
-      //{type: 'checkbox', fixed: 'left'}
-      //,
-
       {field: 'adsId',width:80, title: 'ID', sort: true}
       ,{field: 'ads', title: 'Ads'}
       ,{field: 'title', title: '名称'}
@@ -69,12 +125,10 @@ layui.define(['table', 'form'], function(exports){
         ,area: ['420px', '600px']
         ,btn: ['确定', '取消']
         ,yes: function(index, layero){
-
-
-              ////获取iframe元素的值
-              ////============================================
+              //获取iframe元素的值
+              //============================================
               var formar = layero.find('iframe').contents().find("#layuiadmin-app-form-adsedit");
-              ////============================================
+              //============================================
               admin.req({
                   url: '/super/json/adsedit'
                   ,type:formar.attr("method")
@@ -84,10 +138,8 @@ layui.define(['table', 'form'], function(exports){
                   }
               });
               layer.close(index);
-
         }
         ,success: function(layero, index){           
-          
         }
       })
     }

@@ -11,6 +11,8 @@
 |
 <a href=?md=Main.md>Main</a>
 |
+<a href=?md=Color.md>颜色</a>
+|
 
 <a target=_blank href=/views/>模板文件</a>
 |

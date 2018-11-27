@@ -15,6 +15,51 @@ class Json extends Base
         parent::__construct();
     }
 
+    public function menuaddnew(request $request)
+    {
+        $post = trims($request->post());
+        $post['enable'] = isset($post['enable'])?1:0;
+        $post['hidden'] = isset($post['hidden'])?1:0;
+
+        if(isset($post['f'])){
+            $f = $post['f'];
+            unset($post['f']);
+        }else{
+            $f = [];
+        }
+
+        //===================================================
+        md('Adsindex')->insert($post);
+        //下级菜单目录
+        if($f){
+            $id = Db::getLastInsID();
+            //clear
+            foreach($f as $key=>$value){
+                $res['pId'] = $id;
+                md('ads')->where('adsId',$key)->update($res);
+            }
+        }
+
+        return [
+            'code'  => 0,
+            'msg'   => '添加完成'
+        ];
+    }
+
+    public function menuedit(request $request)
+    {
+        $post = $request->post();
+        $adsid = intval($post['Id']);
+        $post['hidden'] = isset($post['hidden'])?1:0;
+        $post['enable'] = isset($post['enable'])?1:0;
+        $post['menulevel'] = isset($post['menulevel'])?1:0;
+        md('Adsindex')->where('Id',$adsid)->update($post);
+        return [
+            'code'  => 0,
+            'msg'   => '更新完成'
+        ];
+    }
+
     public function menudelete(request $request)
     {
         //==========================================
@@ -28,6 +73,12 @@ class Json extends Base
             'msg'   => '删除Menu完成'
         ];
     }
+
+
+
+
+
+
 
     public function adsedit(request $request)
     {
