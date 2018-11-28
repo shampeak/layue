@@ -27,9 +27,48 @@ class Main extends Base{
      * 菜单
      */
     public function getMenu(){
-        return [
+        //
+        $indexlist = md('adsindex')->where('hidden',0)->order('sort','desc')->select();
+        foreach($indexlist as $key=>$value) {
+            $indexlist[$key] = $value->toArray();
+        }
+        $tree = [];
+        foreach($indexlist as $key=>$value){
+            if($value['pId'] ==0){
+                $tree[] = $value;
+            }
+        }
 
-        ];
+        //
+        foreach($tree  as $key=>$value){
+            foreach($indexlist as $k=>$v){
+                if($value['Id'] == $v['pId']){
+                    $tree[$key]['child'][] = $v;
+                }
+            }
+        }
+        //================================================
+        $adslist = md('ads')->where('menulevel','<>',0)->where('enable',1)->where('hidden',0)->order('sort','desc')->select();
+        $adstree = [];
+        foreach($adslist as $key=>$value){
+            $adstree[$value['pId']][] = $value->toArray();
+        }
+        //================================================
+        foreach($tree as $key=>$value){
+            if(!isset($value['child']) &&  isset($adstree[$value['Id']])){
+                $tree[$key]['child'] = $adstree[$value['Id']];
+            }else{
+                if(isset($value['child'])){
+                    foreach($value['child'] as $k=>$v){
+                        if(isset($adstree[$v['Id']])) {
+                            $tree[$key]['child'][$k]['child'] = $adstree[$v['Id']];
+                        }
+                    }
+                }
+            }
+
+        }
+        return $tree;
     }
 
     /*
@@ -37,6 +76,11 @@ class Main extends Base{
      */
     public function getHometitle(){
         return 'Sadm std - 后台管理';
+    }
+
+    public function getFuntitle(){
+        //检索DS 获取到title
+        return 'Ads';
     }
 
     /*

@@ -15,6 +15,45 @@ class Json extends Base
         parent::__construct();
     }
 
+
+
+    public function menueditads(request $request)
+    {
+        $post = $request->post();
+        $adsid = intval($post['adsId']);
+        $post['hidden'] = isset($post['hidden'])?1:0;
+        $post['enable'] = isset($post['enable'])?1:0;
+        $post['menulevel'] = isset($post['menulevel'])?1:0;
+        md('Ads')->where('adsId',$adsid)->update($post);
+        return [
+            'code'  => 0,
+            'msg'   => '更新完成'
+        ];
+    }
+
+
+    public function menueditfun(request $request)
+    {
+        $post = $request->post();
+        $id = intval($post['Id']);
+        $f = isset($post['f'])?$post['f']:[];
+        //重置
+        $res['pId'] = 0;
+        md('ads')->where('pId',$id)->update($res);
+        //重新赋值
+        if($f){
+            foreach($f as $k=>$v){
+                $res['pId'] = $id;
+                md('ads')->where('adsId',$k)->update($res);
+            }
+        }
+        return [
+            'code'  => 0,
+            'msg'   => '更新完成'
+        ];
+    }
+
+
     public function menuaddnew(request $request)
     {
         $post = trims($request->post());
@@ -26,6 +65,15 @@ class Json extends Base
             unset($post['f']);
         }else{
             $f = [];
+        }
+        //===================================================
+
+
+        if(!$post['title']){
+            return [
+                'code'  => 100,
+                'msg'   => '请填写名称'
+            ];
         }
 
         //===================================================
@@ -51,8 +99,6 @@ class Json extends Base
         $post = $request->post();
         $adsid = intval($post['Id']);
         $post['hidden'] = isset($post['hidden'])?1:0;
-        $post['enable'] = isset($post['enable'])?1:0;
-        $post['menulevel'] = isset($post['menulevel'])?1:0;
         md('Adsindex')->where('Id',$adsid)->update($post);
         return [
             'code'  => 0,

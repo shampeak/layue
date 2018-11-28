@@ -7,25 +7,23 @@ use think\Request;
 use think\Db;
 use think\Loader;
 
-class Role extends Base{
+class Jsonlist extends Base
+{
 
     public function __construct()
     {
         parent::__construct();
     }
 
-
-    public function addnew(request $request)
+    public function role(request $request)
     {
-
-        return view('role/addnew',[]);
+        $list = md('role')->order('sort','desc')->select();
+        return [
+            'code'=>0,
+            'data'=>$list
+        ];
     }
 
 
-    public function index(request $request)
-    {
-
-        return view('role/index',[]);
-    }
 
 }

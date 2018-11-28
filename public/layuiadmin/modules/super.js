@@ -20,6 +20,77 @@ layui.define(['table', 'form'], function(exports){
      * 修改菜单
      *
      */
+    $body.on('click', '.super_menu_editfun', function(obj){
+        var id = $(this).attr('data-value');
+
+        layer.open({
+            type: 2
+            ,title: '编辑Menu'
+            ,content: '/super/menu/editfun?id='+id
+            ,area: ['750px', '450px']
+            ,btn: ['确定', '取消']
+            ,yes: function(index, layero){
+                //获取iframe元素的值
+                //============================================
+                var formar = layero.find('iframe').contents().find("#layuiadmin-app-form-menuedit");
+                //============================================
+                admin.req({
+                    url: '/super/json/menueditfun'
+                    ,type:formar.attr("method")
+                    ,data: formar.serialize()
+                    ,done: function(res){
+                        layer.close(index);
+                        location.reload();
+                    }
+                });
+
+                layer.close(index);
+            }
+            ,success: function(layero, index){
+            }
+        })
+    });
+
+    /*
+     * 修改菜单
+     *
+     */
+    $body.on('click', '.super_menu_editads', function(obj){
+        var id = $(this).attr('data-value');
+
+        layer.open({
+            type: 2
+            ,title: '编辑Menu'
+            ,content: '/super/menu/editads?id='+id
+            ,area: ['420px', '550px']
+            ,btn: ['确定', '取消']
+            ,yes: function(index, layero){
+                //获取iframe元素的值
+                //============================================
+                var formar = layero.find('iframe').contents().find("#layuiadmin-app-form-menueditads");
+                //============================================
+                admin.req({
+                    url: '/super/json/menueditads'
+                    ,type:'POST'
+                    ,data: formar.serialize()
+                    ,done: function(res){
+                        layer.close(index);
+                        location.reload();
+                    }
+                });
+
+                layer.close(index);
+            }
+            ,success: function(layero, index){
+            }
+        })
+    });
+
+
+    /*
+     * 修改菜单
+     *
+     */
     $body.on('click', '.super_menu_edit', function(obj){
         var id = $(this).attr('data-value');
 
@@ -32,22 +103,30 @@ layui.define(['table', 'form'], function(exports){
             ,yes: function(index, layero){
                 //获取iframe元素的值
                 //============================================
-                //var formar = layero.find('iframe').contents().find("#layuiadmin-app-form-adsedit");
-                ////============================================
-                //admin.req({
-                //    url: '/super/json/adsedit'
-                //    ,type:formar.attr("method")
-                //    ,data: formar.serialize()
-                //    ,done: function(res){
-                //        table.reload('LAY-ads-manage');
-                //    }
-                //});
+                var formar = layero.find('iframe').contents().find("#layuiadmin-app-form-menuedit");
+                //============================================
+                admin.req({
+                    url: '/super/json/menuedit'
+                    ,type:formar.attr("method")
+                    ,data: formar.serialize()
+                    ,done: function(res){
+                        layer.close(index);
+                        location.reload();
+                    }
+                });
+
                 layer.close(index);
             }
             ,success: function(layero, index){
             }
         })
     });
+
+
+
+
+
+
 
     $body.on('click', '.super_menu_delete', function(obj){
         var id = $(this).attr('data-value');
@@ -67,13 +146,15 @@ layui.define(['table', 'form'], function(exports){
 //
             //parent.location.reload();
             location.reload();
-
             layer.close(index);
             //table.reload(thisTabs.id); //刷新表格
         });
 
     });
 
+
+
+    //=================================================================
   //Ads管理
   table.render({
     elem: '#LAY-ads-manage'

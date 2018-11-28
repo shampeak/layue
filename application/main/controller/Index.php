@@ -19,5 +19,13 @@ class Index extends Base{
         return view('index/index',[]);
     }
 
+    public function test(request $request)
+    {
+        $res = esb('main')['menu'];
+        print_r($res);
+        exit;
+//        return view('index/index',[]);
+    }
+
 
 }

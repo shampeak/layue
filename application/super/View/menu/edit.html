@@ -1,4 +1,6 @@
-
+{php}
+$plist = md('adsindex')->where('pId',0)->order('sort','desc')->order('Id','desc')->select();
+{/php}
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,18 +13,12 @@
 </head>
 <body>
 
-<div class="layui-form" lay-filter="layuiadmin-form-adsedit" id="layuiadmin-form-adsedit" style="padding: 20px 30px 0 0;">
-    <form id="layuiadmin-app-form-adsedit" action="" method="post">
-    <div class="layui-form-item">
-        <label class="layui-form-label">名称</label>
-        <div class="layui-input-inline">
-            <input type="text" name="title" value="{$row['title']}" lay-verify="required" placeholder="名称" autocomplete="off" class="layui-input">
-        </div>
-    </div>
+<div class="layui-form" lay-filter="layuiadmin-form-menuedit" id="layuiadmin-form-menuedit" style="padding: 20px 30px 0 0;">
+    <form id="layuiadmin-app-form-menuedit" action="" method="post">
         <div class="layui-form-item">
-            <label class="layui-form-label">Ads</label>
+            <label class="layui-form-label">名称</label>
             <div class="layui-input-inline">
-                <input type="text" name="ads" value="{$row['ads']}" lay-verify="required" placeholder="Ads" autocomplete="off" class="layui-input">
+                <input type="text" name="title" value="{$row['title']}" lay-verify="required" placeholder="名称" autocomplete="off" class="layui-input">
             </div>
         </div>
 
@@ -34,24 +30,38 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">有效</label>
-            <div class="layui-input-block">
-                <input type="checkbox" {if $row['enable']}checked=""{/if} name="enable" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+            <label class="layui-form-label">ads</label>
+            <div class="layui-input-inline">
+                <input type="text" name="ads" value="{$row['ads']}" lay-verify="required" placeholder="名称" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">鉴权</label>
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-inline">
+                <input type="text" name="sort" value="{$row['sort']}" lay-verify="required" placeholder="排序" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">隐藏</label>
             <div class="layui-input-block">
-                <select name="type" lay-filter="aihao">
-                    <option value="">请选择</option>
-                    <option value="0" {if $row['type']==0}selected{/if}>Allow</option>
-                    <option value="1" {if $row['type']==1}selected{/if}>Permit</option>
-                    <option value="2" {if $row['type']==2}selected{/if}>Deny</option>
+                <input type="checkbox" name="hidden" {if $row['hidden']}checked=""{/if}  lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">上级分类</label>
+            <div class="layui-input-inline">
+                <select name="pId" lay-filter="aihao">
+                    <option value="0">顶级菜单</option>
+                    {foreach $plist as $key=>$value}
+                    <option value="{$value['Id']}"  {if $value['Id'] == $row['pId']}selected{/if}>{$value['title']}</option>
+                    {/foreach}
                 </select>
             </div>
         </div>
-        <input type="hidden" name="adsId" value="{$row['adsId']}">
+
+        <input type="hidden" name="Id" value="{$row['Id']}">
 
     </form>
 </div>
@@ -64,7 +74,7 @@
         index: 'lib/index' //主入口模块
     }).use(['index', 'form'], function(){
         var $ = layui.$
-                ,form = layui.form ;
+        ,form = layui.form ;
     })
 </script>
 </body>

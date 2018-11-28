@@ -1,6 +1,3 @@
-{php}
-$list = md('adsindex')->order('Id','desc')->select();
-{/php}
 
 <!DOCTYPE html>
 <html>
@@ -36,14 +33,15 @@ $list = md('adsindex')->order('Id','desc')->select();
             <div class="layui-card-body">
                 <table class="layui-table"> <!-- lay-size="sm" -->
                     <tbody>
-                    {foreach $list as $key=>$value}
+                    {foreach $tree as $key=>$value}
                     <tr>
-                        <td>
-                            <i class="{$value['icon']}"></i> {$value['title']}
+                        <td {if $Think.get.top==$value['Id']}class="layui-bg-green"{/if}>
+                            <i class="{$value['icon']}"></i> <a href="/super/menu?top={$value['Id']}" >{$value['title']}</a>
                         </td>
                         <td>
+                            <a data-value="{$value['Id']}" class="pull-right layui-btn layui-btn-normal layui-btn-xs {if $value['child']}layui-btn-disabled{else}super_menu_editfun{/if}">功能</a>
                             <a data-value="{$value['Id']}" class="pull-right layui-btn layui-btn-xs super_menu_edit">编辑</a>
-                            <a data-value="{$value['Id']}" class="pull-right layui-btn layui-btn-xs super_menu_delete">删除</a>
+                            <a data-value="{$value['Id']}" class="pull-right layui-btn layui-btn-xs super_menu_delete layui-btn ">删除</a>
                         </td>
                     </tr>
                     {/foreach}
@@ -60,15 +58,20 @@ $list = md('adsindex')->order('Id','desc')->select();
             <div class="layui-card-body">
                 <table class="layui-table"> <!-- lay-size="sm" -->
                     <tbody>
+                    {foreach $list as $key=>$value}
+                    {if $value['pId'] ==$Think.get.top && !empty($Think.get.top)}
                     <tr>
-                        <td>Titleextend</td>
-                        <td>Titleextend
-
-                            <button class="pull-right layui-btn layui-btn-xs">编辑</button>
-                            <button class="pull-right layui-btn layui-btn-xs">删除</button>
-
+                        <td {if $Think.get.sec==$value['Id']}class="layui-bg-green"{/if}>
+                        <i class="{$value['icon']}"></i> <a href="/super/menu?top={$Think.get.top}&sec={$value['Id']}" >{$value['title']}</a>
+                        </td>
+                        <td>
+                            <a data-value="{$value['Id']}" class="pull-right layui-btn layui-btn-normal layui-btn-xs super_menu_editfun">功能</a>
+                            <a data-value="{$value['Id']}" class="pull-right layui-btn layui-btn-xs super_menu_edit">编辑</a>
+                            <a data-value="{$value['Id']}" class="pull-right layui-btn layui-btn-xs super_menu_delete">删除</a>
                         </td>
                     </tr>
+                    {/if}
+                    {/foreach}
                     </tbody>
                 </table>
             </div>
@@ -77,19 +80,53 @@ $list = md('adsindex')->order('Id','desc')->select();
 
 
     <div class="layui-col-md4">
+
         <div class="layui-card">
-            <div class="layui-card-header">三级菜单</div>
+            <div class="layui-card-header">功能菜单</div>
             <div class="layui-card-body">
                 <table class="layui-table"> <!-- lay-size="sm" -->
                     <tbody>
+                    {foreach $adslist as $key=>$value}
+
+                    {if $value['pId'] <>0}
+                    {if $value['pId'] ==$Think.get.top || $value['pId'] ==$Think.get.sec}
                     <tr>
-                        <td>Titleextend</td>
-                        <td>ads</td>
+                        <td>{$value['title']}</td>
+                        <td>{$value['ads']}
+                            <a data-value="{$value['adsId']}" class="pull-right layui-btn layui-btn-normal layui-btn-xs super_menu_editads">编辑</a>
+                        </td>
                     </tr>
+                    {/if}
+                    {/if}
+                    {/foreach}
+
                     </tbody>
                 </table>
             </div>
         </div>
+
+        <div class="layui-card">
+            <div class="layui-card-header">功能</div>
+            <div class="layui-card-body">
+                <table class="layui-table"> <!-- lay-size="sm" -->
+                    <tbody>
+                    {foreach $adslist as $key=>$value}
+                    {if $value['pId'] ==0}
+                    <tr>
+                        <td>{$value['title']}</td>
+                        <td>{$value['ads']}
+                            <a data-value="{$value['adsId']}" class="pull-right layui-btn layui-btn-normal layui-btn-xs super_menu_editads">编辑</a>
+                        </td>
+                    </tr>
+                    {/if}
+                    {/foreach}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
     </div>
 
 
@@ -116,7 +153,7 @@ $list = md('adsindex')->order('Id','desc')->select();
                     type: 2
                     ,title: '添加菜单'
                     ,content: '/super/menu/addnew'
-                    ,area: ['800px', '550px']
+                    ,area: ['600px', '450px']
                     ,btn: ['确定', '取消']
                     ,yes: function(index, layero){
 
@@ -128,12 +165,18 @@ $list = md('adsindex')->order('Id','desc')->select();
                             url: '/super/json/menuaddnew'
                             ,type:formar.attr("method")
                             ,data: formar.serialize()
-                            ,done: function(res){
-                                location.reload();
+                            ,success: function(res){
+
+                                if(res.code==0){
+                                    layer.close(index);
+                                    location.reload();
+                                }else{
+                                    return true;
+                                }
                                 //table.reload('LAY-ads-manage');
                             }
                         });
-                        layer.close(index);
+
                         //============================================
                         //End
                         //============================================

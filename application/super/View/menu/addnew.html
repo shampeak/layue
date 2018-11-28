@@ -1,7 +1,7 @@
 {php}
 $where = "menulevel <> 0 and enable = 1 and hidden = 0 and pId = 0";
 $mlist = md('ads')->where($where)->order('sort','desc')->order('a','desc')->select();
-        $menulist0 = md('adsindex')->where('pId',0)->order('sort','desc')->order('Id','desc')->select();
+$plist = md('adsindex')->where('pId',0)->order('sort','desc')->order('Id','desc')->select();
 {/php}
 <!DOCTYPE html>
 <html>
@@ -29,6 +29,12 @@ $mlist = md('ads')->where($where)->order('sort','desc')->order('a','desc')->sele
                 <input type="text" name="icon" value="" lay-verify="required" placeholder="图标" autocomplete="off" class="layui-input">
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">ads</label>
+            <div class="layui-input-inline">
+                <input type="text" name="ads" value="" lay-verify="required" placeholder="ads" autocomplete="off" class="layui-input">
+            </div>
+        </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">排序</label>
@@ -42,7 +48,7 @@ $mlist = md('ads')->where($where)->order('sort','desc')->order('a','desc')->sele
             <div class="layui-input-inline">
                 <select name="pId" lay-filter="aihao">
                     <option value="0">顶级菜单</option>
-                    {foreach $menulist0 as $key=>$value}
+                    {foreach $plist as $key=>$value}
                     <option value="{$value['Id']}">{$value['title']}</option>
                     {/foreach}
                 </select>
@@ -65,14 +71,7 @@ $mlist = md('ads')->where($where)->order('sort','desc')->order('a','desc')->sele
         </div>
 
 
-        <div class="layui-form-item" pane="">
-            <label class="layui-form-label">功能</label>
-            <div class="layui-input-block">
-                {foreach $mlist as $key=>$value}
-                    <input type="checkbox" name="f[{$value['adsId']}]" lay-skin="primary" title="{$value['a']} : {$value['title']}">
-                {/foreach}
-            </div>
-        </div>
+
     </form>
 </div>
 
@@ -82,7 +81,7 @@ $mlist = md('ads')->where($where)->order('sort','desc')->order('a','desc')->sele
         base: '../../../layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'form'], function(){
+    }).use(['index','super', 'form'], function(){
         var $ = layui.$
                 ,form = layui.form ;
     })
