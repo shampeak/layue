@@ -2,16 +2,10 @@
 $main = esb('Main');
 $hometitle = $main['hometitle'];
 $homelogochr = $main['homelogochr'];
-
 $homeurl = $main['homeurl'];
 $truename = $main['truename'];
-
-
 $menusuper = $main['menudemo'];
-        $havenewmessage = $main['havenewmessage'];
-{/php}
-
-{php}
+$havenewmessage = $main['havenewmessage'];
 $menu = esb('main')->getMenu();
 {/php}
 
@@ -150,54 +144,6 @@ $menu = esb('main')->getMenu();
     {/if}
 </li>
 {/foreach}
-
-    <li data-name="user" class="layui-nav-item">
-        <a href="javascript:;" lay-tips="设置" lay-direction="2">
-            <i class="layui-icon layui-icon-set"></i>
-            <cite>应用</cite>
-        </a>
-        <dl class="layui-nav-child">
-
-            <dd class="layui-nav-itemed">
-                <a href="javascript:;">站点管理</a>
-                <dl class="layui-nav-child">
-                    <dd><a target="_blank" lay-href="/wsite/page">频道管理</a></dd> <!-- 页面模板列表，可以编辑，设置 -->
-                    <dd><a target="_blank" lay-href="/wsite/page">页面管理</a></dd> <!-- 页面模板列表，可以编辑，设置 -->
-                    <dd><a  lay-href="/wsite/sp">碎片管理</a></dd> <!-- 页面碎片管理，编辑，调用 -->
-                </dl>
-            </dd>
-
-            <dd class="layui-nav-itemed">
-                <a href="javascript:;">内容系统</a>
-                <dl class="layui-nav-child">
-                    <dd><a target="_blank" lay-href="/wsite/cat">分类管理</a></dd>
-                    <dd><a target="_blank" lay-href="/wsite/ar">文章管理</a></dd>
-                </dl>
-            </dd>
-
-            <dd class="layui-nav-itemed">
-                <a href="javascript:;">广告系统</a>
-                <dl class="layui-nav-child">
-                    <dd><a target="_blank" lay-href="/wsite/page">首页广告</a></dd>
-                </dl>
-            </dd>
-            <dd class="layui-nav-itemed">
-                <a href="javascript:;">客户系统</a>
-                <dl class="layui-nav-child">
-                    <dd><a target="_blank" lay-href="/wsite/page">客户管理</a></dd>
-                    <dd><a target="_blank" lay-href="/wsite/page">项目管理</a></dd>
-                    <dd><a target="_blank" lay-href="/wsite/page">留言管理</a></dd>
-                </dl>
-            </dd>
-
-
-
-        </dl>
-    </li>
-
-
-
-
 
 
 {if !empty($menusuper)}

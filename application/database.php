@@ -9,17 +9,31 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
+// 数据库配置
+$config = [
+    'host'      => '127.0.0.1',
+    'database'  => 'lay',
+    'username'  => 'root',
+    'password'  => 'root',
+    'port'      => '3306',
+    'charset'   => 'utf8',
+];
+
+
 return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => '127.0.0.1',
+    'hostname' => $config['host'],
     // 数据库名
-    'database'        => 'lay',
+    'database' => $config['database'],
     // 用户名
-    'username'        => 'root',
+    'username' => $config['username'],
     // 密码
-    'password'        => 'root',
+    'password' => $config['password'],
+    // 端口
+    'hostport' => $config['port'],
+
     // 端口
     'hostport'        => '',
     // 连接dsn
@@ -27,7 +41,7 @@ return [
     // 数据库连接参数
     'params'          => [],
     // 数据库编码默认采用utf8
-    'charset'         => 'utf8',
+    'charset' => $config['charset'],
     // 数据库表前缀
     'prefix'          => 'ver_',
     // 数据库调试模式

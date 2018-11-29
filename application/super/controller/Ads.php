@@ -17,9 +17,9 @@ class Ads extends Base{
 
     public function index(request $request)
     {
-        return view('ads/index',[]);
-    }
 
+        return view('',[]);
+    }
 
     public function edit(request $request)
     {

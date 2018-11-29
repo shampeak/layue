@@ -11,10 +11,10 @@
 
 use think\Route;
 
-//Route::get('box/:name','box/Index/index');
 
 //后台用的
 Route::rule('login','main/login/index');
+//Route::rule('login','main/password/login');
 
 
 return [

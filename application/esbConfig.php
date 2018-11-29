@@ -10,19 +10,19 @@
 // +----------------------------------------------------------------------
 
 return [
-    'Main'    => 'app\ac\esb\Main',
-    'Role'    => 'app\ac\esb\Role',
-    'My'   => 'app\ac\esb\My',
+    'Main'    => 'app\common\ac\esb\Main',
+    'Role'    => 'app\common\ac\esb\Role',
+    'My'   => 'app\common\ac\esb\My',
 
-    'Dt'    => 'app\ac\esb\Dt',
-    'Map'   => 'app\ac\esb\Map',
+    'Dt'    => 'app\common\ac\esb\Dt',
+    'Map'   => 'app\common\ac\esb\Map',
 
-    'Ads'   => 'app\ac\esb\Ads',
-    'Env'   => 'app\ac\esb\Env',
+    'Ads'   => 'app\common\ac\esb\Ads',
+    'Env'   => 'app\common\ac\esb\Env',
 
     //前端
-    'Siteset'   => 'app\ac\esb\Siteset',
-    'Sitear'   => 'app\ac\esb\Sitear',
+    'Siteset'   => 'app\common\ac\esb\Siteset',
+    'Sitear'   => 'app\common\ac\esb\Sitear',
 
 
 

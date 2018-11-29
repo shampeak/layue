@@ -25,4 +25,19 @@ return [
     'log_write'    => [],
     // 应用结束
     'app_end'      => [],
+
+
+//    // 订单处理
+//    'order' => [
+//        'app\\task\\behavior\\Order'
+//    ],
+//
+//    // 优惠券处理：是否过期
+//    'UserCoupon' => [
+//        'app\\task\\behavior\\UserCoupon'
+//    ],
+
+
+
+
 ];
