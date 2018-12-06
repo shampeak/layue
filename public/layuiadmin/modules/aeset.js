@@ -86,8 +86,19 @@ layui.define(['form', 'upload'], function(exports){
   
   //设置我的资料
   form.on('submit(setmyinfo)', function(obj){
-      alert('更改我的资料');
-    layer.msg(JSON.stringify(obj.field));
+
+      admin.req({
+          url: '/sys/my.json/myinfo'
+          ,type:'post'
+          ,data: obj.field
+          ,success: function(){
+              layer.msg('修改完成');
+              //$('#setmypass').attr("disabled",true);
+          }
+      });
+
+    //  alert('更改我的资料');
+    //layer.msg(JSON.stringify(obj.field));
     
     //提交修改
     /*
@@ -135,19 +146,22 @@ layui.define(['form', 'upload'], function(exports){
   
   //设置密码
   form.on('submit(setmypass)', function(obj){
-      alert('更改我的密码');
-    layer.msg(JSON.stringify(obj.field));
+      //alert('更改我的密码');
+    //layer.msg(JSON.stringify(obj.field));
     
     //提交修改
     /*
-    admin.req({
-      url: ''
-      ,data: obj.field
-      ,success: function(){
-        
-      }
-    });
     */
+      admin.req({
+          url: '/sys/my.json/password'
+          ,data: obj.field
+          ,success: function(){
+              layer.msg('修改完成');
+              location.reload();
+              //$('#setmypass').attr("disabled",true);
+          }
+      });
+
     return false;
   });
   

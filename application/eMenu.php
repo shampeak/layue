@@ -14,18 +14,14 @@ return [
     'icon' => 'layui-icon layui-icon-set',
     'ads' => '',
     'child' => [
-        [
-            'title' => '菜单管理',
-            'ads' => '/super/menu'
-        ],
 
+        [
+            'title' => '记录',
+            'ads' => '/main/index/document'
+        ],
         [
             'title' => '文档',
             'ads' => 'https://fly.layui.com/docs/2/'
-        ],
-        [
-            'title' => 'Pagelist',
-            'ads' => '/views/s/s_list.html'
         ],
         [
             'title' => '模板页面',
@@ -35,5 +31,11 @@ return [
             'title' => '示例',
             'ads' => 'https://www.layui.com/demo/'
         ],
+
+        [
+            'title' => 'Support',
+            'ads' => 'http://support.phpleague.cn/'
+        ],
+
     ]
 ];

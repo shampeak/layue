@@ -16,7 +16,7 @@ layui.define(['table', 'form'], function(exports){
   //文章管理
   table.render({
     elem: '#LAY-app-content-list'
-    ,url: layui.setter.base + 'json/content/list.js' //模拟接口
+    ,url: '/content/json/articlelist' //模拟接口
     ,cols: [[
       {type: 'checkbox', fixed: 'left'}
       ,{field: 'id', width: 100, title: '文章ID', sort: true}

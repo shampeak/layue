@@ -50,8 +50,23 @@ layui.define(['form', 'upload'], function(exports){
   
   //网站设置
   form.on('submit(set_website)', function(obj){
-   layer.msg(JSON.stringify(obj.field));
+      //=====================================
+      //删除
+      var data = obj.data;
+      admin.req({
+          url: '/site/json/setup'
+          ,type:'POST'
+          ,data: obj.field
+          ,success: function(res){
+              layer.msg(res.msg);
+          }
+      });
+      //obj.del();
+      //layer.close(index);
+   //layer.msg(JSON.stringify(obj.field));
 
+//   layer.msg(JSON.stringify(obj.field));
+//alert(111);
     //提交修改
     /*
     admin.req({

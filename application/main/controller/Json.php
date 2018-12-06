@@ -7,39 +7,75 @@ use think\Request;
 use think\Db;
 use think\Loader;
 
-class Json extends Base
+class Json
 {
 
     public function __construct()
     {
-        parent::__construct();
+//        parent::__construct();
     }
 
     public function login(request $request)
     {
+//        if(esb()['ConfigDb']['ADMIN_LOGIN_VCODE']){
+//            $captcha = $request->param('captcha');
+//            if(empty($captcha)){
+//                //验证失败
+//                return [
+//                    'code' => -200,
+//                    'msg'   => '请输入验证码'
+//                ];
+//            }
+//            if(!captcha_check($captcha)){
+//                //验证失败
+//                return [
+//                    'code' => -200,
+//                    'msg'   => '验证码错误'
+//                ];
+//            };
+//        }
 
-        $par = $request->get();
-        if($par['username'] == 111 && $par['password'] == 111){
+        //==================================
+        //获取
+        $post       = $request->post();
+        $validate   = validate('Login');
+        //==================================
+        //验证
+        if(!$validate->check($post)){
             return [
-                'code' => 0,
-                'msg' => '登陆成功',
+                'code'=>100,
+//                'msg'=>'cuowu'
+                'msg'=>$validate->getError()
+            ];
+        }
+
+        $res = ac('Auth')->auth($post['username'],$post['password']);
+
+//        $root = esb()['My']['Uroot'];
+
+        if($res){
+            return [
+                'code'=>0,
+                'msg'=>'登陆成功',
                 'data' => [
                     'access_token' => ''
                 ]
             ];
         }else{
             return [
-                'code' => -100,
-                'msg' => '登陆失败',
+                'code'=>100,
+                'msg'=>'登陆失败',
                 'data' => [
                     'access_token' => ''
                 ]
+
             ];
         }
     }
 
     public function logout()
     {
+        ac('auth')->clear();
         return [
             'code' => 0,
             'msg' => '退出成功',

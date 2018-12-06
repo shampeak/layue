@@ -21,6 +21,6 @@ class Base extends Controller{
         ac('ini')->register();
     }
 
- 
+
 
 }

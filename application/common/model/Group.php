@@ -9,7 +9,7 @@ namespace app\common\model;
 
 //use traits\model\SoftDelete;
 
-class Group extends BaseModel
+class Group extends Base
 {
 
     protected $pk = 'groupId';
@@ -19,5 +19,6 @@ class Group extends BaseModel
 // 设置当前模型的数据库连接
 //    protected $connection = [
 //    ];
+
 
 }

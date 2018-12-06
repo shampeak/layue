@@ -16,6 +16,7 @@ class Index extends Base{
 
     public function index(request $request)
     {
+
         return view('index/index',[]);
     }
 

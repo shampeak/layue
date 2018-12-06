@@ -7,11 +7,11 @@
  */
 namespace app\common\model;
 
-class Channel extends BaseModel
+class Channel extends Base
 {
 
     protected $pk = 'channelId';
-    protected $table = 'sys_channel';
+    protected $table = 'site_channel';
 
 
 }

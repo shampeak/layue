@@ -1,12 +1,15 @@
 {php}
+$info = ac('my')->getinfo();
+$truename = $info['trueName'];
+
 $main = esb('Main');
 $hometitle = $main['hometitle'];
 $homelogochr = $main['homelogochr'];
 $homeurl = $main['homeurl'];
-$truename = $main['truename'];
 $menusuper = $main['menudemo'];
 $havenewmessage = $main['havenewmessage'];
 $menu = esb('main')->getMenu();
+
 {/php}
 
 <!DOCTYPE html>
@@ -50,15 +53,16 @@ $menu = esb('main')->getMenu();
     </ul>
     <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
 
-        <li class="layui-nav-item" lay-unselect>
-            <a lay-href="/main/message" layadmin-event="message" lay-text="消息中心">
-                <i class="layui-icon layui-icon-notice"></i>
-                <!-- 如果有新消息，则显示小圆点 -->
-                {if $havenewmessage}
-                <span class="layui-badge-dot"></span>
-                {/if}
-            </a>
-        </li>
+        <!--<li class="layui-nav-item" lay-unselect>-->
+            <!--<a lay-href="/main/message" layadmin-event="message" lay-text="消息中心">-->
+                <!--<i class="layui-icon layui-icon-notice"></i>-->
+                <!--&lt;!&ndash; 如果有新消息，则显示小圆点 &ndash;&gt;-->
+                <!--{if $havenewmessage}-->
+                <!--<span class="layui-badge-dot"></span>-->
+                <!--{/if}-->
+            <!--</a>-->
+        <!--</li>-->
+
         <li class="layui-nav-item layui-hide-xs" lay-unselect>
             <a href="javascript:;" layadmin-event="theme">
                 <i class="layui-icon layui-icon-theme"></i>
@@ -79,8 +83,8 @@ $menu = esb('main')->getMenu();
                 <cite>{$truename}</cite>
             </a>
             <dl class="layui-nav-child">
-                <dd><a lay-href="/sys/my/info">基本资料</a></dd>
-                <dd><a lay-href="/sys/my/password">修改密码</a></dd>
+                <dd><a lay-href="/sys/my.info/index">基本资料</a></dd>
+                <dd><a lay-href="/sys/my.password/index">修改密码</a></dd>
                 <hr>
                 <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
             </dl>
@@ -109,7 +113,7 @@ $menu = esb('main')->getMenu();
 </div>
 
 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
-<li data-name="home" class="layui-nav-item layui-nav-itemed">
+<li data-name="home" class="layui-nav-item ">  <!-- layui-nav-itemed -->
     <a href="javascript:;" lay-tips="主页" lay-direction="2">
         <i class="layui-icon layui-icon-home"></i>
         <cite>主页</cite>
@@ -148,7 +152,7 @@ $menu = esb('main')->getMenu();
 
 {if !empty($menusuper)}
 <!-- 手动定义的测试调试 -->
-<li data-name="set" class="layui-nav-item">
+<li data-name="set" class="layui-nav-item layui-nav-itemed">
     <a href="javascript:;" lay-tips="{$menusuper['title']}" lay-direction="2">
         <i class="{$menusuper['icon']}"></i>
         <cite>{$menusuper['title']}</cite>
@@ -157,7 +161,7 @@ $menu = esb('main')->getMenu();
 
         {foreach $menusuper['child'] as $k=>$value}
         <dd class="layui-nav-itemed">
-            <a {if $value['ads'] == '/views/'}href{else}lay-href{/if}="{$value['ads']}" target="_blank">{$value['title']}</a>
+            <a lay-href="{$value['ads']}" target="_blank">{$value['title']}</a>
         </dd>
         {/foreach}
     </dl>

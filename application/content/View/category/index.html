@@ -1,0 +1,90 @@
+{php}
+$title = esb('main')['funtitle'];
+{/php}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$title}</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-card">
+
+        <div class="layui-card-body">
+            <div style="padding-bottom: 10px;">
+                <button class="layui-btn layuiadmin-btn-role" data-type="add">添加</button>
+            </div>
+
+            <table id="LAY-content-category" lay-filter="LAY-content-category"></table>
+
+            <script type="text/html" id="table-content-category">
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+            </script>
+        </div>
+    </div>
+</div>
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'contentcategory', 'table'], function(){
+        var $ = layui.$
+                ,form = layui.form
+                ,admin = layui.admin
+                ,table = layui.table;
+
+        //事件
+        var active = {
+
+            add: function(){
+                layer.open({
+                    type: 2
+                    ,title: '添加新角色'
+                    ,content: '/content/category/addnew'
+                    ,area: ['500px', '350px']
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index, layero){
+
+
+                        //============================================
+                        //获取iframe元素的值
+                        var formar = layero.find('iframe').contents().find("#layuiadmin-form-addnew");
+                        //============================================
+                        admin.req({
+                            url: '/content/json/categoryaddnew'
+                            ,type:'post'
+                            ,data: formar.serialize()
+                            ,success: function(res){
+                                if(res.code==0){
+                                    table.reload('LAY-content-category');
+                                    layer.close(index);
+                                }
+                                //table.reload('LAY-ads-manage');
+                            }
+                        });
+                    }
+                });
+            }
+        }
+
+        $('.layui-btn.layuiadmin-btn-role').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+</body>
+</html>
+
