@@ -36,6 +36,10 @@ return [
             'title' => 'Support',
             'ads' => 'http://support.phpleague.cn/'
         ],
+        [
+            'title' => '模块',
+            'ads' => '/main/lists'
+        ],
 
     ]
 ];

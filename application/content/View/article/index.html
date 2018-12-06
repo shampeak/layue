@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
+                    <button class="layui-btn layui-btn-sm layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
                         <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
                     </button>
                 </div>
@@ -59,7 +59,7 @@
 
         <div class="layui-card-body">
             <div style="padding-bottom: 10px;">
-                <button class="layui-btn layuiadmin-btn-list" data-type="add">添加</button>
+                <button class="layui-btn layui-btn-sm layuiadmin-btn-list" data-type="add">添加</button>
             </div>
             <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
             <script type="text/html" id="buttonTpl">
@@ -97,10 +97,18 @@
             });
         });
 
+//弹出即全屏
+//        var index = layer.open({
+//            type: 2,
+//            content: 'http://layim.layui.com',
+//            area: ['320px', '195px'],
+//            maxmin: true
+//        });
+//
         var $ = layui.$, active = {
 
             add: function(){
-                layer.open({
+                var index = layer.open({
                     type: 2
                     ,title: '添加文章'
                     ,content: '/content/article/addnew'
@@ -113,6 +121,7 @@
                         submit.click();
                     }
                 });
+                layer.full(index);
             }
         };
 

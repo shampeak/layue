@@ -39,14 +39,17 @@ layui.define(['table', 'form'], function(exports){
     var data = obj.data;
     if(obj.event === 'del'){
       layer.confirm('确定删除此文章？', function(index){
+
+          alert(3);
+
         obj.del();
         layer.close(index);
       });
     } else if(obj.event === 'edit'){
-      layer.open({
+      var windowsfull = layer.open({
         type: 2
         ,title: '编辑文章'
-        ,content: '../../../views/app/content/listform.html?id='+ data.id
+        ,content: '/content/article/edit?id='+ data.id
         ,maxmin: true
         ,area: ['550px', '550px']
         ,btn: ['确定', '取消']
@@ -59,7 +62,12 @@ layui.define(['table', 'form'], function(exports){
             var field = data.field; //获取提交的字段
             
             //提交 Ajax 成功后，静态更新表格中的数据
-            //$.ajax({});              
+            //$.ajax({});
+              alert(2);
+
+
+
+
             obj.update({
               label: field.label
               ,title: field.title
@@ -74,6 +82,7 @@ layui.define(['table', 'form'], function(exports){
           submit.trigger('click');
         }
       });
+        layer.full(windowsfull);
     }
   });
 
