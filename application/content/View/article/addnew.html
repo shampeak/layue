@@ -37,7 +37,7 @@
     <div class="layui-form-item layui-form-item-sm">
         <label class="layui-form-label">文章标题</label>
         <div class="layui-input-block">
-            <input type="text" name="title" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input layui-input-sm">
+            <input type="text" name="title" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
         </div>
     </div>
     <!--默认自己-->
@@ -60,6 +60,25 @@
             </select>
         </div>
     </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">略图</label>
+        <div class="layui-input-inline">
+            <input name="img" lay-verify="required" id="LAY_avatarSrc" placeholder="图片地址" value="" class="layui-input">
+        </div>
+        <div class="layui-input-inline layui-btn-container" style="width: auto;">
+            <button type="button" class="layui-btn layui-btn-primary layui-btn-sm" id="LAY_avatarUpload">
+                <i class="layui-icon">&#xe67c;</i>上传图片
+            </button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm" layadmin-event="avartatPreview">查看图片</button >
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-item-sm">
+        <label class="layui-form-label">文章内容</label>
+        <div class="layui-input-block">
+            <textarea placeholder="" name="summary" lay-verify="required" autocomplete="off" class="layui-textarea layui-textarea-sm">123</textarea>
+        </div>
+    </div>
+
     <div class="layui-form-item layui-form-item-sm">
         <label class="layui-form-label">文章内容</label>
         <div class="layui-input-block">
@@ -95,9 +114,46 @@
         base: '../../../layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'form'], function(){
+    }).use(['index', 'form','upload'], function(){
         var $ = layui.$
-                ,form = layui.form;
+                ,upload = layui.upload
+                ,admin = layui.admin
+        ,form = layui.form;
+
+        //上传头像
+        var avatarSrc = $('#LAY_avatarSrc');
+        upload.render({
+            url: '/main/json/uploadimg'
+            ,elem: '#LAY_avatarUpload'
+            ,done: function(res){
+                if(res.status == 0){
+                    avatarSrc.val(res.file_path);
+                } else {
+                    layer.msg(res.msg, {icon: 5});
+                }
+            }
+        });
+
+        //查看头像
+        admin.events.avartatPreview = function(othis){
+            var src = avatarSrc.val();
+            layer.photos({
+                photos: {
+                    "title": "查看头像" //相册标题
+                    ,"data": [{
+                        "src": src //原图地址
+                    }]
+                }
+                ,shade: 0.01
+                ,closeBtn: 1
+                ,anim: 5
+            });
+        };
+
+
+
+
+
 
         //监听提交
         form.on('submit(layuiadmin-app-form-submit)', function(data){
@@ -162,12 +218,12 @@
             upload: {
                 // 上传的 API
                 // upload api url
-                url: '/main/json/upload',
+                url: '/main/json/uploadimg',
                 // 附带的参数
                 // extra params sent to the server;
                 params: null,
                 // key of the file param
-                fileKey: 'fileups',
+                fileKey: 'file',
                 // 最多同时上传图片的数量
                 // how many images can be uploaded simultaneously;
                 connectionCount: 3,

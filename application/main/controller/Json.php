@@ -83,10 +83,13 @@ class Json
         ];
     }
 
-    public function upload(request $request)
+
+
+    public function uploadimg(request $request)
     {
         // 获取表单上传文件 例如上传了001.jpg
-        $file = request()->file('fileups');
+        $file = request()->file('file');
+
         /*
          * 文件安全性检查
          */
@@ -95,10 +98,13 @@ class Json
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
             return [
                 'status'  => 0,
-                'file_path'   => '/uploads/'.$info->getSaveName(),
+                'file_path'   => '/uploads'.DS.$info->getSaveName(),
                 'msg'   => '修改完成',
             ];
         }
+
     }
+
+
 
 }

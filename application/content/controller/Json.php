@@ -34,7 +34,7 @@ class Json extends Base
     public function categoryedit(request $request)
     {
         $post = $request->post();
-
+        $post['hidden'] = isset($post['hidden'])?intval($post['hidden']):0;
         md('category')->where('cId',$post['cId'])->update($post);
 
         return [
@@ -57,6 +57,7 @@ class Json extends Base
     {
 
         $res = $request->post();
+        $post['hidden'] = isset($post['hidden'])?intval($post['hidden']):0;
 
         //字符不能重复    todo
         $chr = $res['chr'];

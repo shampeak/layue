@@ -15,10 +15,10 @@ return [
     'ads' => '',
     'child' => [
 
-        [
-            'title' => '记录',
-            'ads' => '/main/index/document'
-        ],
+//        [
+//            'title' => '记录',
+//            'ads' => '/main/index/document'
+//        ],
         [
             'title' => '文档',
             'ads' => 'https://fly.layui.com/docs/2/'

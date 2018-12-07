@@ -81,11 +81,11 @@ class Json extends Base
     public function channeladdnew(request $request)
     {
         $res = $request->post();
+        $post['hidden'] = isset($post['hidden'])?intval($post['hidden']):0;
 
         //字符不能重复    todo
         $chr = $res['chr'];
 
-        $res['hidden'] = isset($res['hidden'])?1:0;
         md('channel')->insert($res);
         return [
             'code'=>0,
@@ -97,6 +97,7 @@ class Json extends Base
     public function channeledit(request $request)
     {
         $post = $request->post();
+        $post['hidden'] = isset($post['hidden'])?intval($post['hidden']):0;
 
         md('channel')->where('channelId',$post['channelId'])->update($post);
 
