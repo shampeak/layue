@@ -27,9 +27,9 @@ layui.define(['table', 'form', 'upload'], function(exports){
       //{type: 'checkbox', fixed: 'left'}
       //,
       {field: 'id', width: 100, title: '文章ID', sort: true}
-      ,{field: 'label', title: '文章标签', minWidth: 100}
+      ,{field: 'cId', title: '文章标签', minWidth: 100}
       ,{field: 'title', title: '文章标题'}
-      ,{field: 'author', title: '作者'}
+      //,{field: 'auth', title: '作者'}
       ,{field: 'createAt', title: '上传时间', sort: true}
       ,{field: 'status', title: '发布状态', templet: '#buttonTpl', minWidth: 80, align: 'center'}
       ,{title: '操作', minWidth: 150, align: 'center', fixed: 'right', toolbar: '#table-content-list'}
@@ -46,10 +46,22 @@ layui.define(['table', 'form', 'upload'], function(exports){
     if(obj.event === 'del'){
       layer.confirm('确定删除此文章？', function(index){
 
-          alert(3);
-
-        obj.del();
-        layer.close(index);
+          $.ajax({
+              type: "POST",
+              url: '/content/json/articledelete',
+              data: 'id='+data.id,
+              dataType:'json',
+              success: function(data){
+                    if(data.code==0){
+                        obj.del();
+                        layer.close(index);
+                    }else{
+                        layer.msg(data.msg);
+                    }
+              },
+              error : function() {
+              }
+          });
       });
     } else if(obj.event === 'edit'){
       var windowsfull = layer.open({
@@ -69,17 +81,36 @@ layui.define(['table', 'form', 'upload'], function(exports){
             
             //提交 Ajax 成功后，静态更新表格中的数据
             //$.ajax({});
-              alert(2);
+
+              $.ajax({
+                  type: "POST",
+                  url: '/content/json/articleedit',
+                  data: field,
+                  dataType:'json',
+                  success: function(data){
+                      if(data.code==0){
+                          //obj.del();
+                          layer.close(index);
+                      }else{
+                          layer.msg(data.msg);
+                      }
+                  },
+                  error : function() {
+                  }
+              });
 
 
+              //执行重载
+              table.reload('LAY-app-content-list', {
+              });
 
 
-            obj.update({
-              label: field.label
-              ,title: field.title
-              ,author: field.author
-              ,status: field.status
-            }); //数据更新
+            //obj.update({
+            //  label: field.label
+            //  ,title: field.title
+            //  //,author: field.author
+            //  ,status: field.status
+            //}); //数据更新
             
             form.render();
             layer.close(index); //关闭弹层

@@ -1,5 +1,6 @@
-
-
+{php}
+$category = md('category')->getMap();
+{/php}
 
 <!DOCTYPE html>
 <html>
@@ -50,20 +51,18 @@
     <div class="layui-form-item layui-form-item-sm">
         <label class="layui-form-label layui-select-sm">标签</label>
         <div class="layui-input-block">
-            <select name="label" lay-verify="required">
+            <select name="cId" lay-verify="required">
                 <option value="">请选择标签</option>
-                <option value="美食">美食</option>
-                <option value="新闻">新闻</option>
-                <option value="八卦">八卦</option>
-                <option value="体育">体育</option>
-                <option value="音乐">音乐</option>
+                {foreach $category as $k=>$v}
+                <option value="{$k}">{$v}</option>
+                {/foreach}
             </select>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">略图</label>
         <div class="layui-input-inline">
-            <input name="img" lay-verify="required" id="LAY_avatarSrc" placeholder="图片地址" value="" class="layui-input">
+            <input name="img" lay-verify="" id="LAY_avatarSrc" placeholder="图片地址" value="" class="layui-input">
         </div>
         <div class="layui-input-inline layui-btn-container" style="width: auto;">
             <button type="button" class="layui-btn layui-btn-primary layui-btn-sm" id="LAY_avatarUpload">
@@ -73,22 +72,22 @@
         </div>
     </div>
     <div class="layui-form-item layui-form-item-sm">
-        <label class="layui-form-label">文章内容</label>
+        <label class="layui-form-label">内容摘要</label>
         <div class="layui-input-block">
-            <textarea placeholder="" name="summary" lay-verify="required" autocomplete="off" class="layui-textarea layui-textarea-sm">123</textarea>
+            <textarea placeholder="" name="summary" lay-verify="required" autocomplete="off" class="layui-textarea layui-textarea-sm"></textarea>
         </div>
     </div>
 
     <div class="layui-form-item layui-form-item-sm">
         <label class="layui-form-label">文章内容</label>
         <div class="layui-input-block">
-            <textarea id="editor" placeholder="" name="content" lay-verify="required" style="width: 100%; height: 150px;" autocomplete="off" class="layui-textarea layui-textarea-sm"></textarea>
+            <textarea id="editor" placeholder="" name="note" lay-verify="required" style="width: 100%; height: 150px;" autocomplete="off" class="layui-textarea layui-textarea-sm"></textarea>
         </div>
     </div>
     <div class="layui-form-item layui-form-item-sm">
         <label class="layui-form-label">发布状态</label>
         <div class="layui-input-block layui-input-sm">
-            <input type="checkbox" lay-verify="required" lay-filter="status" name="status" lay-skin="switch" lay-text="已发布|待修改">
+            <input type="checkbox" lay-verify="required" lay-filter="status" name="status" value="1" lay-skin="switch" lay-text="已发布|待修改">
         </div>
     </div>
     <!--文章管理结束-->
@@ -160,12 +159,26 @@
             var field = data.field; //获取提交的字段
             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
 
-
-            alert(1);
             //提交 Ajax 成功后，关闭当前弹层并重载表格
             //$.ajax({});
-            parent.layui.table.reload('LAY-app-content-list'); //重载表格
-            parent.layer.close(index); //再执行关闭
+            $.ajax({
+                type: "POST",
+                url: '/content/json/articleaddnew',
+                data: field,
+                dataType:'json',
+                success: function(data){
+                    if(data.code==0){
+                        //提交 Ajax 成功后，关闭当前弹层并重载表格
+                        parent.layui.table.reload('LAY-app-content-list'); //重载表格
+                        parent.layer.close(index); //再执行关闭
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                },
+                error : function() {
+                }
+            });
+
         });
     })
 

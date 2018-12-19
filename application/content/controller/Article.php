@@ -23,7 +23,11 @@ class Article extends Base{
     {
         $id = $request->param('id');
         $id = intval($id);
-        $row = md('frag')->find($id);
+
+        $row = md('article')->find($id);
+//        echo $row['content']['note'];
+
+
         return view('',['row'=>$row]);
     }
 

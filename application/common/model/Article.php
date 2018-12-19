@@ -14,7 +14,7 @@ class Article extends Base
 
     public function content()
     {
-        return $this->hasOne('Articlecontent')->field('note','article_id');
+        return $this->hasOne('Articlecontent','article_id')->field('note');
     }
 
     public function getCreateAtAttr($value)
@@ -22,10 +22,10 @@ class Article extends Base
         return date('Y-m-d H:i:s',$value);
     }
 
-    public function profile()
-    {
-        return $this->hasOne('Profile')->field('id,name,email');
-    }
+//    public function profile()
+//    {
+//        return $this->hasOne('Profile')->field('id,name,email');
+//    }
 
     /*
      * 关联的文章分类属性

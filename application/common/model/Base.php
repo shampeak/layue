@@ -50,10 +50,14 @@ class Base extends \think\Model
         return empty($dirname) ? $host : $host . $dirname . '/';
     }
 
-    public  function getMap()
+    public  function getMap($title = '',$key = '')
     {
+        empty($key)     && $key = $this->pk;
+        empty($title)   && $title = 'title';
+        //=================================================
+//        $map = $this->column('title',$this->pk);
+        $map = $this->column($title,$key);
 
-        $map = $this->column('title',$this->pk);
         return $map;
     }
 

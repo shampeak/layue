@@ -7,7 +7,7 @@
  */
 namespace app\common\model;
 
-class Xm extends BaseModel
+class Xm extends Base
 {
 
     protected $pk = 'xmId';
