@@ -16,9 +16,7 @@ class Page extends Base{
 
     public function index(request $request)
     {
-        echo 'prt   ad 配置';
-        //增加 删除 修改 配置
-        //return view('index/index',[]);
+        return view('',[]);
     }
 
 

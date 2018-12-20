@@ -1,0 +1,98 @@
+{php}
+        $list = md('adindex')->select();
+{/php}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>设置我的资料</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">广告管理</div>
+                <div class="layui-card-body" pad15>
+
+
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="150">
+                            <col width="150">
+                            <col>
+                            <col width="150">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>-</th>
+                            <th>-</th>
+                            <th>-</th>
+                            <th>-</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+{foreach $list as $key=>$value}
+    <tr>
+        <td>
+            {$value['id']}
+        </td>
+        <td>
+            {$value['title']}
+        </td>
+        <td>
+            {$value['dis']}
+        </td>
+        <td>
+            <a href="/ad/man/index?posid={$value['id']}">管理</a>
+        </td>
+        <td></td>
+    </tr>
+{/foreach}
+                        </tbody>
+                    </table>
+
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+        layui.config({
+            base: '../../../layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'sitechannel', 'table'], function() {
+
+            $("p").hover(function(){
+                $("p").css("background-color","yellow");
+            },function(){
+                $("p").css("background-color","pink");
+            });
+
+        });
+
+</script>
+</body>
+</html>

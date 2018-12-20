@@ -16,7 +16,7 @@ class Console extends Base{
 
     public function index(request $request)
     {
-        return view('index/console',[]);
+        return view('',[]);
     }
 
 }

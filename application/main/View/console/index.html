@@ -1,0 +1,588 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layuiAdmin 控制台主页一</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="/static/Sham.css" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+<div class="layui-row layui-col-space15">
+<div class="layui-col-md8">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md6">
+            <div class="layui-card">
+                <div class="layui-card-header">快捷方式</div>
+                <div class="layui-card-body"  style="height:800px">
+
+                    <div class="layui-carousel layadmin-carousel layadmin-shortcut">
+                        <div carousel-item2 style="height:800px">
+
+                            <ul class="layui-row layui-col-space10">
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/site/page/index">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>页面管理</cite>
+                                    </a>
+                                </li>
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/site/frag/index">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>碎片管理</cite>
+                                    </a>
+                                </li>
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/site/setup/index">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>站点管理</cite>
+                                    </a>
+                                </li>
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/site/channel/index">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>频道管理</cite>
+                                    </a>
+                                </li>
+
+                            </ul>
+
+
+
+
+
+                            <ul class="layui-row layui-col-space10">
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/content/category/index">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>分类管理</cite>
+                                    </a>
+                                </li>
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/content/article/index">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>文章管理</cite>
+                                    </a>
+                                </li>
+                            </ul>
+
+
+                            <ul class="layui-row layui-col-space10">
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/ad/part/index">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>广告模块</cite>
+                                    </a>
+                                </li>
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/ad/page/index">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>广告管理</cite>
+                                    </a>
+                                </li>
+                            </ul>
+
+
+                            <ul class="layui-row layui-col-space10">
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/xm/kh/index">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>客户管理</cite>
+                                    </a>
+                                </li>
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/xm/xm/index">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>项目管理</cite>
+                                    </a>
+                                </li>
+                                <li class="layui-col-xs3">
+                                <a lay-href="/xm/ly/index">
+                                    <i class="layui-icon layui-icon-set"></i>
+                                    <cite>留言管理</cite>
+                                </a>
+                            </li>
+                            </ul>
+
+
+
+
+
+                            <ul class="layui-row layui-col-space10">
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/sys/user.group/index">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>角色管理</cite>
+                                    </a>
+                                </li>
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/sys/user.user/index">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>用户管理</cite>
+                                    </a>
+                                </li>
+                            </ul>
+
+
+
+                            <ul class="layui-row layui-col-space10">
+
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/super/menu/index">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>菜单管理</cite>
+                                    </a>
+                                </li>
+
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/super/ads/index">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>Ads设置</cite>
+                                    </a>
+                                </li>
+                            </ul>
+
+
+                            <ul class="layui-row layui-col-space10">
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/login">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>登陆</cite>
+                                    </a>
+                                </li>
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/sys/my.info/index">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>我的资料</cite>
+                                    </a>
+                                </li>
+
+                                <li class="layui-col-xs3">
+                                    <a lay-href="/sys/my.password/index">
+                                        <i class="layui-icon layui-icon-set"></i>
+                                        <cite>修改密码</cite>
+                                    </a>
+                                </li>
+                            </ul>
+
+
+
+                            <!--<ul class="layui-row layui-col-space10">-->
+                                <!--<li class="layui-col-xs3">-->
+                                    <!--<a lay-href="/main/console">-->
+                                        <!--<i class="layui-icon layui-icon-console"></i>-->
+                                        <!--<cite>面板</cite>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+                                <!--<li class="layui-col-xs3">-->
+                                    <!--<a lay-href="home/homepage1.html">-->
+                                        <!--<i class="layui-icon layui-icon-console"></i>-->
+                                        <!--<cite>主页一</cite>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+
+                                <!--<li class="layui-col-xs3">-->
+                                    <!--<a lay-href="home/homepage2.html">-->
+                                        <!--<i class="layui-icon layui-icon-chart"></i>-->
+                                        <!--<cite>主页二</cite>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+                                <!--<li class="layui-col-xs3">-->
+                                    <!--<a lay-href="component/layer/list.html">-->
+                                        <!--<i class="layui-icon layui-icon-template-1"></i>-->
+                                        <!--<cite>弹层</cite>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+                                <!--<li class="layui-col-xs3">-->
+                                    <!--<a layadmin-event="im">-->
+                                        <!--<i class="layui-icon layui-icon-chat"></i>-->
+                                        <!--<cite>聊天</cite>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+                                <!--<li class="layui-col-xs3">-->
+                                    <!--<a lay-href="component/progress/index.html">-->
+                                        <!--<i class="layui-icon layui-icon-find-fill"></i>-->
+                                        <!--<cite>进度条</cite>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+                                <!--<li class="layui-col-xs3">-->
+                                    <!--<a lay-href="app/workorder/list.html">-->
+                                        <!--<i class="layui-icon layui-icon-survey"></i>-->
+                                        <!--<cite>工单</cite>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+                                <!--<li class="layui-col-xs3">-->
+                                    <!--<a lay-href="user/user/list.html">-->
+                                        <!--<i class="layui-icon layui-icon-user"></i>-->
+                                        <!--<cite>用户</cite>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <div class="layui-card">
+                <div class="layui-card-header">待办事项</div>
+                <div class="layui-card-body layui-text">
+
+                    <h4>站点</h4>
+                    <hr>
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="100">
+                            <col>
+                            <col width="80">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td>页面管理</td>
+                            <td>/site/page/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-smile text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>碎片管理</td>
+                            <td>
+                                /site/frag/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-cry text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>站点管理</td>
+                            <td>
+                                /site/setup/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-cry text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>频道管理</td>
+                            <td>
+                                /site/channel/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-cry text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+
+                    <h4>内容</h4>
+                    <hr>
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="100">
+                            <col>
+                            <col width="80">
+                        </colgroup>
+
+                        <tbody>
+                        <tr>
+                            <td>分类管理</td>
+                            <td>/content/category/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-smile text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>文章管理</td>
+                            <td>
+                                /content/article/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-cry text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                    <h4>广告</h4>
+                    <hr>
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="100">
+                            <col>
+                            <col width="80">
+                        </colgroup>
+
+                        <tbody>
+                        <tr>
+                            <td>广告模块</td>
+                            <td>/ad/part/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-smile text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>广告管理</td>
+                            <td>
+                                /ad/page/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-cry text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td>
+                                /ad/man/index?posid=1
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-cry text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+
+
+
+                        </tbody>
+                    </table>
+
+
+                    <h4>项目</h4>
+                    <hr>
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="100">
+                            <col>
+                            <col width="80">
+                        </colgroup>
+
+                        <tbody>
+                        <tr>
+                            <td>客户管理</td>
+                            <td>/xm/kh/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-smile text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>项目管理</td>
+                            <td>
+                                /xm/xm/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-cry text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>留言管理</td>
+                            <td>
+                                /xm/ly/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-cry text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                    <h4>super</h4>
+                    <hr>
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="100">
+                            <col>
+                            <col width="80">
+                        </colgroup>
+
+                        <tbody>
+                        <tr>
+                            <td>角色管理</td>
+                            <td>/sys/user.group/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-smile text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>用户管理</td>
+                            <td>
+                                /sys/user.user/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-cry text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+
+                    <h4>super</h4>
+                    <hr>
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="100">
+                            <col>
+                            <col width="80">
+                        </colgroup>
+
+                        <tbody>
+                        <tr>
+                            <td>菜单管理</td>
+                            <td>/super/menu/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-smile text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ads设置</td>
+                            <td>
+                                /super/ads/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-cry text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                    <h4>支撑</h4>
+                    <hr>
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="100">
+                            <col>
+                            <col width="80">
+                        </colgroup>
+
+                        <tbody>
+                        <tr>
+                            <td>修改密码</td>
+                            <td>/sys/my.password/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-smile text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>我的资料</td>
+                            <td>
+                                /sys/my.info/index
+                            </td>
+                            <td>
+                                <i class="layui-icon layui-icon-face-cry text-blue" style="font-size: 20px;"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>登陆</td>
+                            <td>/login</td>
+                            <td>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="layui-col-md4">
+    <div class="layui-card">
+        <div class="layui-card-header">规划</div>
+        <div class="layui-card-body layui-text">
+
+            <table class="layui-table">
+
+                <tbody>
+                <tr>
+                    <td>缓存清除</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>数据备份</td>
+                    <td></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="layui-card">
+        <div class="layui-card-header">规划</div>
+        <div class="layui-card-body layui-text">
+
+            <table class="layui-table">
+
+                <tbody>
+                <tr>
+                    <td>示例</td>
+                    <td><a href="https://www.layui.com/demo/" target="_blank">https://www.layui.com/demo/</a></td>
+                </tr>
+                <tr>
+                    <td>Demo</td>
+                    <td><a href="http://ue.so/views/" target="_blank">http://ue.so/views/</a></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+    <div class="layui-card">
+        <div class="layui-card-header">
+            作者
+            <i class="layui-icon layui-icon-tips" lay-tips="要支持的噢" lay-offset="5"></i>
+        </div>
+        <div class="layui-card-body layui-text layadmin-text">
+            <p>
+首页预览                <a href="http://ue.so/site/fview" target="_blank">http://ue.so/site/fview</a>
+
+
+            </p>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+
+<script src="../../layuiadmin/layui/layui.js?t=1"></script>
+<script>
+    layui.config({
+        base: '../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'console']);
+</script>
+</body>
+</html>
+

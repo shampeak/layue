@@ -17,8 +17,13 @@ class Index extends Base{
     public function index(request $request)
     {
         $this->redirect('/main');
-       // return view('index/index',[]);
+        // return view('index/index',[]);
 
+    }
+
+    public function demo()
+    {
+        return 'testre';
     }
 
 

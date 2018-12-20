@@ -7,11 +7,11 @@
  */
 namespace app\common\model;
 
-class Adsp extends BaseModel
+class Adsp extends Base
 {
 
-    protected $pk = 'id';
-    protected $table = 'ad_adsp';
+    protected $pk = 'spId';
+    protected $table = 'ad_sp';
 //    protected $autoWriteTimestamp = true;       //打开自动写入时间戳
 //    protected $createTime = 'createAt';
 //    protected $updateTime = 'updateAt';

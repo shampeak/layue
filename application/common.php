@@ -115,6 +115,90 @@ function base_url()
     }
 
 
+    /*
+     * 后台管理用的广告调用
+     */
+    function ad($adid){
+        $adid = intval($adid);
+        if(empty($adid))return '';
+        $row = md('ad')->where('aId',$adid)->find();
+        if($row){
+            //解析一下
+            $rowsp = md('adsp')->find($row['spId']);
+            if($rowsp){
+                $mbhtml = $rowsp['nr'];
+                //解析
+                $html = str_replace('##id##',$row['aId'],$mbhtml);
+                $html = str_replace('##alt##',$row['aId'],$html);
+                $html = str_replace('##title##',$row['title'],$html);
+                $html = str_replace('##nr##',$row['summary'],$html);
+                $html = str_replace('##img##',$row['img'],$html);
+                $html = str_replace('##url##',$row['url'],$html);
+                $html = str_replace('href=','ref=',$html);
+                return $html;
+            }else{
+                $html = '';
+            }
+        }else{
+            //=======================================
+            //不存在这个记录，自动添加一条默认数据
+            $rc = [
+                'aId'   => $adid,
+                'spId'  => 1,
+                'title' => '默认文字',
+                'summary'=>'默认描述',
+                'img'   =>'/static/default.gif',
+                'url'   => '/',
+                'etm'   => time(),
+                'views' => 0
+            ];
+            md('ad')->insert($rc);
+            return '广告Ini'.$adid;
+        }
+    }
+
+    /*
+     * 直接前端调用显示
+     */
+    function fad($adid){
+        $adid = intval($adid);
+        if(empty($adid))return '';
+        $row = md('ad')->where('aId',$adid)->find();
+        if($row){
+            //解析一下
+            $rowsp = md('adsp')->find($row['spId']);
+            if($rowsp){
+                $mbhtml = $rowsp['nr'];
+                //解析
+                $html = str_replace('##id##',$row['aId'],$mbhtml);
+                $html = str_replace('##alt##',$row['title'],$html);
+                $html = str_replace('##title##',$row['title'],$html);
+                $html = str_replace('##nr##',$row['summary'],$html);
+                $html = str_replace('##img##',$row['img'],$html);
+                $html = str_replace('##url##',$row['url'],$html);
+                return $html;
+            }else{
+                $html = '';
+            }
+        }else{
+            //=======================================
+            //不存在这个记录，自动添加一条默认数据
+            $rc = [
+                'aId'   => $adid,
+                'spId'  => 1,
+                'title' => '默认文字',
+                'summary'=>'默认描述',
+                'img'   =>'/static/default.gif',
+                'url'   => '/',
+                'etm'   => time(),
+                'views' => 0
+            ];
+            md('ad')->insert($rc);
+            return '广告Ini'.$adid;
+        }
+    }
+
+//<a href="##url##">##title##</a>
 
 
     /*

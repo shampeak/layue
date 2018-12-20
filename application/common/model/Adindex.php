@@ -7,11 +7,11 @@
  */
 namespace app\common\model;
 
-class Ad extends Base
+class Adindex extends Base
 {
 
-    protected $pk = 'aId';
-    protected $table = 'ad_ad';
+    protected $pk = 'id';
+    protected $table = 'ad_adindex';
 
 }
 
