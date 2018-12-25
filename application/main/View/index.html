@@ -20,10 +20,19 @@ $menu = esb('main')->getMenu();
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
     <link rel="stylesheet" href="/static/Sham.css" media="all">
-
+<style>
+    .layui-side-menu .layui-nav .layui-nav-item a {
+        height: 30px;
+        line-height: 30px;
+    }
+    .layui-nav .layui-nav-item a{
+        padding-top:5px;
+        padding-bottom:5px;
+    }
+</style>
 </head>
 <body class="layui-layout-body">
 
@@ -37,11 +46,17 @@ $menu = esb('main')->getMenu();
                 <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
             </a>
         </li>
-        <!--<li class="layui-nav-item layui-hide-xs" lay-unselect>-->
-            <!--<a lay-href="/main/lists" lay-attr="/main/lists" title="规划">-->
-                <!--<i class="layui-icon layui-icon-website"></i>-->
-            <!--</a>-->
-        <!--</li>-->
+        <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="/main/lists" lay-attr="/main/lists" title="规划">
+                <i class="layui-icon layui-icon-website"></i> 应用
+            </a>
+        </li>
+        <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="/main/lists" lay-attr="/main/lists" title="规划">
+                <i class="layui-icon layui-icon-website"></i> 系统
+            </a>
+        </li>
+
         <li class="layui-nav-item" lay-unselect>
             <a href="javascript:;" layadmin-event="refresh" title="刷新">
                 <i class="layui-icon layui-icon-refresh-3"></i>
@@ -56,13 +71,17 @@ $menu = esb('main')->getMenu();
         <!--<li class="layui-nav-item" lay-unselect>-->
             <!--<a lay-href="/main/message" layadmin-event="message" lay-text="消息中心">-->
                 <!--<i class="layui-icon layui-icon-notice"></i>-->
-                <!--&lt;!&ndash; 如果有新消息，则显示小圆点 &ndash;&gt;-->
+                <!--<!-- 如果有新消息，则显示小圆点 -->-->
                 <!--{if $havenewmessage}-->
                 <!--<span class="layui-badge-dot"></span>-->
                 <!--{/if}-->
             <!--</a>-->
         <!--</li>-->
-
+        <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="/main/lists" lay-attr="/main/lists" title="规划">
+                <i class="layui-icon layui-icon-website"></i> 帮助
+            </a>
+        </li>
         <li class="layui-nav-item layui-hide-xs" lay-unselect>
             <a href="javascript:;" layadmin-event="theme">
                 <i class="layui-icon layui-icon-theme"></i>

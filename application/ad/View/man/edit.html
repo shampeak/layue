@@ -12,6 +12,8 @@
 //print_r($config);
 
 
+        $spmap = md('adsp')->getmap();
+
 {/php}
 <!DOCTYPE html>
 <html>
@@ -38,6 +40,12 @@
                 <div class="layui-form" lay-filter="layuiadmin-form-role" id="layuiadmin-form-role" style="padding: 20px 30px 0 0;">
                     <form id="layuiadmin-form-edit" action="" method="post">
 
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">aId</label>
+                            <div class="layui-input-block">
+                                {$row['aId']}
+                            </div>
+                        </div>
                         {if $config['title']}
                         <div class="layui-form-item">
                             <label class="layui-form-label">文字</label>
@@ -82,6 +90,16 @@
                         </div>
                         {/if}
 
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">碎片</label>
+                            <div class="layui-input-block">
+                                <select name="spId" lay-verify="required">
+                                    {foreach $spmap as $k=>$v}
+                                    <option value="{$k}" {if $row['spId'] == $k}selected{/if}>{$v}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="layui-form-item layui-hide">
                             <input type="text" name="aId" value="{$row['aId']}">

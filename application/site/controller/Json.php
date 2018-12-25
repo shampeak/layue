@@ -57,11 +57,12 @@ class Json extends Base
 
     public function fraglist(request $request)
     {
+
         $list = md('frag')->select();
 
         return [
             'code'=>0,
-            'msg'=>'修改完成',
+            'msg'=>'完成',
             'data'=>$list
         ];
     }

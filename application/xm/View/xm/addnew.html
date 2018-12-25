@@ -1,5 +1,5 @@
 {php}
-$category = md('category')->getMap();
+//$xmman = md('kh')->getMap();
 {/php}
 
 <!DOCTYPE html>
@@ -12,8 +12,6 @@ $category = md('category')->getMap();
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="/static/Sham.css" media="all">
-
-
 
 </head>
 <body>
@@ -30,23 +28,18 @@ $category = md('category')->getMap();
         </div>
     </div>
     <div class="layui-form-item layui-form-item-sm">
-        <label class="layui-form-label layui-select-sm">管理员</label>
+        <label class="layui-form-label">项目标识</label>
         <div class="layui-input-block">
-            <select name="khId" lay-verify="required">
-                <option value="">请选择标签</option>
-                {foreach $category as $k=>$v}
-                <option value="{$k}" >{$v}</option>
-                {/foreach}
-            </select>
+            <input type="text" name="chr" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
         </div>
     </div>
+
     <div class="layui-form-item layui-form-item-sm">
         <label class="layui-form-label">描述</label>
         <div class="layui-input-block">
             <textarea placeholder="" name="note" lay-verify="required" autocomplete="off" class="layui-textarea layui-textarea-sm"></textarea>
         </div>
     </div>
-
 
     <div class="layui-form-item layui-form-item-sm">
         <label class="layui-form-label">状态</label>
@@ -92,7 +85,7 @@ $category = md('category')->getMap();
                 success: function(data){
                     if(data.code==0){
                         //提交 Ajax 成功后，关闭当前弹层并重载表格
-                        parent.layui.table.reload('LAY-app-content-list'); //重载表格
+                        parent.layui.table.reload('LAY-content-list'); //重载表格
                         parent.layer.close(index); //再执行关闭
                     }else{
                         layer.msg(data.msg);

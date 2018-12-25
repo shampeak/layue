@@ -29,7 +29,10 @@ class Json extends \app\sys\controller\Base{
     {
         $post = $request->post();
 
+//        print_r($post);
+//        exit;
         $res['dis'] = $post['dis'];
+
         $gid = $post['groupId'];
         md('group')->where('groupId',$gid)->update($res);
 

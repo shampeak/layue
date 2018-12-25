@@ -85,6 +85,11 @@ class Json
 
 
 
+    /*
+     * 通用的上传图片接口
+     * 缺少验证和判断
+     * //todo
+     */
     public function uploadimg(request $request)
     {
         // 获取表单上传文件 例如上传了001.jpg

@@ -1,5 +1,10 @@
 {php}
-$category = md('category')->getMap();
+
+
+$xmmap = md('xm')->getMap();
+
+//$category = md('category')->getMap();
+
 {/php}
 
 <!DOCTYPE html>
@@ -24,22 +29,31 @@ $category = md('category')->getMap();
     <!--文章管理-->
 
     <div class="layui-form-item layui-form-item-sm">
-        <label class="layui-form-label">项目名称</label>
+        <label class="layui-form-label">用户名</label>
         <div class="layui-input-block">
-            <input type="text" name="title" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            <input type="text" name="name" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item layui-form-item-sm">
-        <label class="layui-form-label layui-select-sm">管理员</label>
+        <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
-            <select name="khId" lay-verify="required">
+            <input type="text" name="pwd" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+
+    <div class="layui-form-item layui-form-item-sm">
+        <label class="layui-form-label layui-select-sm">项目</label>
+        <div class="layui-input-block">
+            <select name="xmId" lay-verify="required">
                 <option value="">请选择标签</option>
-                {foreach $category as $k=>$v}
+                {foreach $xmmap as $k=>$v}
                 <option value="{$k}" >{$v}</option>
                 {/foreach}
             </select>
         </div>
     </div>
+
     <div class="layui-form-item layui-form-item-sm">
         <label class="layui-form-label">描述</label>
         <div class="layui-input-block">
@@ -47,13 +61,20 @@ $category = md('category')->getMap();
         </div>
     </div>
 
-
     <div class="layui-form-item layui-form-item-sm">
-        <label class="layui-form-label">状态</label>
+        <label class="layui-form-label">账号类型</label>
         <div class="layui-input-block layui-input-sm">
-            <input type="checkbox" checked="" lay-verify="required" lay-filter="status" name="enable" value="1" lay-skin="switch" lay-text="正常|关闭">
+            <input type="checkbox" checked="" lay-verify="required" lay-filter="status" name="primary" value="1" lay-skin="switch" lay-text="主账号|子账号">
         </div>
     </div>
+
+    <div class="layui-form-item layui-form-item-sm">
+        <label class="layui-form-label">是否有效</label>
+        <div class="layui-input-block layui-input-sm">
+            <input type="checkbox" checked="" lay-verify="required" lay-filter="status" name="enable" value="1" lay-skin="switch" lay-text="有效|无效">
+        </div>
+    </div>
+
     <!--文章管理结束-->
 
     <div class="layui-form-item layui-form-item-sm layui-hide ">
@@ -86,13 +107,13 @@ $category = md('category')->getMap();
             //$.ajax({});
             $.ajax({
                 type: "POST",
-                url: '/xm/json/xmaddnew',
+                url: '/xm/json/khaddnew',
                 data: field,
                 dataType:'json',
                 success: function(data){
                     if(data.code==0){
                         //提交 Ajax 成功后，关闭当前弹层并重载表格
-                        parent.layui.table.reload('LAY-app-content-list'); //重载表格
+                        parent.layui.table.reload('LAY-content-list'); //重载表格
                         parent.layer.close(index); //再执行关闭
                     }else{
                         layer.msg(data.msg);

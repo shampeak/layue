@@ -22,12 +22,16 @@ class Kh extends Base{
 
     public function addnew(request $request)
     {
+//        echo '添加客户';
         return view('',[]);
     }
 
     public function edit(request $request)
     {
-        $row = [];
+
+        $id = $request->param('id');
+        //echo '编辑用户';
+        $row = md('kh')->find($id);
         return view('',['row'=>$row]);
     }
 

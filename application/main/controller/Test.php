@@ -7,7 +7,7 @@ use think\Request;
 use think\Db;
 use think\Loader;
 
-class Index extends Base{
+class Test extends Controller{
 
     public function __construct()
     {
@@ -16,8 +16,19 @@ class Index extends Base{
 
     public function index(request $request)
     {
+        echo '123123123123123123123123123';
 
-        return view('./index',[]);
+        $uid = 135;
+        $res = ac('user')->setUid($uid)->getProfile();
+        print_r($res);
+
     }
+
+    public function eth(request $request)
+    {
+        return view('./eth',[]);
+
+    }
+
 
 }

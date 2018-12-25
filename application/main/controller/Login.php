@@ -17,7 +17,7 @@ class Login extends Controller{
     public function index(request $request)
     {
 
-        return view('index/login',[]);
+        return view('./login',[]);
     }
 
 }

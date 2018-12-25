@@ -18,11 +18,13 @@ layui.define(['table', 'form'], function(exports){
   //角色管理
   table.render({
     elem: '#LAY-content-list'
-    ,url: '/xm/json/xmlist' //模拟接口
+    ,url: '/xm/json/khlist' //模拟接口
     ,cols: [[
-      {field: 'xmId', width: 80, title: 'xmId', sort: true}
-      ,{field: 'title', title: '名称'}
+      {field: 'khId', width: 80, title: 'khId', sort: true}
+          ,{field: 'xmname', title: '项目'}
+      ,{field: 'name', title: '名称'}
           ,{field: 'note', title: '描述'}
+          ,{field: 'primary', title: '主账号'}
           ,{field: 'enable', title: '是否有效', templet: '#buttonTpl', minWidth: 80, align: 'center'}
       ,{title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-content-list'}
     ]]
@@ -39,9 +41,9 @@ layui.define(['table', 'form'], function(exports){
           //删除
           var data = obj.data;
           admin.req({
-              url: '/xm/json/xmdelete'
+              url: '/xm/json/khdelete'
               ,type:'POST'
-              ,data: 'id='+data.xmId
+              ,data: 'id='+data.khId
               ,success: function(res){
               }
           });
@@ -56,8 +58,8 @@ layui.define(['table', 'form'], function(exports){
       layer.open({
         type: 2
         ,title: '编辑角色'
-        ,content: '/xm/xm/edit?id='+data.xmId
-        ,area: ['500px', '450px']
+        ,content: '/xm/kh/edit?id='+data.khId
+        ,area: ['500px', '500px']
         ,btn: ['确定', '取消']
         ,yes: function(index, layero){
 
@@ -67,7 +69,7 @@ layui.define(['table', 'form'], function(exports){
               var formar = layero.find('iframe').contents().find("#layuiadmin-form-edit");
               //============================================
               admin.req({
-                  url: '/xm/json/xmedit'
+                  url: '/xm/json/khedit'
                   ,type:'post'
                   ,data: formar.serialize()
                   ,done: function(res){
@@ -87,5 +89,5 @@ layui.define(['table', 'form'], function(exports){
     }
   });
 
-  exports('xmxm', {})
+  exports('xmkh', {})
 });

@@ -36,7 +36,9 @@ class Group extends \app\sys\controller\Base{
         $fun = $fun?$fun->toArray():[];
         if($fun){
             $fun['adsIds'] =json_decode( $fun['adsIds']);
-        }else{$fun = [];}
+        }else{
+            $fun = [];
+        }
 
         //===================================================
         return view('',[

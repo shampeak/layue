@@ -83,14 +83,7 @@
             base: '../../../layuiadmin/' //静态资源所在路径
         }).extend({
             index: 'lib/index' //主入口模块
-        }).use(['index', 'sitechannel', 'table'], function() {
-
-            $("p").hover(function(){
-                $("p").css("background-color","yellow");
-            },function(){
-                $("p").css("background-color","pink");
-            });
-
+        }).use(['index', 'table'], function() {
         });
 
 </script>

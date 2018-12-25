@@ -135,6 +135,7 @@ function base_url()
                 $html = str_replace('##img##',$row['img'],$html);
                 $html = str_replace('##url##',$row['url'],$html);
                 $html = str_replace('href=','ref=',$html);
+                $html = "<div class=\"adshowbox\" relid=".$adid.">$html</div>";
                 return $html;
             }else{
                 $html = '';

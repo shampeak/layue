@@ -31,9 +31,10 @@ class Frag extends Base{
 
     public function index(request $request)
     {
-        $list = md('channel')->select();
+        echo '页面碎片，保留';
+//        $list = md('channel')->select();
         //频道管理
-        return view('',['list'=>$list]);
+        return view('',[]);
     }
 
 

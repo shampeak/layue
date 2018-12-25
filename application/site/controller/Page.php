@@ -14,9 +14,6 @@ class Page extends Base{
         parent::__construct();
     }
 
-
-
-
     public function index(request $request)
     {
         $list = md('channel')->select();

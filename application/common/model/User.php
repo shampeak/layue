@@ -14,6 +14,12 @@ class User extends Base
     protected $table = 'sys_user';
     protected $readonly = ['name'];     //只读字段
 
+    public function profile()
+    {
+        return $this->hasOne('Userprofile','uId');
+    }
+
+
 //    public function getSexTextAttr($value,$data)
 //    {
 //        $status = [0=>'女',0=>'男'];
@@ -65,10 +71,14 @@ class User extends Base
 //// 设置预载入查询方式为IN方式（默认） return $this->hasOne('Profile')->setEagerlyType(1);
 //// 设置预载入查询方式为JOIN方式 return $this->hasOne('Profile')->setEagerlyType(0);
 //如上面在User模型中定义的一对一关联可以改为：
-//public function profile()
-//{
-//    return $this->hasOne('Profile','user_id')->setEagerlyType(0)->bind('phone,email,address');
-//}
+//    public function profile()
+//    {
+//        return $this->hasOne('Profile','uId')->setEagerlyType(0)->bind('phone,email,address');
+//    }
+//    public function profile()
+//    {
+//        return $this->hasOne('Profile','uId')->bind('phone,email,address');
+//    }
 
 //    public function saveUserProfile()
 //    {

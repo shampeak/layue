@@ -1,0 +1,321 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>滑块组件</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+
+    <link rel="stylesheet" href="/static/Sham.css" media="all">
+</head>
+<body>
+
+<div class="layui-card layadmin-header">
+    <div class="layui-breadcrumb" lay-filter="breadcrumb">
+        <a lay-href="">主页</a>
+        <a><cite>组件</cite></a>
+        <a><cite>滑块组件</cite></a>
+    </div>
+</div>
+
+<style>
+    .test-slider-demo{margin: 45px 30px;}
+</style>
+
+<div class="layui-fluid">
+
+
+<div class="layui-card">
+<div class="layui-card-body">
+
+<div class="layui-tab">
+    <ul class="layui-tab-title">
+        <li class="layui-this">首页</li>
+        <li>数据对</li>
+        <li>操作记录</li>
+        <li>设置</li>
+        <li>公式</li>
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <div>
+                <h2>定义</h2>
+                <hr>
+                <label class="layui-form-label">持有：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="fullname" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                    <label>ethtrue [ ETH ]</label>
+                </div>
+                <label class="layui-form-label">价格：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="fullname" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                    <label>price [ ETH ]</label>
+                </div>
+
+
+                <button class="layui-btn layui-btn-normal">百搭按钮</button>
+
+            </div>
+
+        </div>
+        <div class="layui-tab-item">数据分析统计</div>
+        <div class="layui-tab-item">
+
+            <div style="padding-bottom: 10px;">
+                <button class="layui-btn layuiadmin-btn-comm" data-type="batchdel">删除</button>
+            </div>
+            <table id="LAY-app-content-comm" lay-filter="LAY-app-content-comm"></table>
+            <script type="text/html" id="table-content-com">
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+            </script>
+
+        </div>
+        <div class="layui-tab-item">
+            <div>
+    <h2>定义</h2>
+    <hr>
+                <label class="layui-form-label">真实总量：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="fullname" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                    <label>totaltrue [ USDT ]</label>
+                </div>
+                <label class="layui-form-label">预期总量：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="fullname" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                    <label>totalexp [ USDT ]</label>
+                </div>
+                <label class="layui-form-label">超卖价格：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="fullname" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                    <label>max</label>
+                </div>
+    <label class="layui-form-label">超买价格：</label>
+    <div class="layui-input-block">
+        <input type="text" name="fullname" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+        <label>min</label>
+    </div>
+    <label class="layui-form-label">预期eth：</label>
+    <div class="layui-input-block">
+        <input type="text" name="fullname" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+        <label>ethexp        </label>
+    </div>
+    <label class="layui-form-label">风险系数：</label>
+    <div class="layui-input-block">
+        <input type="text" name="fullname" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+        <label>dx <small class="text-red">0没有风险</small></label>
+    </div>
+
+    <button class="layui-btn layui-btn-normal">百搭按钮</button>
+
+</div>
+        </div>
+        <div class="layui-tab-item">
+<h3></h3>
+            <pre>
+计算总量 （数据按照这个来计算总体数量）
+total   = （totaltrue + totalver）+ dx * 1000
+eth     = ethtrue + ethver
+
+倾斜系数
+mdx = （price - max）/（max - min）
+
+平衡公式
+total * mdx = （eth-sole）*price</pre>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'contlist','table','slider'], function(){
+        var $ = layui.$
+                ,form = layui.form
+                ,table = layui.table
+
+                ,slider = layui.slider;
+
+
+
+
+
+        //监听搜索
+        form.on('submit(LAY-app-contcomm-search)', function(data){
+            var field = data.field;
+
+            //执行重载
+            table.reload('LAY-app-content-comm', {
+                where: field
+            });
+        });
+
+        //点击事件
+        var active = {
+            batchdel: function(){
+                var checkStatus = table.checkStatus('LAY-app-content-comm')
+                        ,checkData = checkStatus.data; //得到选中的数据
+
+                if(checkData.length === 0){
+                    return layer.msg('请选择数据');
+                }
+
+                layer.confirm('确定删除吗？', function(index) {
+
+                    //执行 Ajax 后重载
+                    /*
+                     admin.req({
+                     url: 'xxx'
+                     //,……
+                     });
+                     */
+                    table.reload('LAY-app-content-comm');
+                    layer.msg('已删除');
+                });
+            }
+        }
+
+        $('.layui-btn.layuiadmin-btn-comm').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //定义初始值
+        slider.render({
+            elem: '#test-slider-dome2'
+            ,value: 20 //初始值
+        });
+
+        //设置最大最小值
+        slider.render({
+            elem: '#test-slider-dome3'
+            ,min: 5000 //最小值
+            ,max: 300000 //最大值
+            ,setTips: function(value){ //自定义提示文本
+                return value/100 + 'USDT';
+            }
+            ,change: function(value){
+                $('#test-slider-tips9').html('当前数值：'+ value);
+            }
+            ,input: true //输入框
+        });
+
+        //设置步长
+        slider.render({
+            elem: '#test-slider-dome4'
+            ,step: 10 //步长
+        });
+
+        slider.render({
+            elem: '#test-slider-dome5'
+            ,step: 10 //步长
+            ,showstep: true //开启间隔点
+        });
+
+        //设置提示文本
+        slider.render({
+            elem: '#test-slider-dome6'
+            ,min: 20
+            ,max: 1000
+            ,setTips: function(value){ //自定义提示文本
+                return value + 'GB';
+            }
+
+        });
+        slider.render({
+            elem: '#test-slider-dome7'
+            ,tips: false //关闭默认提示层
+            ,change: function(value){
+                $('#test-slider-tips1').html('当前数值：'+ value);
+            }
+        });
+
+        //开启输入框
+        slider.render({
+            elem: '#test-slider-dome8'
+            ,input: true //输入框
+        });
+
+        //开启范围选择
+        slider.render({
+            elem: '#test-slider-dome9'
+            ,value: [8000, 200000] //初始值
+            ,min: 0 //最小值
+            ,max: 300000 //最大值
+            ,range: true //范围选择
+            ,change: function(vals){
+                $('#test-slider-tips2').html('开始值：'+ vals[0]/100 + '、结尾值：'+ vals[1]/100);
+            }
+        });
+        slider.render({
+            elem: '#test-slider-dome10'
+            ,value: [30, 60] //初始值
+            ,range: true //范围选择
+        });
+
+        //垂直滑块
+        slider.render({
+            elem: '#test-slider-dome11'
+            ,type: 'vertical' //垂直滑块
+        });
+        slider.render({
+            elem: '#test-slider-dome12'
+            ,value: 30
+            ,type: 'vertical' //垂直滑块
+        });
+        slider.render({
+            elem: '#test-slider-dome13'
+            ,value: 50
+            ,range: true //范围选择
+            ,type: 'vertical' //垂直滑块
+        });
+        slider.render({
+            elem: '#test-slider-dome14'
+            ,value: 80
+            ,input: true //输入框
+            ,type: 'vertical' //垂直滑块
+        });
+
+
+    });
+</script>
+</body>
+</html>
+
+
+
