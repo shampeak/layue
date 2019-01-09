@@ -105,18 +105,20 @@ class Json extends \app\sys\controller\Base{
         $groupId    = $request->get('groupId');
 
 
-        $where[] = "sys_user.uId= sys_usergroup.uId";
+
+
+        $where[] = "1=1";
         if(!empty($name))$where[] = "sys_user.name like '%$name%'";
         if(!empty($email))$where[] = "sys_user.email like '%$email%'";
-        if($sex != 99 && !empty($sex))$where[] = "sys_user.sex = '$sex'";
-        if(!empty($groupId))$where[] = "sys_usergroup.groupId = '$groupId'";
+        if($sex != 99)$where[] = "sys_user.sex = '$sex'";
+        if(!empty($groupId))$where[] = "sys_user.groupId = '$groupId'";
 
         $_where = implode(' and ',$where);
         $pageb = ($page-1)*$limit;
 
-        $sql  = "select * from sys_user,sys_usergroup where $_where limit $pageb,$limit";
+        $sql  = "select * from sys_user where $_where limit $pageb,$limit";
         $list = Db::query($sql);
-        $sql = "select count(*) as mc from sys_user,sys_usergroup where $_where";
+        $sql = "select count(*) as mc from sys_user where $_where";
         $rrr = Db::query($sql);
 
         $count = $rrr[0]['mc'];
@@ -152,8 +154,6 @@ class Json extends \app\sys\controller\Base{
         }
 
         md('user')->where('uId',$id)->delete();
-        //相关
-        md('usergroup')->where('uId',$id)->delete();
 
         return [
             'code'=>0,
@@ -190,9 +190,6 @@ class Json extends \app\sys\controller\Base{
             ];
         }
 
-        $rc['groupId'] = $post['groupId'];
-        unset($post['groupId']);
-
         $post['jointime'] = time();
         //检查 用户名
         $row = md('user')->where('name',$post['name'])->find();
@@ -206,12 +203,6 @@ class Json extends \app\sys\controller\Base{
 
         $post['password'] = ac('password')->getHash($post['password']);
         md('user')->insert($post);
-        $rc['uId'] = md('user')->getLastInsID();
-
-
-        md('usergroup')->insert($rc);
-
-
 
         return [
             'code'=>0,

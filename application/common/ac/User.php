@@ -37,6 +37,7 @@ class User extends Model
         return $user->profile;
     }
 
+
     public function getRow(){
         $uid = $this->uId;
         $this->row = md('user')->find($uid);

@@ -37,11 +37,12 @@
                     <tr>
                         <td {if $Think.get.top==$value['Id']}class="layui-bg-green"{/if}>
                             <i class="{$value['icon']}"></i> <a href="/super/menu?top={$value['Id']}" >{$value['title']}</a>
+                        [ {$value['label']} ]
                         </td>
-                        <td>
-                            <a data-value="{$value['Id']}" class="pull-right layui-btn layui-btn-normal layui-btn-xs {if $value['child']}layui-btn-disabled{else}super_menu_editfun{/if}">功能</a>
-                            <a data-value="{$value['Id']}" class="pull-right layui-btn layui-btn-xs super_menu_edit">编辑</a>
-                            <a data-value="{$value['Id']}" class="pull-right layui-btn layui-btn-xs super_menu_delete layui-btn ">删除</a>
+                        <td width="140px">
+                            <a data-value="{$value['Id']}" class="layui-btn layui-btn-normal layui-btn-xs {if $value['child']}layui-btn-disabled{else}super_menu_editfun{/if}">功能</a>
+                            <a data-value="{$value['Id']}" class="layui-btn layui-btn-xs super_menu_edit">编辑</a>
+                            <a data-value="{$value['Id']}" class="layui-btn layui-btn-danger layui-btn-xs super_menu_delete layui-btn ">删除</a>
                         </td>
                     </tr>
                     {/foreach}
@@ -64,10 +65,10 @@
                         <td {if $Think.get.sec==$value['Id']}class="layui-bg-green"{/if}>
                         <i class="{$value['icon']}"></i> <a href="/super/menu?top={$Think.get.top}&sec={$value['Id']}" >{$value['title']}</a>
                         </td>
-                        <td>
-                            <a data-value="{$value['Id']}" class="pull-right layui-btn layui-btn-normal layui-btn-xs super_menu_editfun">功能</a>
-                            <a data-value="{$value['Id']}" class="pull-right layui-btn layui-btn-xs super_menu_edit">编辑</a>
-                            <a data-value="{$value['Id']}" class="pull-right layui-btn layui-btn-xs super_menu_delete">删除</a>
+                        <td width="140px">
+                            <a data-value="{$value['Id']}" class="layui-btn layui-btn-normal layui-btn-xs super_menu_editfun">功能</a>
+                            <a data-value="{$value['Id']}" class="layui-btn layui-btn-xs super_menu_edit">编辑</a>
+                            <a data-value="{$value['Id']}" class="layui-btn layui-btn-xs layui-btn-danger super_menu_delete">删除</a>
                         </td>
                     </tr>
                     {/if}

@@ -15,10 +15,22 @@ return [
     'ads' => '',
     'child' => [
 
-//        [
-//            'title' => '记录',
-//            'ads' => '/main/index/document'
-//        ],
+        [
+            'title' => '测试',
+            'ads' => '/super/html/'
+        ],
+        [
+            'title' => 'Support',
+            'ads' => 'http://support.phpleague.cn/'
+        ],
+        [
+            'title' => 'Api',
+            'ads' => '/super/api/'
+        ],
+        [
+            'title' => '示例',
+            'ads' => 'https://www.layui.com/demo/'
+        ],
         [
             'title' => '文档',
             'ads' => 'https://fly.layui.com/docs/2/'
@@ -26,15 +38,6 @@ return [
         [
             'title' => '模板页面',
             'ads' => '/views/'
-        ],
-        [
-            'title' => '示例',
-            'ads' => 'https://www.layui.com/demo/'
-        ],
-
-        [
-            'title' => 'Support',
-            'ads' => 'http://support.phpleague.cn/'
         ],
         [
             'title' => '模块',

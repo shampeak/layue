@@ -20,4 +20,12 @@ class Index extends Base{
         return view('./index',[]);
     }
 
+    public function sys(request $request)
+    {
+
+        return view('./sys',[]);
+    }
+
+
+
 }

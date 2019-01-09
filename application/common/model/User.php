@@ -14,17 +14,51 @@ class User extends Base
     protected $table = 'sys_user';
     protected $readonly = ['name'];     //只读字段
 
+    /*
+     $user = md('user')->find(1);
+    //        $ug = $user->profile;
+    $ug = $user->group;
+    $ug = $user->groupads;
+    print_r($ug);
+    */
+
     public function profile()
     {
-        return $this->hasOne('Userprofile','uId');
+        return $this->hasOne('Userprofile', 'uId');
+    }
+
+    /*
+     * 获取关联的group
+     */
+    public function getGroupAttr()
+    {
+        $groupId = $this->groupId;
+        return md('group')->find($groupId);
+    }
+
+    /*
+     * 权限组
+     */
+    public function getGroupAdsAttr()
+    {
+        $group = $this->group;
+        return $group->groupads;
     }
 
 
-//    public function getSexTextAttr($value,$data)
-//    {
-//        $status = [0=>'女',0=>'男'];
-//        return $status[$data['sex']];
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

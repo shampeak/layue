@@ -1,14 +1,41 @@
 {php}
+//我的个人信息
 $info = ac('my')->getinfo();
 $truename = $info['trueName'];
 
+//主界面的信息
 $main = esb('Main');
 $hometitle = $main['hometitle'];
 $homelogochr = $main['homelogochr'];
 $homeurl = $main['homeurl'];
 $menusuper = $main['menudemo'];
 $havenewmessage = $main['havenewmessage'];
+
+//菜单
 $menu = esb('main')->getMenu();
+
+
+
+$groupid = ac('my')->getGroupId();
+if($groupid !=999){
+
+    //================================================
+    //$menu 只保留应用
+    $__menu = [];
+    foreach($menu as $key=>$value){
+        if($value['title'] == '应用'){
+            $__menu = $value['child'];
+        }
+    }
+    $menu = $__menu;
+
+    //================================================
+    //变更控制面板地址
+    //$homeurl = '/main/console/sys';
+
+}
+
+
 
 {/php}
 
@@ -46,16 +73,22 @@ $menu = esb('main')->getMenu();
                 <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
             </a>
         </li>
-        <li class="layui-nav-item layui-hide-xs" lay-unselect>
-            <a href="/main/lists" lay-attr="/main/lists" title="规划">
-                <i class="layui-icon layui-icon-website"></i> 应用
+        <li class="layui-nav-item layui-hide-xs layui-this" lay-unselect>
+            <a href="/main/" lay-attr="/main/" title="应用">
+                <span class=" text-maroon"><i class="layui-icon layui-icon-website"></i> 应用</span>
             </a>
         </li>
         <li class="layui-nav-item layui-hide-xs" lay-unselect>
-            <a href="/main/lists" lay-attr="/main/lists" title="规划">
+            <a href="/main/index/sys" lay-attr="/main/index/sys" title="规划">
                 <i class="layui-icon layui-icon-website"></i> 系统
             </a>
         </li>
+
+        <!--<li class="layui-nav-item layui-hide-xs" lay-unselect>-->
+            <!--<a href="/main/index/sys" lay-attr="/main/index/sys" title="平台">-->
+                <!--<i class="layui-icon layui-icon-website"></i> 平台-->
+            <!--</a>-->
+        <!--</li>-->
 
         <li class="layui-nav-item" lay-unselect>
             <a href="javascript:;" layadmin-event="refresh" title="刷新">
@@ -77,11 +110,8 @@ $menu = esb('main')->getMenu();
                 <!--{/if}-->
             <!--</a>-->
         <!--</li>-->
-        <li class="layui-nav-item layui-hide-xs" lay-unselect>
-            <a href="/main/lists" lay-attr="/main/lists" title="规划">
-                <i class="layui-icon layui-icon-website"></i> 帮助
-            </a>
-        </li>
+
+
         <li class="layui-nav-item layui-hide-xs" lay-unselect>
             <a href="javascript:;" layadmin-event="theme">
                 <i class="layui-icon layui-icon-theme"></i>
@@ -167,42 +197,6 @@ $menu = esb('main')->getMenu();
     {/if}
 </li>
 {/foreach}
-
-
-{if !empty($menusuper)}
-<!-- 手动定义的测试调试 -->
-<li data-name="set" class="layui-nav-item layui-nav-itemed">
-    <a href="javascript:;" lay-tips="{$menusuper['title']}" lay-direction="2">
-        <i class="{$menusuper['icon']}"></i>
-        <cite>{$menusuper['title']}</cite>
-    </a>
-    <dl class="layui-nav-child">
-
-        {foreach $menusuper['child'] as $k=>$value}
-        <dd class="layui-nav-itemed">
-            <a lay-href="{$value['ads']}" target="_blank">{$value['title']}</a>
-        </dd>
-        {/foreach}
-    </dl>
-</li>
-<!-- 手动定义的测试调试 -->
-{/if}
-
-
-
-
-
-
-
-
-<!--<li data-name="get" class="layui-nav-item">-->
-    <!--<a href="javascript:;" lay-href="//www.layui.com/admin/#get" lay-tips="授权" lay-direction="2">-->
-        <!--<i class="layui-icon layui-icon-auz"></i>-->
-        <!--<cite>授权</cite>-->
-    <!--</a>-->
-<!--</li>-->
-
-
 
 </ul>
 </div>

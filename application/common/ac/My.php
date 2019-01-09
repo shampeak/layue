@@ -38,15 +38,10 @@ class My extends Model
 
                 //======================================
                 //角色id
-                $row = md('usergroup')->where('uId',$this->userId)->find();
-                if(!empty($row)){
-                    $group = $row->toArray();
-                    $this->group = $group;
-                    $this->groupId = $group['groupId'];
-                }else{
-                    $this->group = [];
-                    $this->groupId = 0;
-                }
+                $this->groupId = $row['groupId'];
+                $this->group = $row->group;
+                $this->groupads = $row->groupads;
+
             }
         }else{
             $this->isLogin = false;
@@ -88,8 +83,7 @@ class My extends Model
      */
     public function getGroupAds()
     {
-        $id = $this->groupId;
-        $row = md('groupads')->where('groupId',$id)->find();
+        $row = $this->groupads;
         if($row){
             $pw = json_decode($row['adsIds']);
         }else{

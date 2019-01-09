@@ -19,4 +19,9 @@ class Console extends Base{
         return view('',[]);
     }
 
+    public function sys(request $request)
+    {
+        return view('',[]);
+    }
+
 }

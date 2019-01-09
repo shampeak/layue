@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>滑块组件</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+
+    <link rel="stylesheet" href="/static/Sham.css" media="all">
+</head>
+<body>
+
+<style>
+    .test-slider-demo{margin: 45px 30px;}
+</style>
+
+<div class="layui-fluid">
+
+<div class="layui-card">
+    <div class="layui-card-header">待办事项</div>
+    <div class="layui-card-body">
+
+        <div class="layui-carousel layadmin-carousel layadmin-backlog">
+            <ul class="layui-row layui-col-space10">
+                <li class="layui-col-xs6">
+                    <a lay-href="app/content/comment.html" class="layadmin-backlog-body">
+                        <h3>持有数量</h3>
+                        <p><cite>66</cite></p>
+                    </a>
+                </li>
+                <li class="layui-col-xs6">
+                    <a lay-href="app/forum/list.html" class="layadmin-backlog-body">
+                        <h3>持有金额</h3>
+                        <p><cite>12</cite></p>
+                    </a>
+                </li>
+                <li class="layui-col-xs6">
+                    <a lay-href="template/goodslist.html" class="layadmin-backlog-body">
+                        <h3>总盈数量</h3>
+                        <p><cite>99</cite></p>
+                    </a>
+                </li>
+                <li class="layui-col-xs6">
+                    <a href="javascript:;" class="layadmin-backlog-body">
+                        <h3>总操作</h3>
+                        <p><cite>20</cite></p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="layui-card">
+        <div class="layui-card-body">
+
+            <div class="layui-tab">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">操作</li>
+                    <li>记录</li>
+                    <li>核对</li>
+                    <li>设置</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-form" lay-filter="">
+
+                            <h2>定义</h2>
+                            <hr>
+                            <label class="layui-form-label">持有：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="fullname" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                                <label>ethtrue [ ETH ]</label>
+                            </div>
+                            <label class="layui-form-label">价格：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="fullname" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                                <label>price [ ETH ]</label>
+                            </div>
+                            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="savetest">百搭按钮</button>
+                        </div>
+
+                    </div>
+                    <div class="layui-tab-item">数据分析统计</div>
+                    <div class="layui-tab-item">
+
+                        <div style="padding-bottom: 10px;">
+                            <button class="layui-btn layuiadmin-btn-comm" data-type="batchdel">删除</button>
+                        </div>
+                        <table id="LAY-app-content-comm" lay-filter="LAY-app-content-comm"></table>
+                        <script type="text/html" id="table-content-com">
+                            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+                            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+                        </script>
+
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="layui-form" lay-filter="">
+
+                            <h2>定义</h2>
+                            <hr>
+                            <label class="layui-form-label">真实总量：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="fullname1" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                                <label>totaltrue [ USDT ]</label>
+                            </div>
+                            <label class="layui-form-label">预期总量：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="fullname2" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                                <label>totalexp [ USDT ]</label>
+                            </div>
+                            <label class="layui-form-label">超卖价格：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="fullname3" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                                <label>max</label>
+                            </div>
+                            <label class="layui-form-label">超买价格：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="fullname4" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                                <label>min</label>
+                            </div>
+                            <label class="layui-form-label">预期eth：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="fullname5" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                                <label>ethexp        </label>
+                            </div>
+                            <label class="layui-form-label">风险系数：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="fullname6" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                                <label>dx <small class="text-red">0没有风险</small></label>
+                            </div>
+
+                            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveconfig">百搭按钮</button>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index','table'], function(){
+        var $ = layui.$
+                ,layer = layui.layer
+                ,laytpl = layui.laytpl
+                ,setter = layui.setter
+                ,view = layui.view
+                ,admin = layui.admin
+                ,form = layui.form
+                ,table = layui.table
+                ,slider = layui.slider;
+
+
+        //设置我的资料
+        form.on('submit(savetest)', function(obj){
+            layer.msg(JSON.stringify(obj.field));
+
+            //提交修改
+            /*
+             admin.req({
+             url: ''
+             ,data: obj.field
+             ,success: function(){
+
+             }
+             });
+             */
+            return false;
+        });
+
+
+        //设置我的资料
+        form.on('submit(saveconfig)', function(obj){
+            layer.msg(JSON.stringify(obj.field));
+
+            //提交修改
+            /*
+             admin.req({
+             url: ''
+             ,data: obj.field
+             ,success: function(){
+
+             }
+             });
+             */
+            return false;
+        });
+
+
+        //评论管理
+        table.render({
+            elem: '#LAY-app-content-comm'
+            ,url: layui.setter.base + 'json/content/comment.js' //模拟接口
+            ,cols: [[
+                {type: 'checkbox', fixed: 'left'}
+                ,{field: 'id', width: 100, title: 'ID', sort: true}
+                ,{field: 'reviewers', title: '评论者', minWidth: 100}
+                ,{field: 'content', title: '评论内容', minWidth: 100}
+                ,{field: 'commtime', title: '评论时间', minWidth: 100, sort: true}
+                ,{title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-content-com'}
+            ]]
+            ,page: true
+            ,limit: 10
+            ,limits: [10, 15, 20, 25, 30]
+            ,text: '对不起，加载出现异常！'
+        });
+
+        //监听工具条
+        table.on('tool(LAY-app-content-comm)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'del'){
+                layer.confirm('确定删除此条评论？', function(index){
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit') {
+                layer.open({
+                    type: 2
+                    ,title: '编辑评论'
+                    ,content: '../../../views/app/content/contform.html'
+                    ,area: ['450px', '300px']
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index, layero){
+                        var iframeWindow = window['layui-layer-iframe'+ index]
+                                ,submitID = 'layuiadmin-app-comm-submit'
+                                ,submit = layero.find('iframe').contents().find('#'+ submitID);
+
+                        //监听提交
+                        iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
+                            var field = data.field; //获取提交的字段
+
+                            //提交 Ajax 成功后，静态更新表格中的数据
+                            //$.ajax({});
+                            table.reload('LAY-app-content-comm'); //数据刷新
+                            layer.close(index); //关闭弹层
+                        });
+
+                        submit.trigger('click');
+                    }
+                    ,success: function(layero, index){
+
+                    }
+                });
+            }
+        });
+
+    });
+</script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>静态表格</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/global.css" media="all">
+    <link rel="stylesheet" href="/static/Sham.css" media="all">
+
+    <style>
+        .layui-layout-admin .layui-body
+        {
+            top: 60px;
+        }
+        .layui-layout-admin .layui-layout-left, .layadmin-pagetabs, .layui-layout-admin .layui-body, .layui-layout-admin .layui-footer
+        {
+            left: 10px;
+        }
+        .header .layui-nav{
+            left: 0;
+        }
+    </style>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+<div class="layui-layout layui-layout-admin">
+
+
+    <div class="layui-header header header-demo" winter>
+        <!--<div class="layui-form component" lay-filter="LAY-site-header-component"></div>-->
+
+        <div class="layui-main">
+
+            <ul class="layui-nav">
+                <li class="layui-nav-item">
+                    <a href="/super/html/">空白页</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="/super/html/singlepage">单页设置</a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/super/html/listpage">列表分页</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="/super/html/listpageno">列表不分页</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="/super/html/addnew">增加</a>
+                </li>
+                <li class="layui-nav-item  layui-this">
+                    <a href="/super/html/edit">编辑</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+
+
+<div class="layui-body">
+<form id="LAY_demoForm" target="LAY_demo" method="post">
+<div class="site-demo-editor">
+<div class="site-demo-area">
+<textarea id="LAY_editor" spellcheck="false" placeholder="在此处输入代码">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="/static/Sham.css" media="all">
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <!--<div class="layui-card-header">页面列表</div>-->
+                <div class="layui-card-body" pad15>
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="200">
+                            <col width="200">
+                            <col>
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>模块</th>
+                            <th>功能</th>
+                            <th>资源地址</th>
+                            <th>状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>通用</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><span class="pull-right">---</span></td>
+                            <td>面板</td>
+                            <td><a href="/main/console">/main/console</a></td>
+                            <td>完成</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pull-right">---</span></td>
+                            <td>修改密码</td>
+                            <td><a href="/sys/my.password/index">/sys/my.password/index</a></td>
+                            <td>完成</td>
+                        </tr>
+                        <tr>
+                            <td><span class="pull-right">---</span></td>
+                            <td>修改资料</td>
+                            <td><a href="/sys/my.info/index">/sys/my.info/index</a></td>
+                            <td>完成</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+        layui.config({
+            base: '../../../layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index']);
+</script>
+</body>
+</html>
+</textarea>
+<input type="hidden" name="html" id="LAY_demoCodes">
+</div>
+<div class="site-demo-btn">
+    <button type="button" class="layui-btn" id="LAY_demo_run">运行代码</button>
+</div>
+</div>
+</form>
+<div class="site-demo-result">
+    <iframe frameborder="0" id="LAY_demo" name="LAY_demo"></iframe>
+</div>
+</div>
+
+
+<div class="site-tree-mobile layui-hide">
+    <i class="layui-icon">&#xe602;</i>
+</div>
+<div class="site-mobile-shade"></div>
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+
+
+<script>
+    window.global = {
+        pageType: 'demo'
+        ,preview: function(){
+            var preview = document.getElementById('LAY_preview');
+            return preview ? preview.innerHTML : '';
+        }()
+    };
+
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index','global'], function(){
+        var $ = layui.$
+                ,form = layui.form
+                ,admin = layui.admin
+                ,table = layui.table;
+    });
+
+</script>
+
+</div>
+</body>
+</html>

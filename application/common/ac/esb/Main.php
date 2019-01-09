@@ -23,10 +23,16 @@ class Main extends Base{
     }
 
 
+
+
+
     /*
-     * 菜单
+     * 完整的菜单
      */
     public function getMenu(){
+
+        $ads = ac('my')->getGroupAds();
+
         //
         $indexlist = md('adsindex')->where('hidden',0)->order('sort','desc')->select();
         foreach($indexlist as $key=>$value) {
@@ -51,24 +57,39 @@ class Main extends Base{
         $adslist = md('ads')->where('menulevel','<>',0)->where('enable',1)->where('hidden',0)->order('sort','desc')->select();
         $adstree = [];
         foreach($adslist as $key=>$value){
-            $adstree[$value['pId']][] = $value->toArray();
+
+            if(in_array($value['adsId'],$ads)){
+                $adstree[$value['pId']][] = $value->toArray();
+            }
+
         }
         //================================================
         foreach($tree as $key=>$value){
+
+            $flag1 = true;
             if(!isset($value['child']) &&  isset($adstree[$value['Id']])){
+                $flag1 = false;
                 $tree[$key]['child'] = $adstree[$value['Id']];
             }else{
                 if(isset($value['child'])){
                     foreach($value['child'] as $k=>$v){
+                        $flag2 = true;
                         if(isset($adstree[$v['Id']])) {
+                            $flag1 = false;
+                            $flag2 = false;
                             $tree[$key]['child'][$k]['child'] = $adstree[$v['Id']];
                         }
+                        if($flag2)unset($tree[$key]['child'][$k]);
                     }
                 }
             }
-
+            //============================================
+            if($flag1) unset($tree[$key]);
         }
 //        print_r($tree);
+
+
+
         return $tree;
     }
 

@@ -20,5 +20,26 @@ class Group extends Base
 //    protected $connection = [
 //    ];
 
+    /*
+     * 一对一 groupads
+     */
+    public function Groupads()
+    {
+        return $this->hasOne('groupads', 'groupId');
+    }
+
+
+    /*
+        $group = md('group')->find(999);
+        $ms = $group->Ulist;
+        $ms = $group->Groupads;
+        print_r($ms);
+        exit;
+     */
+    public function Ulist()
+    {
+        return $this->hasMany('User','groupId');
+    }
+
 
 }
