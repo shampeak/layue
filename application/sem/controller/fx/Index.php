@@ -1,5 +1,5 @@
 <?php
-namespace app\sem\controller\mant;
+namespace app\sem\controller\fx;
 
 use think\Controller;
 use think\Model;
@@ -7,7 +7,7 @@ use think\Request;
 use think\Db;
 use think\Loader;
 
-class Check extends \app\sys\controller\Base{
+class Index extends \app\sys\controller\Base{
 
     public function __construct()
     {

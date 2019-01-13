@@ -1,5 +1,5 @@
 <?php
-namespace app\sem\controller\mant;
+namespace app\sem\controller\fx;
 
 use think\Controller;
 use think\Model;
@@ -7,7 +7,7 @@ use think\Request;
 use think\Db;
 use think\Loader;
 
-class Report extends \app\sys\controller\Base{
+class Semreport extends \app\sys\controller\Base{
 
     public function __construct()
     {

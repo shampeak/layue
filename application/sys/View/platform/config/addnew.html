@@ -1,3 +1,9 @@
+{php}
+$type = getConfig('CONFIG_TYPE_LIST');
+
+$group = getConfig('CONFIG_GROUP_LIST');
+
+{/php}
 
 <!DOCTYPE html>
 <html>
@@ -12,43 +18,80 @@
 <body>
 
 <div class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list" style="padding: 20px 30px 0 0;">
+
     <div class="layui-form-item">
-        <label class="layui-form-label">文章标题</label>
-        <div class="layui-input-inline">
-            <input type="text" name="title" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+        <label class="layui-form-label">标识</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">发布人</label>
-        <div class="layui-input-inline">
-            <input type="text" name="author" lay-verify="required" placeholder="请输入号码" autocomplete="off" class="layui-input">
+        <label class="layui-form-label">名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" lay-verify="required" placeholder="请输入号码" autocomplete="off" class="layui-input">
         </div>
     </div>
+
     <div class="layui-form-item">
-        <label class="layui-form-label">文章内容</label>
-        <div class="layui-input-inline">
-            <textarea name="content" lay-verify="required" style="width: 400px; height: 150px;" autocomplete="off" class="layui-textarea"></textarea>
+        <label class="layui-form-label">说明</label>
+        <div class="layui-input-block">
+            <textarea name="remark" lay-verify="required" style="width: 400px; height: 150px;" autocomplete="off" class="layui-textarea"></textarea>
         </div>
     </div>
+
+
+
     <div class="layui-form-item">
-        <label class="layui-form-label">标签</label>
-        <div class="layui-input-inline">
-            <select name="label" lay-verify="required">
-                <option value="">请选择标签</option>
-                <option value="美食">美食</option>
-                <option value="新闻">新闻</option>
-                <option value="八卦">八卦</option>
-                <option value="体育">体育</option>
-                <option value="音乐">音乐</option>
+        <label class="layui-form-label">类型</label>
+        <div class="layui-input-block">
+            <select name="type" lay-verify="required">
+                {foreach $type as $key=>$value}
+                <option value="{$key}">{$value}</option>
+                {/foreach}
             </select>
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">分组</label>
+        <div class="layui-input-block">
+            <select name="group" lay-verify="required">
+                {foreach $group as $key=>$value}
+                <option value="{$key}">{$value}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">选项值</label>
+        <div class="layui-input-block">
+            <textarea name="extra" lay-verify="required" style="width: 400px; height: 150px;" autocomplete="off" class="layui-textarea"></textarea>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">值</label>
+        <div class="layui-input-block">
+            <textarea name="value" lay-verify="required" style="width: 400px; height: 150px;" autocomplete="off" class="layui-textarea"></textarea>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
     <div class="layui-form-item">
         <label class="layui-form-label">发布状态</label>
         <div class="layui-input-inline">
-            <input type="checkbox" lay-verify="required" lay-filter="status" name="status" lay-skin="switch" lay-text="已发布|待修改">
+            <input name="status" value="1" type="checkbox" lay-verify="required" lay-filter="status" lay-skin="switch" lay-text="发布|隐藏">
         </div>
     </div>
+
     <div class="layui-form-item layui-hide">
         <input type="button" lay-submit lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit" value="确认添加">
         <input type="button" lay-submit lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit" value="确认编辑">
@@ -72,7 +115,7 @@
 
 
             $.ajax({
-                type: "GET",
+                type: "POST",
                 url: "/api/sys.config/addnew",
                 data:field,
 //              data: {username:$("#username").val(), content:$("#content").val()},

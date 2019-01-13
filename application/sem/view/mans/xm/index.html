@@ -1,0 +1,304 @@
+{php}
+{/php}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="/static/Sham.css" media="all">
+    <style type="text/css">
+        /*body{padding: 10px 30px;}*/
+        /*.hide{display:none}*/
+    </style>
+</head>
+<body>
+
+完成主要部分，
+默认不显示数据
+有全部显示按钮
+多选项目
+添加无效标记
+
+
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item text-sm">
+                <form action="/sem/mans.xm/index">
+
+                <div class="layui-form-item layui-form-item-sm">
+                    <label class="layui-form-label">多选</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="xmflit" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm" id="demo" value="刘晓军,张恒" ts-selected="002,003">
+                    </div>
+                    <!--<div class="layui-form-mid layui-word-aux">本地演示数据，分页选中和其他页一样，这不是BUG</div>-->
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">关键词</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="key" value="{$Think.get.key}" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                        <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="显示无效 [子项目和计划]" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn layuiadmin-btn-useradmin layui-btn-sm" lay-submit lay-filter="LAY-user-front-search">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                    </button>
+                </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="layui-card-body">
+
+            <button class="layui-btn layui-btn-sm layui-btn-primary  up-all">全部收起</button>
+            <button class="layui-btn layui-btn-sm layui-btn-primary down-all">全部展开</button>
+
+
+            <table class="layui-table layui-form" id="test-tree-table"  lay-size="sm"></table>
+
+            <script type="text/html" id="buttonTpl">
+                {{#  if(d.enable){ }}
+                <button class="layui-btn layui-btn-xs">正常</button>
+                {{#  } else { }}
+                <button class="layui-btn layui-btn-primary layui-btn-xs">关闭</button>
+                {{#  } }}
+            </script>
+
+            <script type="text/html" id="table-content-list">
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+            </script>
+        </div>
+    </div>
+</div>
+
+<script src="/layuiadmin/layui/layui.js"></script>
+<script type="text/javascript">
+
+    layui.config({
+        base: '/layuiadmin/modules/',
+    })
+    layui.use(['treetable','tableSelect','form'],function(){
+
+        var $ = layui.$
+                ,form = layui.form
+                ,admin = layui.admin
+                ,table = layui.table;
+        var o = layui.$,treetable = layui.treetable;
+        var form = layui.form,layer = layui.layer;
+
+        var res=[
+            {"id":1,"pid":0,"title":"1-1"},
+            {"id":2,"pid":0,"title":"1-2"},
+            {"id":3,"pid":0,"title":"1-3"},
+            {"id":4,"pid":1,"title":"1-1-1"},
+            {"id":5,"pid":1,"title":"1-1-2"},
+            {"id":6,"pid":2,"title":"1-2-1"},
+            {"id":7,"pid":2,"title":"1-2-3"},
+            {"id":8,"pid":3,"title":"1-3-1"},
+            {"id":9,"pid":3,"title":"1-3-2"},
+            {"id":10,"pid":0,"title":"1-1-1-1"},
+            {"id":11,"pid":4,"title":"1-1-1-2"}
+        ];
+
+        var gkey='{$Think.get.key}';
+        var ghidden='{$Think.get.hidden}';
+
+        var tableSelect = layui.tableSelect;
+        tableSelect.render({
+            elem: '#demo',
+            searchKey: 'my',
+            checkedKey: 'id',
+            searchPlaceholder: '自定义文字和name',
+            table: {
+                url: 'table.json',
+                cols: [[
+                    { type: 'checkbox' },
+                    { field: 'id', title: 'ID', width: 100 },
+                    { field: 'username', title: '姓名', width: 300 },
+                    { field: 'sex', title: '性别', width: 100 }
+                ]]
+            },
+            done: function (elem, data) {
+                var NEWJSON = []
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.username)
+                })
+                elem.val(NEWJSON.join(","))
+            }
+        })
+
+
+        tableSelect.render({
+            elem: '#demo2',
+            checkedKey: 'id',
+            table: {
+                url: 'table.json',
+                cols: [[
+                    { type: 'radio' },
+                    { field: 'id', title: 'ID' },
+                    { field: 'username', title: '姓名' },
+                    { field: 'sex', title: '性别' }
+                ]]
+            },
+            done: function (elem, data) {
+                var NEWJSON = []
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.username)
+                })
+                elem.val(NEWJSON.join(","))
+            }
+        })
+
+
+
+
+
+
+        $.ajax({
+            url: '/api/sem.xmtree/dlist?key='+gkey+'&showhidden='+ghidden,
+            success: function(response)
+            {
+                treetable.render({
+                    elem: '#test-tree-table',
+                    data: response,
+                    field: 'title',
+//            is_checkbox: true,
+//            checked:[1,2,3,4],
+                    /*icon_val: {
+                     open: "&#xe619;",
+                     close: "&#xe61a;"
+                     },*/
+                    space: 8,
+                    cols: [
+                        {
+                            field: 'id',
+                            title: 'ID',
+                            width: '5px',
+                            template: function(item){
+                                if(item.level == 0){
+                                    return item.id;
+                                }
+                                return '';
+                            }
+                        },
+                        {
+                            field: 'title',
+                            title: '标题',
+                            width: '',
+                            template: function(item){
+                                if(item.level == 1){
+
+                                    return '<span style="color:red;">'
+                                    +item.title
+                                    +' <small class="pull-right">xinxiliu</small> </span>';
+
+                                }
+                                if(item.level == 2){
+
+                                    return '<span style="color:green;">'+item.title+'</span>';
+
+                                }
+                                return item.title;
+                            }
+                        },
+
+//                        {
+//                            title: 'Tid',
+//                            field: 'tid',
+//                        },
+                        {
+                            title: 'hand',
+                            template: function(item){
+                                var tem = [];
+                                if(item.xx == 1){
+                                    tem.push('<span class="layui-badge layui-bg-orange">信息流</span>');
+                                }
+                                if(item.uname != undefined && item.uname != ''){
+                                    tem.push('<span class="layui-badge layui-bg-green">'+item.uname+'</span>');
+                                }
+                                if(item.mediatype != undefined){
+                                    tem.push('<span class="layui-badge layui-bg-red">'+item.mediatype+'</span>');
+                                }
+                                if(item.hand ==1){
+                                    tem.push('<span class="layui-badge layui-bg-blue">手动</span>');
+                                }
+                                return tem.join('   ')
+                            }
+                        },
+
+                        {
+                            title: '状态',
+                            width: '80px',
+                            template: function(item){
+                                if(item.enable ==1){
+                                    return '<input type="checkbox" checked lay-skin="switch" lay-filter="status" lay-text="有效|无效">';
+                                }else{
+                                    return '<input type="checkbox" lay-skin="switch" lay-filter="status" lay-text="有效|无效">';
+                                }
+
+                            }
+                        },
+                        {
+                            field: 'actions',
+                            title: '操作',
+                            width: '150px',
+                            template: function(item){
+                                var tem = [];
+                                if(item.level == 0){
+                                    tem.push('<a class="add-child" lay-filter="add">添加子项目</a>');
+                                }
+                                if(item.level == 1){
+                                    tem.push('<a class="add-child" lay-filter="add">添加计划</a>');
+                                }
+                                tem.push('<a lay-filter="edit">编辑</a>');
+//                                tem.push('<a lay-filter="edit">删除</a>');
+                                return tem.join(' <font>|</font> ')
+                            },
+                        },
+                    ]
+                });
+
+            }
+        });
+
+
+
+        treetable.on('treetable(add)',function(data){
+            layer.msg('添加操作');
+            console.dir(data);
+        })
+
+        treetable.on('treetable(edit)',function(data){
+            layer.msg('编辑操作');
+            console.dir(data);
+        })
+
+        o('.up-all').click(function(){
+            treetable.all('up');
+        })
+
+        o('.down-all').click(function(){
+            treetable.all('down');
+        })
+
+        o('.get-checked').click(function(){
+            console.dir(treetable.all('checked'));
+        })
+
+        form.on('switch(status)',function(data){
+            layer.msg('监听状态操作');
+            console.dir(data);
+        })
+    })
+</script>
+</body>
+</html>

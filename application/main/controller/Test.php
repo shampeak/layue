@@ -17,6 +17,17 @@ class Test extends Controller{
     public function index(request $request)
     {
 
+
+
+        $user = md('Semxm')->find(73);
+        $ug = $user->zxm;
+
+
+        print_r($ug);
+
+
+
+        exit;
 echo 111;
 
         $user = md('user')->find(1);

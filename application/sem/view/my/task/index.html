@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layuiAdmin 网站用户</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/global.css" media="all">
+    <link rel="stylesheet" href="/static/Sham.css" media="all">
+</head>
+<body>
+<style>
+
+
+    .layui-table-cell{
+        padding:0px;
+    }
+    .shamtd{
+        border:1px #ff000 solid
+    }
+</style>
+
+
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <div class="layui-form">
+
+                <div class="layui-inline layui-form-item-sm text-sm">
+                    <label class="layui-form-label">项目</label>
+                    <div class="layui-input-inline">
+                        <select name="modules" lay-verify="required">
+                            <option value="1">聚合：日期 - 项目</option>
+                            <option value="1">聚合：日期 - 项目 - 账户</option>
+                            <option value="1">聚合：日期 - 项目 - 人员</option>
+                            <option value="1">聚合：日期 - 项目 - 计划</option>
+                            <option value="1">聚合：日期 - 项目 - 账户 - 计划</option>
+                            <option value="1">聚合：日期 - 项目 - 人员 - 计划</option>
+                            <option value="1">聚合：日期 - 人员 - 项目 - 账户 - 计划</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+                <div class="layui-inline text-sm">
+                    <label class="layui-form-label">日期</label>
+                    <div class="layui-input-block">
+                        <input name="dts" type="text" class="layui-input layui-input-sm" id="test1" placeholder=" - ">
+                    </div>
+                </div>
+
+
+
+                <div class="layui-inline">
+                    <label class="layui-form-label"></label>
+                    <button class="layui-btn layui-btn-sm layuiadmin-btn-useradmin" lay-submit lay-filter="LAY-user-front-search">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i> 提交
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-card">
+        <div class="layui-card-head">
+        </div>
+
+
+        <div class="layui-card-body">
+            <table id="LAY-user-manage" lay-filter="LAY-user-manage"></table>
+
+            <script type="text/html" id="toolbarDemo">
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="全选" lay-skin="primary">
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="展现" lay-skin="primary" >
+            </script>
+
+            <script type="text/html" id="editTpl">
+                {{#  if(d.uId < 100){ }}
+                <a href="/detail/{{d.uId}}" class="layui-table-link">{{d.uId}}</a>
+                {{#  } else { }}
+                {{d.uId}}(普通用户)
+                {{#  } }}
+            </script>
+
+        </div>
+    </div>
+</div>
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'laydate','table','tableSelect', 'semmytask'], function(){
+        var $ = layui.$
+                ,form = layui.form
+                ,admin = layui.admin
+                ,table = layui.table;
+        var tableSelect = layui.tableSelect;
+        var laydate = layui.laydate;
+
+        //日期范围
+        //常规用法
+        laydate.render({
+            elem: '#test1'
+        });
+
+        /*
+         选择项目
+         */
+        tableSelect.render({
+            elem: '#demo',
+            searchKey: 'my',
+            checkedKey: 'id',
+            searchPlaceholder: '自定义文字和name',
+            table: {
+                url: 'table.json',
+                cols: [[
+                    { type: 'checkbox' },
+                    { field: 'id', title: 'ID', width: 100 },
+                    { field: 'username', title: '姓名', width: 300 },
+                    { field: 'sex', title: '性别', width: 100 }
+                ]]
+            },
+            done: function (elem, data) {
+                var NEWJSON = []
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.username)
+                })
+                elem.val(NEWJSON.join(","))
+            }
+        });
+
+
+
+
+        //监听搜索
+        form.on('submit(LAY-user-front-search)', function(data){
+            var field = data.field;
+
+            //执行重载
+            table.reload('LAY-user-manage', {
+                where: field
+            });
+        });
+
+        $('.layui-btn.layuiadmin-btn-useradmin').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+</body>
+</html>

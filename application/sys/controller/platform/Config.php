@@ -23,6 +23,9 @@ class Config extends \app\sys\controller\Base{
     {
         $id = (int)$request->get('id');
         $row = md('config')->find($id);
+
+
+
         return view('',[
             'row'=>$row
         ]);

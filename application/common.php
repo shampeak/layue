@@ -11,6 +11,77 @@
 // 应用公共文件
 
 
+//通过config函数进行调用
+function getConfig($name){
+
+    $row = md('config')->where('name',$name)->find();
+    if(empty($row))return '';
+    switch($row['type']){
+        case '0':
+            return intval($row['value']);
+            break;
+        case '1':
+        case '2':
+            return $row['value'];
+            break;
+        case '3':
+            //组 返回map
+            $rc = explode("\n",$row['value']);
+            $_g = [];
+            foreach($rc as $key=>$value){
+                if(!empty($value)){
+                    $_ar = explode(":",trim($value,"\r"));
+                    if(count($_ar)==2){
+                        $_g[$_ar[0]] = $_ar[1];
+                    }
+                }
+            }
+            return $_g;
+            break;
+        case '4':
+            //枚举 用于配置本身
+            return $row['value'];
+            break;
+        default:
+            //
+            break;
+    }
+    return null;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * 驼峰命名转下划线命名
  * @param $str

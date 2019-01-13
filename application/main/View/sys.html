@@ -12,21 +12,21 @@ $menu = esb('main')->getMenu();
 
 
 $groupid = ac('my')->getGroupId();
-if($groupid !=999){
+//if($groupid !=999){
 
     //================================================
     //去掉应用
     //$menu 只保留应用
-    foreach($menu as $key=>$value){
-        if($value['title'] == '应用'){
-            unset($menu[$key]);
-        }
-    }
+    //foreach($menu as $key=>$value){
+     //   if($value['title'] == '应用'){
+//            unset($menu[$key]);
+    //    }
+    //}
     //================================================
     //变更控制面板地址
     $homeurl = '/main/console/sys';
 
-}
+//}
 {/php}
 
 
@@ -137,7 +137,7 @@ if($groupid !=999){
         <!--</li>-->
 
         <li class="layui-nav-item layui-hide-xs" lay-unselect>
-            <a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>
+            <a href="javascript:;" layadmin-event="more2"><i class="layui-icon layui-icon-more-vertical"></i></a>
         </li>
 
     </ul>
@@ -275,7 +275,29 @@ if($groupid !=999){
         base: '/layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use('index');
+    }).use(['index'], function(){
+        var util = layui.util
+            ,layer = layui.layer;
+//        //固定块
+//        util.fixbar({
+//            bar1: true
+//            ,bar2: true
+//            ,css: {right: 50, bottom: 50}
+//            ,bgcolor: '#393D49'
+//            ,click: function(type){
+//                if(type === 'bar1'){
+//                    layer.msg('icon是可以随便换的')
+//                } else if(type === 'bar2') {
+//                    layer.msg('两个bar都可以设定是否开启')
+//                }
+//            }
+//        });
+
+    });
+
+
+
+
 </script>
 
 </body>

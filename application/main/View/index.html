@@ -17,13 +17,13 @@ $menu = esb('main')->getMenu();
 
 
 $groupid = ac('my')->getGroupId();
-if($groupid !=999){
+//if($groupid !=999){
 
     //================================================
-    //$menu 只保留应用
+    //$menu 只保留SEM
     $__menu = [];
     foreach($menu as $key=>$value){
-        if($value['title'] == '应用'){
+        if($value['title'] == 'SEM'){
             $__menu = $value['child'];
         }
     }
@@ -33,7 +33,7 @@ if($groupid !=999){
     //变更控制面板地址
     //$homeurl = '/main/console/sys';
 
-}
+//}
 
 
 
@@ -148,7 +148,7 @@ if($groupid !=999){
         <!--</li>-->
 
         <li class="layui-nav-item layui-hide-xs" lay-unselect>
-            <a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>
+            <a href="javascript:;" layadmin-event="more2"><i class="layui-icon layui-icon-more-vertical"></i></a>
         </li>
 
     </ul>
