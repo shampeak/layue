@@ -14,7 +14,16 @@ class Log extends \app\sys\controller\Base{
         parent::__construct();
     }
 
-
+    public function show(request $request)
+    {
+        $id = $request->get('id');
+        $row = md('cgilog')->find($id);
+        $note = $row['note'];
+        $nr = json_decode($note);
+        echo '<pre>';
+        print_r($nr);
+        echo '</pre>';
+    }
 
     public function index(request $request)
     {

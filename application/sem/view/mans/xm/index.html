@@ -16,40 +16,39 @@
 </head>
 <body>
 
-完成主要部分，
-默认不显示数据
-有全部显示按钮
-多选项目
-添加无效标记
-
-
 <div class="layui-fluid">
     <div class="layui-card">
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
             <div class="layui-form-item text-sm">
-                <form action="/sem/mans.xm/index">
+                <form id="LAY-front-search-sham">
+                <div class="layui-form" formar="LAY-front-search">
 
                 <div class="layui-form-item layui-form-item-sm">
-                    <label class="layui-form-label">多选</label>
+                    <label class="layui-form-label">选择项目</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="xmflit" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm" id="demo" value="刘晓军,张恒" ts-selected="002,003">
+                        <input type="text" name="xmflit" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm" id="demo" value="" ts-selected="">
                     </div>
                     <!--<div class="layui-form-mid layui-word-aux">本地演示数据，分页选中和其他页一样，这不是BUG</div>-->
                 </div>
 
+                <!--<div class="layui-inline">-->
+                    <!--<label class="layui-form-label">关键词</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="text" name="key" value="" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm">-->
+                    <!--</div>-->
+                <!--</div>-->
+
                 <div class="layui-inline">
-                    <label class="layui-form-label">关键词</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="key" value="{$Think.get.key}" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm">
-                    </div>
+                    <label class="layui-form-label"></label>
+                        <input type="checkbox" value="1" class="layui-input-sm" name="showhidden" title="显示无效" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>
                 </div>
                 <div class="layui-inline">
-                        <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="显示无效 [子项目和计划]" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>
+                    <label class="layui-form-label"></label>
+                    <a class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-submit lay-filter="LAY-front-search" id="LAY-front-search">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i> 提交
+                    </a>
                 </div>
-                <div class="layui-inline">
-                    <button class="layui-btn layuiadmin-btn-useradmin layui-btn-sm" lay-submit lay-filter="LAY-user-front-search">
-                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                    </button>
+
                 </div>
                 </form>
             </div>
@@ -60,6 +59,7 @@
 
             <button class="layui-btn layui-btn-sm layui-btn-primary  up-all">全部收起</button>
             <button class="layui-btn layui-btn-sm layui-btn-primary down-all">全部展开</button>
+            <button class="layui-btn layui-btn-sm layui-btn-primary xmaddnew">添加项目</button>
 
 
             <table class="layui-table layui-form" id="test-tree-table"  lay-size="sm"></table>
@@ -94,192 +94,420 @@
                 ,table = layui.table;
         var o = layui.$,treetable = layui.treetable;
         var form = layui.form,layer = layui.layer;
-
-        var res=[
-            {"id":1,"pid":0,"title":"1-1"},
-            {"id":2,"pid":0,"title":"1-2"},
-            {"id":3,"pid":0,"title":"1-3"},
-            {"id":4,"pid":1,"title":"1-1-1"},
-            {"id":5,"pid":1,"title":"1-1-2"},
-            {"id":6,"pid":2,"title":"1-2-1"},
-            {"id":7,"pid":2,"title":"1-2-3"},
-            {"id":8,"pid":3,"title":"1-3-1"},
-            {"id":9,"pid":3,"title":"1-3-2"},
-            {"id":10,"pid":0,"title":"1-1-1-1"},
-            {"id":11,"pid":4,"title":"1-1-1-2"}
-        ];
-
-        var gkey='{$Think.get.key}';
-        var ghidden='{$Think.get.hidden}';
-
         var tableSelect = layui.tableSelect;
-        tableSelect.render({
-            elem: '#demo',
-            searchKey: 'my',
-            checkedKey: 'id',
-            searchPlaceholder: '自定义文字和name',
-            table: {
-                url: 'table.json',
-                cols: [[
-                    { type: 'checkbox' },
-                    { field: 'id', title: 'ID', width: 100 },
-                    { field: 'username', title: '姓名', width: 300 },
-                    { field: 'sex', title: '性别', width: 100 }
-                ]]
-            },
-            done: function (elem, data) {
-                var NEWJSON = []
-                layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.username)
-                })
-                elem.val(NEWJSON.join(","))
-            }
-        })
 
-
-        tableSelect.render({
-            elem: '#demo2',
-            checkedKey: 'id',
-            table: {
-                url: 'table.json',
-                cols: [[
-                    { type: 'radio' },
-                    { field: 'id', title: 'ID' },
-                    { field: 'username', title: '姓名' },
-                    { field: 'sex', title: '性别' }
-                ]]
-            },
-            done: function (elem, data) {
-                var NEWJSON = []
-                layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.username)
-                })
-                elem.val(NEWJSON.join(","))
-            }
-        })
-
-
-
-
-
-
-        $.ajax({
-            url: '/api/sem.xmtree/dlist?key='+gkey+'&showhidden='+ghidden,
-            success: function(response)
-            {
-                treetable.render({
-                    elem: '#test-tree-table',
-                    data: response,
-                    field: 'title',
-//            is_checkbox: true,
-//            checked:[1,2,3,4],
-                    /*icon_val: {
-                     open: "&#xe619;",
-                     close: "&#xe61a;"
-                     },*/
-                    space: 8,
-                    cols: [
-                        {
-                            field: 'id',
-                            title: 'ID',
-                            width: '5px',
-                            template: function(item){
-                                if(item.level == 0){
-                                    return item.id;
-                                }
-                                return '';
-                            }
-                        },
-                        {
-                            field: 'title',
-                            title: '标题',
-                            width: '',
-                            template: function(item){
-                                if(item.level == 1){
-
-                                    return '<span style="color:red;">'
-                                    +item.title
-                                    +' <small class="pull-right">xinxiliu</small> </span>';
-
-                                }
-                                if(item.level == 2){
-
-                                    return '<span style="color:green;">'+item.title+'</span>';
-
-                                }
-                                return item.title;
-                            }
-                        },
-
-//                        {
-//                            title: 'Tid',
-//                            field: 'tid',
-//                        },
-                        {
-                            title: 'hand',
-                            template: function(item){
-                                var tem = [];
-                                if(item.xx == 1){
-                                    tem.push('<span class="layui-badge layui-bg-orange">信息流</span>');
-                                }
-                                if(item.uname != undefined && item.uname != ''){
-                                    tem.push('<span class="layui-badge layui-bg-green">'+item.uname+'</span>');
-                                }
-                                if(item.mediatype != undefined){
-                                    tem.push('<span class="layui-badge layui-bg-red">'+item.mediatype+'</span>');
-                                }
-                                if(item.hand ==1){
-                                    tem.push('<span class="layui-badge layui-bg-blue">手动</span>');
-                                }
-                                return tem.join('   ')
-                            }
-                        },
-
-                        {
-                            title: '状态',
-                            width: '80px',
-                            template: function(item){
-                                if(item.enable ==1){
-                                    return '<input type="checkbox" checked lay-skin="switch" lay-filter="status" lay-text="有效|无效">';
-                                }else{
-                                    return '<input type="checkbox" lay-skin="switch" lay-filter="status" lay-text="有效|无效">';
-                                }
-
-                            }
-                        },
-                        {
-                            field: 'actions',
-                            title: '操作',
-                            width: '150px',
-                            template: function(item){
-                                var tem = [];
-                                if(item.level == 0){
-                                    tem.push('<a class="add-child" lay-filter="add">添加子项目</a>');
-                                }
-                                if(item.level == 1){
-                                    tem.push('<a class="add-child" lay-filter="add">添加计划</a>');
-                                }
-                                tem.push('<a lay-filter="edit">编辑</a>');
-//                                tem.push('<a lay-filter="edit">删除</a>');
-                                return tem.join(' <font>|</font> ')
-                            },
-                        },
-                    ]
-                });
-
-            }
+        //监听搜索
+        form.on('submit(LAY-front-search)', function(data){
+            var field = $("#LAY-front-search-sham").serialize();
+//            console.log(field);
+//            console.log(field);
+            filltable(field);
         });
 
 
+        tableSelect.render({
+            elem: '#demo',
+            searchKey: 'selkey',
+            checkedKey: 'xmId',
+            searchPlaceholder: '自定义文字和name',
+            table: {
+                url: '/api/sem.xmtree/xmsel',
+                cols: [[
+                    { type: 'checkbox' },
+                    { field: 'xmId', title: 'ID', width: 100 },
+                    { field: 'title', title: '项目名', width: 300 },
+                    { field: 'enablechr', title: '有效', width: 100 }
+                ]]
+                ,page: true
+                ,limit: 6
+            },
+            done: function (elem, data) {
+                var NEWJSON = []
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.title)
+                })
+                elem.val(NEWJSON.join(","))
+            }
+        });
 
-        treetable.on('treetable(add)',function(data){
-            layer.msg('添加操作');
-            console.dir(data);
+        function filltable(field){
+            $.ajax({
+                url: '/api/sem.xmtree/dlist',
+                data:field,
+                success: function(response)
+                {
+                    treetable.render({
+                        elem: '#test-tree-table',
+                        data: response,
+                        field: 'title',
+//            is_checkbox: true,
+//            checked:[1,2,3,4],
+                        /*icon_val: {
+                         open: "&#xe619;",
+                         close: "&#xe61a;"
+                         },*/
+                        space: 8,
+                        cols: [
+                            {
+                                field: 'id',
+                                title: 'ID',
+                                width: '5px',
+                                template: function(item){
+                                    if(item.level == 0){
+                                        return item.id;
+                                    }
+                                    return '';
+                                }
+                            },
+                            {
+                                field: 'title',
+                                title: '标题',
+                                width: '',
+                                template: function(item){
+                                    if(item.level == 1){
+                                        if(item.enable ==1) {
+                                            return '<span style="color:red;">'+item.title
+                                            +' <small class="layui-badge pull-right layui-bg-red">'+item.count+'</small> '
+                                            +' <small class="layui-badge pull-right layui-bg-blue">'+item.uname+'</small> </span>';
+                                        }else{
+                                            return '<span style="color:lightgray;">'+item.title
+                                            +' <small class="layui-badge pull-right layui-bg-red">'+item.count+'</small> '
+                                            +' <small class="layui-badge pull-right layui-bg-blue">'+item.uname+'</small> </span>';
+                                        }
+
+                                    }
+                                    if(item.level == 2){
+                                        if(item.enable ==1){
+                                            return '<span style="color:green;">'+item.title+'</span>';
+                                        }else{
+                                            return '<span style="color:lightgray;">'+item.title+'</span>';
+                                        }
+
+                                    }
+                                    if(item.enable ==1){
+                                        return item.title;
+                                    }else{
+                                        return '<span style="color:lightgray;">'+item.title+'</span>';
+                                    }
+                                }
+                            },
+                            {
+                                title: '信息',
+                                template: function(item){
+                                    var tem = [];
+                                    if(item.level == 1 && item.xx == 1){
+                                        tem.push('<span class="layui-badge layui-bg-orange">信息流</span>');
+                                    }
+                                    if(item.level == 2 && item.mediatype != undefined){
+                                        tem.push('<span class="layui-badge layui-bg-red">'+item.mediatypename+'</span>');
+                                    }
+                                    if(item.level == 2 && item.hand ==1){
+                                        tem.push('<span class="layui-badge layui-bg-blue">手动</span>');
+                                    }
+                                    return tem.join('   ')
+                                }
+                            },
+                            {
+                                title: '状态',
+                                width: '50px',
+                                template: function(item){
+                                    if(item.enable ==1){
+                                        return '<button class="layui-btn layui-btn-xs">正常</button>';
+                                    }else{
+                                        return '<button class="layui-btn layui-btn-primary layui-btn-xs">无效</button>';
+                                    }
+
+                                }
+                            },
+                            {
+                                field: 'actions',
+                                title: '操作',
+                                width: '150px',
+                                template: function(item){
+                                    var tem = [];
+                                    if(item.level == 0){
+                                        tem.push('<button class="layui-btn layui-btn-danger layui-btn-xs" lay-filter="editxm">编辑</button>');
+                                        tem.push('<button class="layui-btn layui-btn-normal layui-btn-xs add-child add-addzxmchild" lay-filter="addzxm">添加子项目</button>');
+                                    }
+                                    if(item.level == 1){
+                                        tem.push('<button class="layui-btn layui-btn-danger layui-btn-xs" lay-filter="editzxm">编辑</button>');
+                                        tem.push('<button class="layui-btn layui-btn-normal layui-btn-xs add-child" lay-filter="addcam">添加计划</button>');
+                                    }
+                                    if(item.level == 2 && item.hand ==1){
+                                        tem.push('<button class="layui-btn layui-btn-danger layui-btn-xs" lay-filter="editcam">编辑</button>');
+                                    }
+//                                tem.push('<a lay-filter="edit">删除</a>');
+                                    return tem.join(' <font>|</font> ')
+                                }
+                            },
+                        ]
+                    });
+                }
+            });
+        }
+
+
+
+        o('.xmaddnew').click(function(){
+
+            layer.open({
+                type: 2
+                ,title: '添加项目'
+                ,content: '/sem/mans.xm/addnewxm'
+                ,maxmin: true
+                ,area: ['500px', '450px']
+                ,btn: ['确定', '取消']
+                ,yes: function(index, layero){
+
+                    var iframeWindow = window['layui-layer-iframe'+ index]
+                            ,submitID = 'LAY-addnew-front-submit'
+                            ,submit = layero.find('iframe').contents().find('#'+ submitID);
+
+                    //监听提交
+                    iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
+                        var field = data.field; //获取提交的字段
+
+                        //提交 Ajax 成功后，静态更新表格中的数据
+                        //$.ajax({});
+                        $.ajax({
+                            url: '/sem/mans.xm/addnewxmpost'
+                            ,type:'POST'
+                            ,data: data.field
+                            ,success: function(res){
+                                if(res.code==0){
+//                                    table.reload('LAY-content-list');
+                                    //table.reload('LAY-content-list');
+                                    var fieldsham = $("#LAY-front-search-sham").serialize();
+                                    filltable(fieldsham);
+                                    layer.close(index);
+                                }else{
+                                    layer.msg(res.msg);
+                                }
+                            }
+                        });
+                    });
+
+                    submit.trigger('click');
+                }
+            });
+
+
         })
 
-        treetable.on('treetable(edit)',function(data){
-            layer.msg('编辑操作');
-            console.dir(data);
+        treetable.on('treetable(addzxm)',function(data){
+            var field = data.item;
+
+            layer.open({
+                type: 2
+                ,title: '添加子项目'
+                ,content: '/sem/mans.xm/addnewzxm?id='+field.tid
+                ,maxmin: true
+                ,area: ['900px','600px']
+                ,btn: ['确定', '取消']
+                ,yes: function(index, layero){
+
+                    var iframeWindow = window['layui-layer-iframe'+ index]
+                            ,submitID = 'LAY-addnew-front-submit'
+                            ,submit = layero.find('iframe').contents().find('#'+ submitID);
+
+                    //监听提交
+                    iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
+                        var field = data.field; //获取提交的字段
+
+                        //提交 Ajax 成功后，静态更新表格中的数据
+                        //$.ajax({});
+                        $.ajax({
+                            url: '/sem/mans.xm/addnewzxmpost'
+                            ,type:'POST'
+                            ,data: data.field
+                            ,success: function(res){
+                                if(res.code==0){
+                                    var fieldsham = $("#LAY-front-search-sham").serialize();
+                                    filltable(fieldsham);
+                                    layer.close(index);
+                                }else{
+                                    layer.msg(res.msg);
+                                }
+                            }
+                        });
+                    });
+
+                    submit.trigger('click');
+                }
+            });
+
+        })
+
+        treetable.on('treetable(addcam)',function(data){
+            var field = data.item;
+
+            layer.open({
+                type: 2
+                ,title: '添加计划'
+                ,content: '/sem/mans.xm/addnewcam?id='+field.tid
+                ,maxmin: true
+                ,area: ['900px','600px']
+                ,btn: ['确定', '取消']
+                ,yes: function(index, layero){
+
+                    var iframeWindow = window['layui-layer-iframe'+ index]
+                            ,submitID = 'LAY-addnew-front-submit'
+                            ,submit = layero.find('iframe').contents().find('#'+ submitID);
+
+                    //监听提交
+                    iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
+                        var field = data.field; //获取提交的字段
+
+                        //提交 Ajax 成功后，静态更新表格中的数据
+                        //$.ajax({});
+                        $.ajax({
+                            url: '/sem/mans.xm/addnewcampost'
+                            ,type:'POST'
+                            ,data: data.field
+                            ,success: function(res){
+                                if(res.code==0){
+                                    var fieldsham = $("#LAY-front-search-sham").serialize();
+                                    filltable(fieldsham);
+                                    layer.close(index);
+                                }else{
+                                    layer.msg(res.msg);
+                                }
+                            }
+                        });
+                    });
+
+                    submit.trigger('click');
+                }
+            });
+
+        })
+
+        treetable.on('treetable(editzxm)',function(data){
+            var field = data.item;
+
+            layer.open({
+                type: 2
+                ,title: '编辑子项目'
+                ,content: '/sem/mans.xm/editzxm?id='+field.tid
+                ,area: ['900px','600px']
+                ,btn: ['确定', '取消']
+                ,yes: function(index, layero){
+
+                    var iframeWindow = window['layui-layer-iframe'+ index]
+                            ,submitID = 'LAY-edit-front-submit'
+                            ,submit = layero.find('iframe').contents().find('#'+ submitID);
+
+                    //监听提交
+                    iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
+                        var field = data.field; //获取提交的字段
+                        $.ajax({
+                            url: '/sem/mans.xm/editzxmpost'
+                            ,type:'POST'
+                            ,data: field
+                            ,success: function(res){
+                                if(res.code==0){
+                                    var fieldsham = $("#LAY-front-search-sham").serialize();
+                                    filltable(fieldsham);
+                                    layer.close(index); //关闭弹层
+                                }
+                            }
+                        });
+
+                    });
+                    submit.trigger('click');
+
+                }
+                ,success: function(layero, index){
+                }
+            })
+
+        })
+
+        treetable.on('treetable(editcam)',function(data){
+
+            var field = data.item;
+
+            layer.open({
+                type: 2
+                ,title: '编辑计划'
+                ,content: '/sem/mans.xm/editcam?id='+field.tid
+                ,area: ['900px','600px']
+                ,btn: ['确定', '取消']
+                ,yes: function(index, layero){
+
+                    var iframeWindow = window['layui-layer-iframe'+ index]
+                            ,submitID = 'LAY-edit-front-submit'
+                            ,submit = layero.find('iframe').contents().find('#'+ submitID);
+
+                    //监听提交
+                    iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
+                        var field = data.field; //获取提交的字段
+                        $.ajax({
+                            url: '/sem/mans.xm/editcampost'
+                            ,type:'POST'
+                            ,data: field
+                            ,success: function(res){
+                                if(res.code==0){
+                                    var fieldsham = $("#LAY-front-search-sham").serialize();
+                                    filltable(fieldsham);
+                                    layer.close(index); //关闭弹层
+                                }
+                            }
+                        });
+
+                    });
+                    submit.trigger('click');
+
+                }
+                ,success: function(layero, index){
+                }
+            })
+
+        })
+
+        treetable.on('treetable(editxm)',function(data){
+
+            var field = data.item;
+
+            layer.open({
+                type: 2
+                ,title: '编辑项目'
+                ,content: '/sem/mans.xm/editxm?id='+field.tid
+                ,area: ['500px', '450px']
+                ,btn: ['确定', '取消']
+                ,yes: function(index, layero){
+
+                    var iframeWindow = window['layui-layer-iframe'+ index]
+                            ,submitID = 'LAY-edit-front-submit'
+                            ,submit = layero.find('iframe').contents().find('#'+ submitID);
+
+                    //监听提交
+                    iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
+                        var field = data.field; //获取提交的字段
+                        $.ajax({
+                            url: '/sem/mans.xm/editxmpost'
+                            ,type:'POST'
+                            ,data: field
+                            ,success: function(res){
+                                if(res.code==0){
+                                    var fieldsham = $("#LAY-front-search-sham").serialize();
+                                    filltable(fieldsham);
+
+//                                    layer.msg('编辑');
+//                                    table.reload('LAY-content-list'); //数据刷新
+                                    layer.close(index); //关闭弹层
+                                }
+                            }
+                        });
+
+                    });
+                    submit.trigger('click');
+
+                }
+                ,success: function(layero, index){
+                }
+            })
+
         })
 
         o('.up-all').click(function(){

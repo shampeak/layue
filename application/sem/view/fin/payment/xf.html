@@ -1,0 +1,112 @@
+{php}
+$xmid = \think\Request::instance()->get('xmid');
+$dt = \think\Request::instance()->get('dt');
+//=======================================================
+//1 充值金额
+$field = "sum(cost) as sumcost,sum(rmb) as sumrmb";
+
+//日期，项目
+$sql = "select r_campaigndt.dt,sem_cam.xmId,sum(cost) as sumcost,sum(rmb) as sumrmb
+from r_campaigndt,sem_cam
+where date_format(dt, '%Y-%m') = '$dt' and xmId = $xmid and r_campaigndt.cId = sem_cam.cId
+group by dt,xmId
+order by r_campaigndt.dt desc,sem_cam.xmId
+";
+
+//echo $sql;
+$list =  \think\Db::query($sql);
+//计算条数
+
+$cost = 0;
+$rmb = 0;
+foreach($list as $key=>$value){
+    $cost += $value['sumcost'];
+    $rmb += $value['sumrmb'];
+}
+
+//客服消费
+$sql = "select * from f_paymentuserdc
+where xmId = $xmid
+and date_format(dt, '%Y-%m') = '$dt'
+order by dt desc,puId desc limit 1";
+$list0 = \think\Db::query($sql);
+if($list0){
+    $kfxf = $list0[0]['rmb'];
+}else{
+    $kfxf = 0;
+}
+
+{/php}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layuiAdmin 网站用户 iframe 框</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+</head>
+<body>
+
+
+<div class="layui-card">
+    <!--<div class="layui-card-header">消费</div>-->
+    <div class="layui-card-body" pad15>
+        <table class="layui-table">
+            <tbody>
+            <tr>
+                <td>日期</td>
+                <td>人民币</td>
+                <td>百度币</td>
+            </tr>
+            {foreach $list as $k=>$v}
+            <tr>
+                <td>{$v['dt']}</td>
+                <td>{$v['sumrmb']}</td>
+                <td>{$v['sumcost']}</td>
+            </tr>
+            {/foreach}
+            <tr>
+                <td>
+                    <span class="layui-badge layui-bg-blue">客服: {$kfxf}</span>
+{if $rmb-$kfxf>0}
+<span class="layui-badge layui-bg-black">{$rmb-$kfxf}</span>
+{else}
+<span class="layui-badge layui-bg-blue">{$rmb-$kfxf}</span>
+{/if}
+
+                </td>
+                <td>
+                    <span class="layui-badge layui-bg-blue">{$rmb}</span>
+                </td>
+                <td>
+                    <span class="layui-badge layui-bg-blue">{$cost}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form'], function(){
+        var $ = layui.$
+                ,form = layui.form
+                ,upload = layui.upload ;
+
+    })
+</script>
+</body>
+</html>

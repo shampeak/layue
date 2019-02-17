@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>全端复杂组合</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="/static/Sham.css" media="all">
+</head>
+<body>
+
+<style>
+    /* 这段样式只是用于演示 */
+    #LAY-component-grid-all .layui-card-body{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        /*text-align: center; */
+        height: 200px;
+    }
+    .layui-text{
+        font-size:12px;
+    }
+
+
+</style>
+
+<div class="layui-fluid" id="LAY-component-grid-all">
+    <div class="layui-row layui-col-space10">
+
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    组报 <small class="text-aqua">按/周月/产生组的数据报告</small>
+                </div>
+                <div class="layui-card-body">
+
+                    <div class="layui-text pull-left">
+                        <ul>
+                            <li  style="color: #FF5722;">时间筛选</li>
+                            <li  style="color: #FF5722;">消费：媒体比例，人员比例</li>
+                            <li  style="color: #FF5722;">成本：媒体成本，人员成本</li>
+                        </ul>
+                        <hr>
+                        <button class="layui-btn layui-btn-fluid">进入</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+            <!-- 填充内容 -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    成员报 <small class="text-aqua">按/周月/产生人员的数据报告</small>
+                </div>
+                <div class="layui-card-body">
+
+                    <div class="layui-text pull-left">
+                        <ul>
+
+                            <li  style="color: #FF5722;">时间筛选</li>
+                            <li  style="color: #FF5722;">人员筛选，媒体筛选</li>
+                            <li  style="color: #FF5722;">项目一段时间内的，消费，成本，性价比</li>
+                        </ul>
+                        <hr>
+                        <button class="layui-btn layui-btn-fluid">进入</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index']);
+</script>
+</body>
+</html>

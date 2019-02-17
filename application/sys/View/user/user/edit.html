@@ -54,13 +54,21 @@ $map = md('group')->getMap();
         <!--</div>-->
         <!--<button style="float: left;" type="button" class="layui-btn" id="layuiadmin-upload-useradmin">上传图片</button>-->
     <!--</div>-->
-    <div class="layui-form-item" lay-filter="sex">
-        <label class="layui-form-label">选择性别</label>
-        <div class="layui-input-block">
-            <input type="radio" name="sex" value="1" title="男" {if $row['sex']==1}checked{/if}>
-            <input type="radio" name="sex" value="0" title="女" {if $row['sex']==0}checked{/if}>
+        <div class="layui-form-item" lay-filter="sex">
+            <label class="layui-form-label">选择性别</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="1" title="男" {if $row['sex']==1}checked{/if}>
+                <input type="radio" name="sex" value="0" title="女" {if $row['sex']==0}checked{/if}>
+            </div>
         </div>
-    </div>
+        <div class="layui-form-item" lay-filter="islead">
+            <label class="layui-form-label">部门</label>
+            <div class="layui-input-block">
+                <input type="radio" name="islead" value="1" title="主管" {if $row['islead']==1}checked{/if}>
+                <input type="radio" name="islead" value="0" title="成员" {if $row['islead']==0}checked{/if}>
+            </div>
+        </div>
+
     <div class="layui-form-item layui-hide">
         <input type="text" name="uId" value="{$row['uId']|default=0}">
         <input type="button" lay-submit lay-filter="LAY-user-front-submit" id="LAY-user-front-submitbutton" value="确认">

@@ -34,6 +34,19 @@ trait Gethtml {
     </div>
 </div>
 ";
+
+        $html = "
+<div class=\"layui-form-item\">
+    <label class=\"layui-form-label\">##title##</label>
+    <div class=\"layui-input-block\">
+        <input type=\"text\" name=\"rc[##name##]\" value=\"##value##\" class=\"layui-input\">
+    </div>
+</div>
+";
+
+
+
+
         $html = str_replace('##title##',$value['title'],$html);
         $html = str_replace('##value##',$value['value'],$html);
         $html = str_replace('##name##',$value['name'],$html);
@@ -60,6 +73,15 @@ trait Gethtml {
     </div>
 </div>
 ";
+
+        $html = "
+<div class=\"layui-form-item layui-form-text\">
+    <label class=\"layui-form-label\">##title##</label>
+    <div class=\"layui-input-block\">
+        <textarea name=\"rc[##name##]\" class=\"layui-textarea\">##value##</textarea>
+    </div>
+</div>";
+
         $html = str_replace('##title##',$value['title'],$html);
         $html = str_replace('##value##',$value['value'],$html);
         $html = str_replace('##name##',$value['name'],$html);
@@ -89,6 +111,19 @@ trait Gethtml {
     </div>
 </div>
 ";
+
+$html = "
+<div class=\"layui-form-item layui-form-text\">
+<label class=\"layui-form-label\">##title##</label>
+<div class=\"layui-input-block\">
+    <select name=\"rc[##name##]\">
+        ##option##
+    </select>
+</div>
+</div>
+";
+
+
 //D($value);
         //首先根据extra
         $htmloption = '';

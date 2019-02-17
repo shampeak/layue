@@ -1,0 +1,183 @@
+{php}
+
+$request = \think\Request::instance();
+$id = (int)$request->get('id');         //子项目的id
+//===========================================
+$cam = md('semcam')->find($id);
+
+//echo $id;
+if(!$cam['hand']){
+    die('系统生成的计划，不允许修改');
+}
+
+if(!isset($cam['zxmId'])){
+        die('没有关联的子项目');
+}
+$zxmid = $cam['zxmId'];
+$zxm = md('semzxm')->find($zxmid);
+$xm = $zxm->xm;
+$media = getconfig('MEDIA_TYPE');
+//媒体下面的账号计算
+$mlist = md('semzh')->where('mediatype',$cam['mediatype'])->select();
+
+
+{/php}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layuiAdmin 网站用户 iframe 框</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/static/Sham.css" media="all">
+</head>
+<body>
+
+<div class="layui-form" lay-filter="LAY-user-front-submit" id="LAY-user-front-submit"  style="padding: 20px 20px 0 0;">
+    <form id="layuiadmin-form-useredit" action="" method="post">
+
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">项目名</label>
+            <div class="layui-input-block">
+                <input type="text" disabled value="{$xm['title']}" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">子项目名</label>
+            <div class="layui-input-block">
+                <input type="text" disabled value="{$zxm['title']}" lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">计划名字</label>
+            <div class="layui-input-block">
+                <input type="text" name="cName" value="{$cam['cName']}" lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item" lay-filter="sex">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <input type="radio" name="enable" value="1" title="有效" {if $cam['enable']==1}checked{/if}>
+                <input type="radio" name="enable" value="0" title="无效" {if $cam['enable']==0}checked{/if}>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">媒体</label>
+            <div class="layui-input-block">
+                <select name="mediatype" lay-verify="required" class="mediatypechrmark">
+                    <option value=""></option>
+                    {foreach $media as $key=>$value}
+                    <option value="{$key}" {if $cam['mediatype'] ==$key}selected{/if}>{$value}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">计划</label>
+            <div class="layui-input-block">
+                <div class="layui-row zhfrommedaitypechrmark">
+                    {foreach $mlist as $key=>$value}
+                    <div class="layui-col-sm4">
+                        {if $value['enable']}
+                        <input type="radio" name="zId" {if $cam['zId'] == $value['id']}checked{/if} lay-verify="required" value="{$value['id']}" lay-skin="primary" title="<div>{$value['uname']}</div>">
+                        {else}
+                        <input type="radio" name="zId" {if $cam['zId'] == $value['id']}checked{/if} lay-verify="required" value="{$value['id']}" lay-skin="primary" title="<div class=text-gray>{$value['uname']}</div>">
+                        {/if}
+                    </div>
+                    {/foreach}
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-hide">
+            <input type="text" name="uId" value="{$zxm['uId']}">
+            <input type="text" name="zxmId" value="{$zxm['zxmId']}">
+            <input type="text" name="xmId" value="{$zxm['xmId']}">
+
+            <input type="text" name="id" value="{$cam['id']}">
+
+            <input type="hidden" name="hand" value="1">
+
+            <input type="button" lay-submit lay-filter="LAY-edit-front-submit" id="LAY-edit-front-submit" value="确认">
+        </div>
+    </form>
+</div>
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form','tableSelect', 'upload'], function(){
+        var $ = layui.$
+                ,form = layui.form
+                ,upload = layui.upload ;
+        var tableSelect = layui.tableSelect;
+
+        tableSelect.render({
+            elem: '#demo',
+            searchKey: 'addnewzxmkey',
+            checkedKey: 'uId',
+            searchPlaceholder: '自定义文字和name',
+            table: {
+                url: '/api/sem.xmtree/manageuser',
+                cols: [[
+                    { type: 'radio' },
+                    { field: 'uId', title: 'ID', width: 80 },
+                    { field: 'title', title: '项目名'},
+                    { field: 'groupname', title: '用户组', width: 120 },
+                    { field: 'enablechr', title: '有效', width: 80 }
+                ]]
+                ,page: true
+                ,limit: 6
+            },
+            done: function (elem, data) {
+                var NEWJSON = []
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.title)
+                })
+                elem.val(NEWJSON.join(","))
+            }
+        });
+
+
+        form.on('select', function (data) {
+            var url = "/api/sem.zh/zhfrommedaitype?medaitype="+data.value;
+            var temp_html = '';
+            $.getJSON(url,function(res){
+                fillzh(res.data);
+            });
+
+            var fillzh = function(ds){
+                $.each(ds,function(i,zh){
+                    temp_html+='<div class="layui-col-sm4">';
+                    if(zh.enable){
+                        temp_html+='<input type="radio" name="zId" lay-verify="required" value="'+zh.id+'" lay-skin="primary" title="<div>'+zh.uname+'</div>">';
+                    }else{
+                        temp_html+='<input type="radio" name="zId" lay-verify="required" value="'+zh.id+'" lay-skin="primary" title="<div class=text-gray>'+zh.uname+'</div>">';
+                    }
+                    temp_html+='</div>';
+                });
+
+                $('.zhfrommedaitypechrmark').html(temp_html);
+                form.render()
+            };
+
+        });
+
+
+    })
+</script>
+</body>
+</html>

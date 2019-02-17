@@ -24,7 +24,8 @@ layui.define(['table', 'form'], function(exports){
 
       {field: 'uId', width: 100, title: 'ID', sort: true}
       ,{field: 'name', title: '用户名', minWidth: 100}
-      ,{field: 'groupName', title: '用户组', width: 100}
+          ,{field: 'groupName', title: '用户组', width: 100}
+          ,{field: 'islead', title: '部门', width: 100, templet: '#groupTpl'}
       ,{field: 'mobile', title: '手机'}
       ,{field: 'email', title: '邮箱'}
       ,{field: 'sex', width: 80, title: '性别', templet: '#usexTpl'}

@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layuiAdmin 网站用户</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+    <!--<link rel="stylesheet" href="../../../layuiadmin/style/global.css" media="all">-->
+    <link rel="stylesheet" href="/static/Sham.css" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <div class="layui-form">
+
+<h3>wenjian</h3>
+                <table class="layui-table">
+                    <tbody>
+                    <tr>
+                        <td>项目</td>
+                        <td>3</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>记录数量</td>
+                        <td>3</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>有效账号</td>
+                        <td>3</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>缓存</td>
+                        <td>3</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>中间数据</td>
+                        <td>3</td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>临时文件</td>
+                        <td>3</td>
+                        <td></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'laydate','table', 'demo'], function(){
+        var $ = layui.$
+                ,form = layui.form
+                ,admin = layui.admin
+                ,table = layui.table;
+        var laydate = layui.laydate;
+
+
+        //日期范围
+        laydate.render({
+            elem: '#test6'
+            ,range: true
+        });
+
+        form.on('switch(status)',function(data){
+            var field = data.field;
+
+            layer.msg('监听状态操作');
+            console.dir(data);
+
+            //$.ajax({});
+
+        })
+
+        //监听搜索
+        form.on('submit(LAY-front-search)', function(data){
+            var field = data.field;
+            //执行重载
+            table.reload('LAY-content-list', {
+                where: field
+            });
+        });
+
+        //事件
+        var active = {
+            add: function(){
+                layer.open({
+                    type: 2
+                    ,title: '添加用户【/d/demoaddnew.】'
+                    ,content: 'demoaddnew.html'
+                    ,maxmin: true
+                    ,area: ['500px', '450px']
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index, layero){
+
+                        var iframeWindow = window['layui-layer-iframe'+ index]
+                                ,submitID = 'LAY-addnew-front-submit'
+                                ,submit = layero.find('iframe').contents().find('#'+ submitID);
+
+                        //监听提交
+                        iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
+                            var field = data.field; //获取提交的字段
+
+                            //提交 Ajax 成功后，静态更新表格中的数据
+                            //$.ajax({});
+                            $.ajax({
+                                url: '/api/demo'
+                                ,type:'POST'
+                                ,data: data.field
+                                ,success: function(res){
+                                    if(res.code==0){
+                                        table.reload('LAY-content-list');
+                                        //table.reload('LAY-content-list');
+                                        layer.close(index);
+                                    }
+                                }
+                            });
+                        });
+
+                        submit.trigger('click');
+                    }
+                });
+            }
+        };
+
+        $('.layui-btn.layuiadmin-btn-admin').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+</body>
+</html>

@@ -61,7 +61,8 @@ layui.define(["form"], function(exports) {
 		});
 		var tree = this.tree(data, 0, [], 0),
 			template = t.template(tree);
-		o(t.c.elem).html(template).on("click", "td", function() {
+//        o(t.c.elem).html(template).off('click').on("click", "td", function() {     //todo sham offclick
+        o(t.c.elem).html(template).off('click').on("click", "td", function() {
 			var id = o(this).parents("tr").data("id"),
 				pid = o(this).parents("tr").data("pid"),
 				status = o(t.c.elem).find("tr[data-pid=" + id + "]").is(":visible"),
@@ -89,6 +90,7 @@ layui.define(["form"], function(exports) {
 		}).on("click", "td [lay-filter]", function() {
 			var id = o(this).parents("tr").data("id"),
 				filter = o(this).attr("lay-filter");
+//            layui.event.unbind()
 			return layui.event.call(this, MOD_NAME, MOD_NAME + "(" + filter + ")", {
 				elem: o(this),
 				item: t.c.new_data[id],

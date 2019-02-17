@@ -43,6 +43,10 @@ return [
             'title' => '模块',
             'ads' => '/main/lists'
         ],
+        [
+            'title' => '标准模块',
+            'ads' => '/d/list.html'
+        ],
 
     ]
 ];

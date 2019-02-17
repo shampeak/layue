@@ -1,0 +1,114 @@
+{php}
+$xmid = \think\Request::instance()->get('xmid');
+$dt = \think\Request::instance()->get('dt');
+//=======================================================
+//1 充值金额
+$_where = "date_format(dt, '%Y-%m') = $dt and xmId = $xmid";
+$cz = md('paymentuser')->where($_where)->order('dt','desc')->order('puId','desc')->select();
+
+$res['total'] = 0;
+$res['dctotal'] = 0;             //打款充值
+$res['xttotal'] = 0;             //系统对冲
+$res['phtotal'] = 0;             //系统对冲
+//end 1
+//=======================================================
+
+foreach($cz as $key=>$value){
+    $res['total'] += $value['rmb'];
+    if($value['type']==0){
+        $res['dctotal'] += $value['rmb'];
+    }
+    if($value['type']==9) {
+        $res['xttotal'] += $value['rmb'];
+    }
+    if($value['type']==8) {
+        $res['phtotal'] += $value['rmb'];
+    }
+}
+
+
+
+{/php}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layuiAdmin 网站用户 iframe 框</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+</head>
+<body>
+
+
+
+<div class="layui-card">
+    <div class="layui-card-header">设置我的资料</div>
+    <div class="layui-card-body" pad15>
+
+    <table class="layui-table">
+        <tbody>
+        <tr>
+            <td>日期 </td>
+            <td> 客户充值</td>
+            <td> 系统对冲</td>
+            <td> 平衡对冲</td>
+            <td>说明</td>
+        </tr>
+        {foreach $cz as $k=>$v}
+        <tr>
+            <td>{$v['dt']} </td>
+            {if $v['type']==0}
+                <td>{$v['rmb']}</td>
+                <td></td>
+                <td></td>
+            {elseif $v['type']==9}
+                <td></td>
+                <td>{$v['rmb']}</td>
+                <td></td>
+            {elseif $v['type']==8}
+                <td></td>
+                <td></td>
+                <td>{$v['rmb']}</td>
+            {/if}
+            <td>{$v['dis']}</td>
+        </tr>
+        {/foreach}
+        <tr>
+            <td>/</td>
+            <td>
+                <span class="layui-badge layui-bg-blue">{$res['dctotal']}</span>
+            </td>
+            <td>
+                <span class="layui-badge layui-bg-blue">{$res['xttotal']}</span>
+            </td>
+            <td>
+                <span class="layui-badge layui-bg-blue">{$res['phtotal']}</span>
+            </td>
+            <td>
+                <span class="layui-badge layui-bg-blue">{$res['total']}</span>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+</div>
+    </div>
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form'], function(){
+        var $ = layui.$
+                ,form = layui.form
+                ,upload = layui.upload ;
+
+    })
+</script>
+</body>
+</html>

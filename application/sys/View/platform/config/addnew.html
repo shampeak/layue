@@ -66,7 +66,7 @@ $group = getConfig('CONFIG_GROUP_LIST');
     <div class="layui-form-item">
         <label class="layui-form-label">选项值</label>
         <div class="layui-input-block">
-            <textarea name="extra" lay-verify="required" style="width: 400px; height: 150px;" autocomplete="off" class="layui-textarea"></textarea>
+            <textarea name="extra"  style="width: 400px; height: 150px;" autocomplete="off" class="layui-textarea"></textarea>
         </div>
     </div>
 
@@ -91,6 +91,14 @@ $group = getConfig('CONFIG_GROUP_LIST');
             <input name="status" value="1" type="checkbox" lay-verify="required" lay-filter="status" lay-skin="switch" lay-text="发布|隐藏">
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序</label>
+        <div class="layui-input-block">
+            <input type="text" name="sort" value="" lay-verify="required" placeholder="请输入号码" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
 
     <div class="layui-form-item layui-hide">
         <input type="button" lay-submit lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit" value="确认添加">

@@ -1,0 +1,389 @@
+{php}
+$media = getconfig('MEDIA_TYPE');
+{/php}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layuiAdmin 网站用户</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/global.css" media="all">
+    <link rel="stylesheet" href="/static/Sham.css" media="all">
+<style>
+    .layui-table-cell {
+        padding: 0 5px;
+    }
+    .layui-table-view .layui-table td, .layui-table-view .layui-table th {
+        padding: 0;
+    }
+</style>
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <div class="layui-form">
+
+                <div class="layui-form-item layui-form-item-sm text-sm">
+                    <label class="layui-form-label">项目</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="xmflit" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm" id="demo" value="" ts-selected="">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">请选择项目</div>
+                </div>
+
+                <div class="layui-form-item layui-form-item-sm text-sm">
+                    <label class="layui-form-label">账号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="zhflit" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm" id="demo2" value="" ts-selected="">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">请选择账号</div>
+                </div>
+
+                <div class="layui-form-item layui-form-item-sm text-sm">
+                    <label class="layui-form-label">媒体</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="meflit" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm" id="demo4" value="" ts-selected="">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">请选择媒体</div>
+                </div>
+
+                <div class="layui-inline text-sm layui-form-item-sm">
+                    <label class="layui-form-label">日期</label>
+                    <div class="layui-input-block">
+                        <input name="dts" type="text" class="layui-input layui-input-sm" id="test6" placeholder=" - ">
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-item-sm text-sm">
+                    <label class="layui-form-label">报表</label>
+                    <div class="layui-input-inline" style="width:300px">
+                        <select name="reporttemp" lay-verify="required">
+                            <option value="5">聚合：日期 - 项目 - 账户 - 计划</option>
+                            <option value="1">聚合：日期 - 项目</option>
+                            <option value="2">聚合：日期 - 项目 - 账户</option>
+                            <option value="4">聚合：日期 - 项目 - 计划</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label"></label>
+                    <button class="layui-btn layui-btn-sm" lay-submit lay-filter="LAY-user-front-search">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i> 提交
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-card">
+        <div class="layui-card-head">
+        </div>
+
+
+        <div class="layui-card-body">
+            <!--<div class="layui-form">-->
+                <!--<div class="layui-form-item layui-form-item-sm text-sm">-->
+                    <!--<input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="全选" lay-skin="primary">-->
+                    <!--<input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="头条" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>-->
+                    <!--<input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="sogou" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>-->
+                    <!--<input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="广点通" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <table id="LAY-user-manage" lay-filter="LAY-user-manage"></table>
+
+            <!--<script type="text/html" id="toolbarDemo">-->
+                <!--<div class="layui-btn-container">-->
+                    <!--<button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>-->
+                    <!--<button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>-->
+                    <!--<button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>-->
+                <!--</div>-->
+            <!--</script>-->
+
+            <!--<script type="text/html" id="imgTpl">-->
+            <!--<img style="display: inline-block; width: 50%; height: 100%;" src= {{ d.avatar }}>-->
+            <!--</script>-->
+
+            <!--<script type="text/html" id="usexTpl">-->
+                <!--{{#  if(d.sex == 1){ }}-->
+                <!--男-->
+                <!--{{#  } else { }}-->
+                <!--女-->
+                <!--{{#  } }}-->
+            <!--</script>-->
+            <script type="text/html" id="toolbarDemo">
+            </script>
+
+            <script type="text/html" id="toolbarDemo999">
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="全选" lay-skin="primary">
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="展现" lay-skin="primary">
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="点击" lay-skin="primary">
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="点击价格" lay-skin="primary">
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="咨询" lay-skin="primary">
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="转化" lay-skin="primary" >
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="转化率" lay-skin="primary">
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="53" lay-skin="primary">
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="留言" lay-skin="primary"}>
+            </script>
+
+
+            <script type="text/html" id="table-admin-status">
+                <!--layui-btn-primary- layui-btn-normal-->
+                {{#  if(d.lock == 1){ }}
+                <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">锁定</a>
+                {{#  } else { }}
+                <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">锁定</a>
+                {{#  } }}
+                {{#  if(d.hand == 1){ }}
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">手动</a>
+                {{#  } else { }}
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">手动</a>
+                {{#  } }}
+
+
+
+
+            </script>
+
+        </div>
+    </div>
+</div>
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'laydate','table','tableSelect'], function(){
+        var $ = layui.$
+                ,form = layui.form
+                ,admin = layui.admin
+                ,table = layui.table;
+        var tableSelect = layui.tableSelect;
+        var laydate = layui.laydate;
+
+        //日期范围
+        laydate.render({
+            elem: '#test6'
+
+            ,range: '~'
+        });
+
+
+
+
+        table.render({
+            elem: '#LAY-user-manage'
+//            ,url: '/api/sem.report/dlist' //模拟接口
+            ,url: '/api/sem.report/mydlist' //模拟接口
+
+            ,toolbar: '#toolbarDemo'
+            ,title: '用户数据表'
+            ,totalRow: true           //开启count
+            ,cols: [[
+                //{type: 'checkbox', fixed: 'left'}
+                {field: 'dt',   title: '日期',minWidth:80,fixed: 'left',style:'background-color: #2F4056;color:#fff' }
+                ,{field: 'xmtitle', title: '项目',minWidth:120,    fixed: 'left',style:'background-color: #2F4056;color:#fff' }
+                ,{field: 'zhtitle', title: '账户',minWidth:120,  fixed: 'left',style:'background-color: #2F4056;color:#fff' }
+                ,{field: 'cName', title: '计划',minWidth:120 , fixed: 'left',style:'background-color: #2F4056;color:#fff' }
+                ,{field: 'sumcost', title: 'COST', totalRow: true,style:'background-color: #eee;' }
+                ,{field: 'fd', title: 'FD' }
+                ,{field: 'sumimpression', title: '展现', totalRow: true}
+                ,{field: 'sumclick', title: '点击', totalRow: true}
+                ,{field: 'cpc', title: '点击价格'}
+                ,{field: 'sumrmb', title: 'RMB',  totalRow: true,style:'background-color: #eee;' }
+                ,{field: 'sumzixun', title: '咨询', totalRow: true}
+                ,{field: 'sumzhuanhua', title: '转化', totalRow: true}
+                ,{field: 'zhuanhualv', title: '转化率'}
+                ,{field: 'sumkf', title: '53', totalRow: true}
+                ,{field: 'sumliuyan', title: '留言', totalRow: true}
+                ,{field: 'sumzongshu', title: '总数', totalRow: true}
+                ,{field: 'xingjiabi', title: '性价比'}
+            ]]
+            ,page: true
+            ,limit: 20
+            ,height: 'full-40'
+//        ,height: '500'
+
+            ,text: '对不起，加载出现异常！',
+            done: function (res, curr, count) {
+                //结果集合修正
+                //根据check 判断隐藏哪些
+                //隐藏部分数据
+                var hiddenar = res.hidden;
+                console.log(hiddenar);
+
+                for(iii in hiddenar) {
+                    $("[data-field="+hiddenar[iii]+"]").hide();
+                }
+
+
+
+            }
+        });
+
+
+        /*
+         选择项目
+         */
+        tableSelect.render({
+            elem: '#demo',
+            searchKey: 'selkey',
+            checkedKey: 'xmId',
+            searchPlaceholder: '自定义文字和name',
+            table: {
+                url: '/api/sem.xmtree/xmsel',
+                cols: [[
+                    { type: 'checkbox' },
+                    { field: 'xmId', title: 'ID', width: 100 },
+                    { field: 'title', title: '姓名', width: 300 },
+                    { field: 'enablechr', title: '状态', width: 100 }
+                ]]
+                ,page: true
+                ,limit: 8
+            },
+            done: function (elem, data) {
+                var NEWJSON = []
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.xmId)
+                })
+                elem.val(NEWJSON.join(","))
+            }
+        });
+
+        /*
+         选择账号
+         */
+        tableSelect.render({
+            elem: '#demo2',
+            searchKey: 'selkey',
+            checkedKey: 'id',
+            searchPlaceholder: '自定义文字和name',
+            table: {
+                url: '/api/sem.xmtree/zhsel',
+                cols: [[
+                    { type: 'checkbox' },
+                    { field: 'id', title: 'ID', width: 100 },
+                    { field: 'uname', title: '姓名', width: 300 },
+                    { field: 'enablechr', title: '状态', width: 100 }
+                ]]
+                ,page: true
+                ,limit: 8
+            },
+            done: function (elem, data) {
+                var NEWJSON = []
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.uname)
+                })
+                elem.val(NEWJSON.join(","))
+            }
+        });
+
+//        /*
+//         选择用户
+//         */
+//        tableSelect.render({
+//            elem: '#demo3',
+//            searchKey: 'selkey',
+//            checkedKey: 'uId',
+//            searchPlaceholder: '自定义文字和name',
+//            table: {
+//                url: '/api/sem.xmtree/ussel',
+//                cols: [[
+//                    { type: 'checkbox' },
+//                    { field: 'uId', title: 'ID', width: 100 },
+//                    { field: 'name', title: '账号', width: 300 },
+//                    { field: 'trueName', title: '姓名' },
+//                    { field: 'enablechr', title: '状态', width: 100 }
+//                ]]
+//            },
+//            done: function (elem, data) {
+//                var NEWJSON = []
+//                layui.each(data.data, function (index, item) {
+//                    NEWJSON.push(item.name)
+//                })
+//                elem.val(NEWJSON.join(","))
+//            }
+//        });
+
+        /*
+         选择用户
+         */
+        tableSelect.render({
+            elem: '#demo4',
+            searchKey: 'selkey',
+            checkedKey: 'mid',
+            searchPlaceholder: '自定义文字和name',
+            table: {
+                url: '/api/sem.xmtree/mesel',
+                cols: [[
+                    { type: 'checkbox' },
+                    { field: 'mid', title: 'ID', width: 100 },
+                    { field: 'chr', title: 'ID', width: 100 },
+                    { field: 'title', title: '姓名' },
+                ]]
+            },
+            done: function (elem, data) {
+                var NEWJSON = []
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.chr)
+                })
+                elem.val(NEWJSON.join(","))
+            }
+        });
+
+
+
+
+//        /*
+//         选择媒体
+//         */
+//        tableSelect.render({
+//            elem: '#demo4',
+//            searchKey: 'selkey',
+//            checkedKey: 'mediaid',
+//            searchPlaceholder: '自定义文字和name',
+//            table: {
+//                url: '/api/sem.xmtree/mesel',
+//                cols: [[
+//                    { type: 'checkbox' },
+//                    { field: 'mediaid', title: 'ID', width: 100 },
+//                    { field: 'chr', title: '标识', width: 200 },
+//                    { field: 'title', title: '名称' }
+//                ]]
+//            },
+//            done: function (elem, data) {
+//                var NEWJSON = []
+//                layui.each(data.data, function (index, item) {
+//                    NEWJSON.push(item.chr)
+//                })
+//                elem.val(NEWJSON.join(","))
+//            }
+//        });
+
+        //监听搜索
+        form.on('submit(LAY-user-front-search)', function(data){
+            var field = data.field;
+            //执行重载
+            table.reload('LAY-user-manage', {
+                where: field
+            });
+        });
+
+        $('.layui-btn.layuiadmin-btn-useradmin').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+</body>
+</html>

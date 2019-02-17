@@ -1,0 +1,172 @@
+{php}
+
+
+//=============================================
+//子项目所属的项目信息，在项目界面显示项目名
+$xmid = $row['xmId'];
+$xm = md('semxm')->find($xmid);
+//=============================================
+
+//=============================================
+//子项目下面的计划
+$camlist = md('semcam')->where('xmId',0)->whereOr('zxmId',$row['zxmId'])->select();
+//=============================================
+
+
+
+
+//=============================================
+//选择用户界面显示
+$uid = $row['uId'];
+$urow = md('user')->find($uid);
+$uname = $urow['trueName'];
+//=============================================
+
+
+
+{/php}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layuiAdmin 角色管理 iframe 框</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/static/Sham.css" media="all">
+</head>
+<body>
+
+<div class="layui-form text-sm" lay-filter="layuiadmin-form-role" id="layuiadmin-form-edit2" style="padding: 20px 30px 0 0;">
+    <form id="layuiadmin-form-edit">
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">项目名</label>
+            <div class="layui-input-block">
+                <input type="hidden" name="xmId" value="{$xm['xmId']}">
+                <input type="text" disabled value="{$xm['title']}" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">子项目名</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" value="{$row['title']}" lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item" lay-filter="sex">
+            <label class="layui-form-label">类型</label>
+            <div class="layui-input-block">
+                <input type="radio" name="xx" value="0" title="搜索" {if $row['xx']==0}checked{/if}>
+                <input type="radio" name="xx" value="1" title="信息流" {if $row['xx']==1}checked{/if}>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-item-sm">
+            <label class="layui-form-label">选择管理员</label>
+            <div class="layui-input-inline">
+                <input type="text" name="uname" value="{$uname}"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm" id="demo" ts-selected="{$row['uId']}">
+            </div>
+            <!--<div class="layui-form-mid layui-word-aux">本地演示数据，分页选中和其他页一样，这不是BUG</div>-->
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">计划</label>
+            <div class="layui-input-block">
+                <div class="layui-row">
+                    {foreach $camlist as $key=>$value}
+                    <div class="layui-col-sm4">
+                        <div class="grid-demo grid-demo-bg1">
+                            {if $value['enable'] ==1}
+                            <input type="checkbox" {if $value['zxmId']==$row['zxmId']}checked{/if} name="cam[]" value="{$value['cId']}" lay-skin="primary" title="<div>{$value['cName']}</div>">
+                            {else}
+                            <input type="checkbox" {if $value['zxmId']==$row['zxmId']}checked{/if} name="cam[]" value="{$value['cId']}" lay-skin="primary" title="<div class=text-gray>{$value['cName']}</div>">
+                            {/if}
+                        </div>
+                    </div>
+                    {/foreach}
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">详细</label>
+            <div class="layui-input-block">
+                <textarea placeholder="" name="dis"  autocomplete="off" class="layui-textarea layui-textarea-sm">{$row['dis']}</textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <input type="text" name="sort" value="{$row['sort']}" placeholder="排序" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item" lay-filter="sex">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <input type="radio" name="enable" value="1" title="有效" {if $row['enable']==1}checked{/if}>
+                <input type="radio" name="enable" value="0" title="无效" {if $row['enable']==0}checked{/if}>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-hide">
+            <input type="hidden" name="xmId" value="{$row['xmId']}">
+            <input type="hidden" name="zxmId" value="{$row['zxmId']}">
+
+            <input type="button" lay-submit lay-filter="LAY-edit-front-submit" id="LAY-edit-front-submit" value="确认">
+        </div>
+    </form>
+</div>
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index','tableSelect', 'form'], function(){
+        var $ = layui.$
+                ,form = layui.form ;
+        var tableSelect = layui.tableSelect;
+
+
+        tableSelect.render({
+            elem: '#demo',
+            searchKey: 'addnewzxmkey',
+            checkedKey: 'uId',
+            searchPlaceholder: '自定义文字和name',
+            table: {
+                url: '/api/sem.xmtree/manageuser',
+                cols: [[
+                    { type: 'radio' },
+                    { field: 'uId', title: 'ID', width: 80 },
+                    { field: 'title', title: '项目名'},
+                    { field: 'groupname', title: '用户组', width: 120 },
+                    { field: 'enablechr', title: '有效', width: 80 }
+                ]]
+                ,page: true
+                ,limit: 6
+            },
+            done: function (elem, data) {
+                var NEWJSON = []
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.title)
+                })
+                elem.val(NEWJSON.join(","))
+            }
+        });
+
+    })
+</script>
+</body>
+</html>

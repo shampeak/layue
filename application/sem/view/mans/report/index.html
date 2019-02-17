@@ -1,4 +1,6 @@
-
+{php}
+$media = getconfig('MEDIA_TYPE');
+{/php}
 
 <!DOCTYPE html>
 <html>
@@ -12,15 +14,16 @@
     <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
     <link rel="stylesheet" href="../../../layuiadmin/style/global.css" media="all">
     <link rel="stylesheet" href="/static/Sham.css" media="all">
+<style>
+    .layui-table-cell {
+        padding: 0 5px;
+    }
+    .layui-table-view .layui-table td, .layui-table-view .layui-table th {
+        padding: 0;
+    }
+</style>
 </head>
 <body>
-
-
-
-
-
-
-
 
 <div class="layui-fluid">
     <div class="layui-card">
@@ -30,7 +33,7 @@
                 <div class="layui-form-item layui-form-item-sm text-sm">
                     <label class="layui-form-label">项目</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="xmflit" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm" id="demo" value="刘晓军,张恒" ts-selected="002,003">
+                        <input type="text" name="xmflit" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm" id="demo" value="" ts-selected="">
                     </div>
                     <div class="layui-form-mid layui-word-aux">请选择项目</div>
                 </div>
@@ -38,7 +41,7 @@
                 <div class="layui-form-item layui-form-item-sm text-sm">
                     <label class="layui-form-label">账号</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="xmflit" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm" id="demo2" value="刘晓军,张恒" ts-selected="002,003">
+                        <input type="text" name="zhflit" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm" id="demo2" value="" ts-selected="">
                     </div>
                     <div class="layui-form-mid layui-word-aux">请选择账号</div>
                 </div>
@@ -46,12 +49,20 @@
                 <div class="layui-form-item layui-form-item-sm text-sm">
                     <label class="layui-form-label">用户</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="xmflit" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm" id="demo3" value="刘晓军,张恒" ts-selected="002,003">
+                        <input type="text" name="usflit" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm" id="demo3" value="" ts-selected="">
                     </div>
                     <div class="layui-form-mid layui-word-aux">请选择用户</div>
                 </div>
 
-                <div class="layui-inline text-sm">
+                <div class="layui-form-item layui-form-item-sm text-sm">
+                    <label class="layui-form-label">媒体</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="meflit" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm" id="demo4" value="" ts-selected="">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">请选择媒体</div>
+                </div>
+
+                <div class="layui-inline text-sm layui-form-item-sm">
                     <label class="layui-form-label">日期</label>
                     <div class="layui-input-block">
                         <input name="dts" type="text" class="layui-input layui-input-sm" id="test6" placeholder=" - ">
@@ -59,32 +70,23 @@
                 </div>
 
                 <div class="layui-form-item layui-form-item-sm text-sm">
-
-                    <label class="layui-form-label">媒体</label>
-                    <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="百度" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>
-                    <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="头条" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>
-                    <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="sogou" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>
-                    <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="广点通" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>
-                </div>
-
-                <div class="layui-inline layui-form-item-sm text-sm">
                     <label class="layui-form-label">报表</label>
                     <div class="layui-input-inline" style="width:300px">
-                        <select name="modules" lay-verify="required">
+                        <select name="reporttemp" lay-verify="required">
                             <option value="1">聚合：日期 - 项目</option>
-                            <option value="1">聚合：日期 - 项目 - 账户</option>
-                            <option value="1">聚合：日期 - 项目 - 人员</option>
-                            <option value="1">聚合：日期 - 项目 - 计划</option>
-                            <option value="1">聚合：日期 - 项目 - 账户 - 计划</option>
-                            <option value="1">聚合：日期 - 项目 - 人员 - 计划</option>
-                            <option value="1">聚合：日期 - 人员 - 项目 - 账户 - 计划</option>
+                            <option value="2">聚合：日期 - 项目 - 账户</option>
+                            <option value="3">聚合：日期 - 项目 - 人员</option>
+                            <option value="4">聚合：日期 - 项目 - 计划</option>
+                            <option value="5">聚合：日期 - 项目 - 账户 - 计划</option>
+                            <option value="6">聚合：日期 - 项目 - 人员 - 计划</option>
+                            <option value="7">聚合：日期 - 人员 - 项目 - 账户 - 计划</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="layui-inline">
                     <label class="layui-form-label"></label>
-                    <button class="layui-btn layui-btn-sm layuiadmin-btn-useradmin" lay-submit lay-filter="LAY-user-front-search">
+                    <button class="layui-btn layui-btn-sm" lay-submit lay-filter="LAY-user-front-search">
                         <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i> 提交
                     </button>
 
@@ -128,24 +130,40 @@
                 <!--女-->
                 <!--{{#  } }}-->
             <!--</script>-->
-
             <script type="text/html" id="toolbarDemo">
+            </script>
+
+            <script type="text/html" id="toolbarDemo999">
                 <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="全选" lay-skin="primary">
-                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="展现" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>
-                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="点击" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>
-                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="点击价格" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>
-                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="咨询" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>
-                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="转化" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>
-                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="转化率" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>
-                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="53" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>
-                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="留言" lay-skin="primary" {if $Think.get.hidden==1}checked{/if}>
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="展现" lay-skin="primary">
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="点击" lay-skin="primary">
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="点击价格" lay-skin="primary">
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="咨询" lay-skin="primary">
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="转化" lay-skin="primary" >
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="转化率" lay-skin="primary">
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="53" lay-skin="primary">
+                <input type="checkbox" value="1" class="layui-input-sm" name="hidden" title="留言" lay-skin="primary"}>
             </script>
 
 
-            <!--<script type="text/html" id="table-useradmin-webuser">-->
-                <!--<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>-->
-                <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>-->
-            <!--</script>-->
+            <script type="text/html" id="table-admin-status">
+                <!--layui-btn-primary- layui-btn-normal-->
+                {{#  if(d.lock == 1){ }}
+                <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">锁定</a>
+                {{#  } else { }}
+                <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">锁定</a>
+                {{#  } }}
+                {{#  if(d.hand == 1){ }}
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">手动</a>
+                {{#  } else { }}
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">手动</a>
+                {{#  } }}
+
+
+
+
+            </script>
+
         </div>
     </div>
 </div>
@@ -167,7 +185,8 @@
         //日期范围
         laydate.render({
             elem: '#test6'
-            ,range: true
+
+            ,range: '~'
         });
 
         /*
@@ -175,22 +194,24 @@
          */
         tableSelect.render({
             elem: '#demo',
-            searchKey: 'my',
-            checkedKey: 'id',
+            searchKey: 'selkey',
+            checkedKey: 'xmId',
             searchPlaceholder: '自定义文字和name',
             table: {
-                url: 'table.json',
+                url: '/api/sem.xmtree/xmsel',
                 cols: [[
                     { type: 'checkbox' },
-                    { field: 'id', title: 'ID', width: 100 },
-                    { field: 'username', title: '姓名', width: 300 },
-                    { field: 'sex', title: '性别', width: 100 }
+                    { field: 'xmId', title: 'ID', width: 100 },
+                    { field: 'title', title: '姓名', width: 300 },
+                    { field: 'enablechr', title: '状态', width: 100 }
                 ]]
+                ,page: true
+                ,limit: 8
             },
             done: function (elem, data) {
                 var NEWJSON = []
                 layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.username)
+                    NEWJSON.push(item.xmId)
                 })
                 elem.val(NEWJSON.join(","))
             }
@@ -201,22 +222,24 @@
          */
         tableSelect.render({
             elem: '#demo2',
-            searchKey: 'my',
+            searchKey: 'selkey',
             checkedKey: 'id',
             searchPlaceholder: '自定义文字和name',
             table: {
-                url: 'table.json',
+                url: '/api/sem.xmtree/zhsel',
                 cols: [[
                     { type: 'checkbox' },
                     { field: 'id', title: 'ID', width: 100 },
-                    { field: 'username', title: '姓名', width: 300 },
-                    { field: 'sex', title: '性别', width: 100 }
+                    { field: 'uname', title: '姓名', width: 300 },
+                    { field: 'enablechr', title: '状态', width: 100 }
                 ]]
+                ,page: true
+                ,limit: 8
             },
             done: function (elem, data) {
                 var NEWJSON = []
                 layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.username)
+                    NEWJSON.push(item.uname)
                 })
                 elem.val(NEWJSON.join(","))
             }
@@ -227,32 +250,86 @@
          */
         tableSelect.render({
             elem: '#demo3',
-            searchKey: 'my',
-            checkedKey: 'id',
+            searchKey: 'selkey',
+            checkedKey: 'uId',
             searchPlaceholder: '自定义文字和name',
             table: {
-                url: 'table.json',
+                url: '/api/sem.xmtree/ussel',
                 cols: [[
                     { type: 'checkbox' },
-                    { field: 'id', title: 'ID', width: 100 },
-                    { field: 'username', title: '姓名', width: 300 },
-                    { field: 'sex', title: '性别', width: 100 }
+                    { field: 'uId', title: 'ID', width: 100 },
+                    { field: 'name', title: '账号', width: 300 },
+                    { field: 'trueName', title: '姓名' },
+                    { field: 'enablechr', title: '状态', width: 100 }
                 ]]
             },
             done: function (elem, data) {
                 var NEWJSON = []
                 layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.username)
+                    NEWJSON.push(item.name)
+                })
+                elem.val(NEWJSON.join(","))
+            }
+        });
+
+        /*
+         选择用户
+         */
+        tableSelect.render({
+            elem: '#demo4',
+            searchKey: 'selkey',
+            checkedKey: 'mid',
+            searchPlaceholder: '自定义文字和name',
+            table: {
+                url: '/api/sem.xmtree/mesel',
+                cols: [[
+                    { type: 'checkbox' },
+                    { field: 'mid', title: 'ID', width: 100 },
+                    { field: 'chr', title: 'ID', width: 100 },
+                    { field: 'title', title: '姓名' },
+                ]]
+            },
+            done: function (elem, data) {
+                var NEWJSON = []
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.chr)
                 })
                 elem.val(NEWJSON.join(","))
             }
         });
 
 
+
+
+//        /*
+//         选择媒体
+//         */
+//        tableSelect.render({
+//            elem: '#demo4',
+//            searchKey: 'selkey',
+//            checkedKey: 'mediaid',
+//            searchPlaceholder: '自定义文字和name',
+//            table: {
+//                url: '/api/sem.xmtree/mesel',
+//                cols: [[
+//                    { type: 'checkbox' },
+//                    { field: 'mediaid', title: 'ID', width: 100 },
+//                    { field: 'chr', title: '标识', width: 200 },
+//                    { field: 'title', title: '名称' }
+//                ]]
+//            },
+//            done: function (elem, data) {
+//                var NEWJSON = []
+//                layui.each(data.data, function (index, item) {
+//                    NEWJSON.push(item.chr)
+//                })
+//                elem.val(NEWJSON.join(","))
+//            }
+//        });
+
         //监听搜索
         form.on('submit(LAY-user-front-search)', function(data){
             var field = data.field;
-
             //执行重载
             table.reload('LAY-user-manage', {
                 where: field

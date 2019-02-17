@@ -21,5 +21,7 @@ class Semxm extends Base
         return $this->hasMany('Semzxm','xmId');
     }
 
+
+
 }
 

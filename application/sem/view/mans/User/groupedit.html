@@ -1,0 +1,81 @@
+{php}
+
+$md = \think\Config::get('semgroup');
+
+$id =  \think\Request::instance()->get('id');
+$where = "islead =0 and (pId = $id or pId = 0) and groupId in ($md)";
+
+$list = md('user')->where($where)->select();
+{/php}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layuiAdmin 网站用户 iframe 框</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+</head>
+<body>
+
+<div class="layui-form" lay-filter="LAY-user-front-submit" id="LAY-user-front-submit" style="padding: 20px 0 0 0;">
+    <form id="layuiadmin-form-useredit" action="" method="post">
+        <div class="layui-card">
+            <div class="layui-card-body">
+
+            <table class="layui-table">
+            <colgroup>
+                <col width="100">
+                <col>
+                <col>
+                <col width="80">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>登陆名</th>
+                <th>选择</th>
+                <th>选择</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $list as $key=>$value}
+            <tr>
+                <td>{$value['uId']}</td>
+                <td>{$value['name']}</td>
+                <td>{$value['trueName']}</td>
+                <td>
+                    <input name="groupuserId[]" type="checkbox" value="{$value['uId']}" class="layui-input-sm" lay-skin="primary" {if $value['pId']==$id}checked=""{/if}  >
+                </td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+        </div>
+        </div>
+
+        <div class="layui-form-item layui-hide">
+            <input type="text" name="pId" value="{$id}">
+            <input type="button" lay-submit lay-filter="LAY-edit-front-submit" id="LAY-edit-front-submit" value="确认">
+        </div>
+
+    </form>
+</div>
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'upload'], function(){
+        var $ = layui.$
+                ,form = layui.form
+                ,upload = layui.upload ;
+    })
+</script>
+</body>
+</html>

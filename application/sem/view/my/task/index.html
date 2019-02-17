@@ -1,4 +1,15 @@
+{php}
+//所有我的任务
+$myid = ac('my')->getUserId();
 
+$sql = "select * from sem_xm where xmId in (select xmId from sem_zxm where uId = 108 group by xmId) and enable = 1 order by sort desc";
+$xmlist = \think\Db::query($sql);
+
+
+
+
+
+{/php}
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,13 +26,19 @@
 <body>
 <style>
 
+    .layui-table-cell {
+        padding: 0 10px;
+    }
+    .layui-table-view .layui-table td, .layui-table-view .layui-table th {
+        padding: 5;
+    }
 
-    .layui-table-cell{
-        padding:0px;
-    }
-    .shamtd{
-        border:1px #ff000 solid
-    }
+    /*.layui-table-cell{*/
+        /*padding:0px;*/
+    /*}*/
+    /*.shamtd{*/
+        /*border:1px #ff000 solid*/
+    /*}*/
 </style>
 
 
@@ -33,19 +50,14 @@
                 <div class="layui-inline layui-form-item-sm text-sm">
                     <label class="layui-form-label">项目</label>
                     <div class="layui-input-inline">
-                        <select name="modules" lay-verify="required">
-                            <option value="1">聚合：日期 - 项目</option>
-                            <option value="1">聚合：日期 - 项目 - 账户</option>
-                            <option value="1">聚合：日期 - 项目 - 人员</option>
-                            <option value="1">聚合：日期 - 项目 - 计划</option>
-                            <option value="1">聚合：日期 - 项目 - 账户 - 计划</option>
-                            <option value="1">聚合：日期 - 项目 - 人员 - 计划</option>
-                            <option value="1">聚合：日期 - 人员 - 项目 - 账户 - 计划</option>
+                        <select name="mid">
+                            <option value="">请选择</option>
+                            {foreach $xmlist as $key=>$value}
+                            <option value="{$value['xmId']}">{$value['title']}</option>
+                            {/foreach}
                         </select>
                     </div>
                 </div>
-
-
 
                 <div class="layui-inline text-sm">
                     <label class="layui-form-label">日期</label>
@@ -54,15 +66,13 @@
                     </div>
                 </div>
 
-
-
                 <div class="layui-inline">
                     <label class="layui-form-label"></label>
-                    <button class="layui-btn layui-btn-sm layuiadmin-btn-useradmin" lay-submit lay-filter="LAY-user-front-search">
+                    <button class="layui-btn layui-btn-sm layuiadmin-btn-useradmin_" lay-submit lay-filter="LAY-user-front-search" >
                         <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i> 提交
                     </button>
-
                 </div>
+
             </div>
         </div>
     </div>
@@ -96,8 +106,8 @@
     layui.config({
         base: '../../../layuiadmin/' //静态资源所在路径
     }).extend({
-        index: 'lib/index' //主入口模块
-    }).use(['index', 'laydate','table','tableSelect', 'semmytask'], function(){
+        index: 'lib/index' //主入口模块 , 'semmytask'
+    }).use(['index', 'laydate','table','tableSelect'], function(){
         var $ = layui.$
                 ,form = layui.form
                 ,admin = layui.admin
@@ -111,39 +121,141 @@
             elem: '#test1'
         });
 
-        /*
-         选择项目
-         */
-        tableSelect.render({
-            elem: '#demo',
-            searchKey: 'my',
-            checkedKey: 'id',
-            searchPlaceholder: '自定义文字和name',
-            table: {
-                url: 'table.json',
-                cols: [[
-                    { type: 'checkbox' },
-                    { field: 'id', title: 'ID', width: 100 },
-                    { field: 'username', title: '姓名', width: 300 },
-                    { field: 'sex', title: '性别', width: 100 }
-                ]]
-            },
-            done: function (elem, data) {
-                var NEWJSON = []
-                layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.username)
-                })
-                elem.val(NEWJSON.join(","))
+
+        var colsar = [[
+            //{type: 'checkbox', fixed: 'left'}
+            {field: 'ids', width:80, title: 'ID', fixed: 'left'}
+            ,{field: 'dt', title: '日期',width: 90, fixed: 'left'}
+            ,{field: '_mediatype', title: '媒体', width: 60}
+            ,{field: '_zId', title: '账号', minWidth: 100}
+            ,{field: '_xmId', title: '项目', minWidth: 100}
+            ,{field: '_zxmId', title: '子项目', minWidth: 100}
+            ,{field: 'rmb', title: '金额'}
+            ,{field: 'hand', title: '手动', width: 50,templet: function(d){
+                if( d.hand == 1 ) {
+                    return '<div>手动</div>';
+                }else{
+                    return '<div></div>';
+                }
+            }}
+            ,{field: 'cName', title: '计划',minWidth: 150,fixed: 'right',style:'background-color: #2F4056; color: #fff;'}
+            ,{field: 'fd', title: '返点', width: 60,fixed: 'right', edit:'text',style:'background-color: #2F4056; color: #fff;'}
+            ,{field: 'cost', width: 100, title: '消费', edit:'text',style:'background-color: #FF5722; color: #fff;',templet: function(d){
+                if(d.hand==0){
+                    return '<div class="bg-yellow">'+ d.cost +'</div>';
+                }
+                if( d.cost == 0 ){
+                    return '<div>'+ d.cost +'</div>';
+                }else{
+                    return '<div class="bg-gray">'+ d.cost +'</div>';
+                }
+
+            },fixed: 'right',totalRow: true }
+
+            ,{field: 'impression', width: 100, title: '展现', edit:'text',style:'background-color: #FF5722; color: #fff;',templet: function(d){
+                if(d.hand==0){
+                    return '<div class="bg-yellow">'+ d.impression +'</div>';
+                }
+                if( d.impression == 0 ){
+                    return '<div>'+ d.impression +'</div>';
+                }else{
+                    return '<div class="bg-gray">'+ d.impression +'</div>';
+                }
+            },fixed: 'right',totalRow: true}
+
+            ,{field: 'click', width: 100, title: '点击', edit:'text',style:'background-color: #FF5722; color: #fff;',templet: function(d){
+                if(d.hand==0){
+                    return '<div class="bg-yellow">'+ d.click +'</div>';
+                }
+                if( d.click == 0 ){
+                    return '<div>'+ d.click +'</div>';
+                }else{
+                    return '<div class="bg-gray">'+ d.click +'</div>';
+                }
+            },fixed: 'right',totalRow: true}
+
+            ,{field: 'zixun', width: 80, title: '咨询', edit:'text',style:'background-color: #5FB878; color: #fff;',templet: function(d){
+                if( d.zixun != 0 ){
+                    return '<div class="bg-gray">'+ d.zixun +'</div>';
+                }else{
+                    return '<div>'+ d.zixun +'</div>';
+                }
+            },fixed: 'right',totalRow: true}
+
+            ,{field: 'zhuanhua', width: 80, title: '转化', edit:'text',style:'background-color: #5FB878; color: #fff;',templet: function(d){
+                if( d.zhuanhua != 0 ){
+                    return '<div class="bg-gray">'+ d.zhuanhua +'</div>';
+                }else{
+                    return '<div>'+ d.zhuanhua +'</div>';
+                }
+            },fixed: 'right',totalRow: true}
+
+            ,{field: 'liuyan', width: 80, title: '留言', edit:'text',style:'background-color: #5FB878; color: #fff;',templet: function(d){
+                if( d.liuyan != 0 ){
+                    return '<div class="bg-gray">'+ d.liuyan +'</div>';
+                }else{
+                    return '<div>'+ d.liuyan +'</div>';
+                }
+            },fixed: 'right',totalRow: true}
+        ]]
+
+        //用户管理
+        table.render({
+            elem: '#LAY-user-manage'
+            ,url: '/sem/json.my/tasklist' //模拟接口
+            ,title: '用户数据表'
+            ,totalRow: true           //开启count
+            ,cols:colsar
+            //,page: true
+            ,limit: 200
+            //,height: 'full-40'
+            ,text: '对不起，加载出现异常！',
+            done: function (res, curr, count) {
             }
         });
 
+
+        table.on('edit(LAY-user-manage)', function(obj){ //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var dat = obj.data;
+            //1:不操作拦截
+            if(dat.hand==0 && (obj.field == 'cost' || obj.field == 'impression' || obj.field == 'click')){
+                layer.msg('不允许进行修改，数值原数据');
+                obj.update({            //更改返点和金额
+                    cost: dat.cost_y,
+                    impression: dat.impression_y,
+                    click: dat.click_y,
+                }); //数据更新
+                return false;
+            }
+
+//            console.log(obj.value); //得到修改后的值
+//            console.log(obj.field); //当前编辑的字段名
+//            console.log(obj.data); //所在行的所有相关数据
+            var id = obj.data.ids;
+
+            $.ajax({
+                url: '/sem/json.my/updatedate'
+                ,type:'GET'
+                ,data: 'id='+ id + '&field=' + obj.field + '&value=' + obj.value
+                ,success: function(res){
+                    if(res.code==0){        //修改成功
+                        obj.update(res.data); //数据更新
+
+                    }
+                }
+            });
+
+
+
+
+
+        });
 
 
 
         //监听搜索
         form.on('submit(LAY-user-front-search)', function(data){
             var field = data.field;
-
             //执行重载
             table.reload('LAY-user-manage', {
                 where: field

@@ -18,6 +18,7 @@ class Task extends \app\sys\controller\Base{
 
     public function index(request $request)
     {
+        $myid = ac('my')->getUserId();
 
         return view('',[]);
     }

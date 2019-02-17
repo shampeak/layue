@@ -11,8 +11,8 @@ class Semcam extends Base
 {
 
     //fdsal 无效
-    protected $pk = 'cId';
     protected $table = 'sem_cam';
+    protected $pk = 'id';
 
     /*
      * 子项目有所属的人员和信息流属性， 【计划中没有】

@@ -12,6 +12,7 @@ $map = md('group')->getMap();
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="/static/Sham.css" media="all">
 </head>
 <body>
 
@@ -59,13 +60,22 @@ $map = md('group')->getMap();
             <!--</script>-->
 
 
-            <script type="text/html" id="usexTpl">
-                {{#  if(d.sex == 1){ }}
-                        男
+            <script type="text/html" id="groupTpl">
+                {{#  if(d.islead == 1){ }}
+                <span class="text-red">主管</span>
                 {{#  } else { }}
-                       女
+                成员
                 {{#  } }}
             </script>
+
+            <script type="text/html" id="usexTpl">
+                {{#  if(d.sex == 1){ }}
+                男
+                {{#  } else { }}
+                女
+                {{#  } }}
+            </script>
+
             <script type="text/html" id="table-useradmin-webuser">
                 <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
                 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>

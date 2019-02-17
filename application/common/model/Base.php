@@ -14,6 +14,7 @@ class Base extends \think\Model
 
     public static $base_url;
 
+
     /**
      * 模型基类初始化
      */

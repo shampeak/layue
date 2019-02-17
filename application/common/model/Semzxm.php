@@ -25,6 +25,12 @@ class Semzxm extends Base
         return $this->hasMany('Semcam','zxmId');
     }
 
+    //一对多子项目
+    public function xm()
+    {
+        return $this->hasOne('Semxm','xmId','xmId');
+    }
+
     public function user()
     {
         return $this->hasOne('user','uId','uId');

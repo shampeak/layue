@@ -1,0 +1,115 @@
+{php}
+{/php}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="/static/Sham.css" media="all">
+    <style type="text/css">
+        /*body{padding: 10px 30px;}*/
+        /*.hide{display:none}*/
+    </style>
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-card">
+
+
+
+        <div class="layui-card-body">
+
+
+            <table id="LAY-content-list" lay-filter="LAY-content-list"></table>
+
+            <script type="text/html" id="table-admin-manage">
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>组成员</a>
+            </script>
+
+        </div>
+    </div>
+</div>
+
+<script src="/layuiadmin/layui/layui.js"></script>
+<script type="text/javascript">
+
+    layui.config({
+        base: '/layuiadmin/modules/',
+    }).use(['laydate','table'], function(){
+
+        var $ = layui.$
+                ,form = layui.form
+                ,admin = layui.admin
+                ,table = layui.table;
+        var form = layui.form,layer = layui.layer;
+
+        //角色管理
+        table.render({
+            elem: '#LAY-content-list'
+            ,url: '/sem/json.user/leadlist' //模拟接口
+            ,cols: [[
+                {field: 'uId', width: 80, title: 'uId', sort: true}
+                ,{field: 'name', title: '名称'}
+                ,{title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-admin-manage'}
+            ]]
+            ,page: true
+            ,limit: 10
+            //,height: 'full-220'
+            ,text: '对不起，加载出现异常！'
+        });
+
+        table.on('tool(LAY-content-list)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'del'){
+            }else if(obj.event === 'edit'){
+                var tr = $(obj.tr);
+                var data = obj.data;
+
+                layer.open({
+                    type: 2
+                    ,title: '编辑角色'
+                    ,content: '/sem/mans.user/groupedit?id='+data.uId
+                    ,area: ['500px', '450px']
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index, layero){
+
+                        var iframeWindow = window['layui-layer-iframe'+ index]
+                                ,submitID = 'LAY-edit-front-submit'
+                                ,submit = layero.find('iframe').contents().find('#'+ submitID);
+
+                        //监听提交
+                        iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
+                            var field = data.field; //获取提交的字段
+                            $.ajax({
+                                url: '/sem/json.user/grouplead'
+                                ,type:'POST'
+                                ,data: field
+                                ,success: function(res){
+                                    if(res.code==0){
+                                        layer.msg('编辑');
+                                        table.reload('LAY-content-list'); //数据刷新
+                                        layer.close(index); //关闭弹层
+                                    }
+                                }
+                            });
+
+                        });
+                        submit.trigger('click');
+
+                    }
+                    ,success: function(layero, index){
+                    }
+                })
+
+            }
+        });
+
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+{php}
+$xmmap= md('semxm')->getmap();
+{/php}
+
+
+{if abs($xfcam - $xfkf) > 100}
+<span class="layui-badge">消费差距</span>
+{/if}
+
+{if $xfcam > $xfkf +1 }
+<span class="layui-badge layui-bg-black">消费亏负</span>
+{/if}
+
+
+{if $yue + $cztotal - $xfkf != $balance}
+<span class="layui-badge layui-bg-black">公式</span>
+{$yue + $cztotal - $xfkf - $balance}
+{/if}
+
+{if $czxttotal>0 }
+<span class="layui-badge layui-bg-black">对冲亏负</span>
+{/if}
+
+
+<!--{$xmId}:{$dt}-->
+<table class="layui-table">
+    <tbody>
+    <tr>
+        <td style="width:40px">项目 </td>
+        <td>{$xmmap[$xmId]} 日期 {$dt}</td>
+        <td style="width:30px">详细</td>
+    </tr>
+    <tr>
+        <td>上期</td>
+        <td>{$yue}
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>充值</td>
+        <td>
+            {if $czdctotal < 0}
+            <span class="layui-badge layui-bg-black">{$czdctotal}</span>
+            {else}
+            <span class="layui-badge">{$czdctotal}</span>
+            {/if}
+
+        </td>
+        <td>
+
+            <button class="layui-btn layui-btn-sm s_cz" xmid="{$xmId}" dt="{$dt}">详细</button>
+
+        </td>
+    </tr>
+    <tr>
+        <td>消费</td>
+        <td><span class="layui-badge layui-bg-green">{$xfcam}</span> /
+
+        {if abs($xfcam - $xfkf) > 5}
+            <span class="layui-badge layui-bg-black">{$xfkf}</span>
+            {else}
+            <span class="layui-badge layui-bg-green">{$xfkf}</span>
+        {/if}
+        {if $xfcam > $xfkf +2 }
+            = <span class="layui-badge layui-bg-orange">{$xfcam - $xfkf}</span>
+        {/if}
+
+        </td>
+        <td>
+
+            <button class="layui-btn layui-btn-sm s_xf" xmid="{$xmId}" dt="{$dt}">详细</button>
+
+
+        </td>
+    </tr>
+    <tr>
+        <td>余额</td>
+        <td>
+            <span class="layui-badge layui-bg-blue">{$balance}</span><!-- 绝对正确的报给客户余额 -->
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>对冲</td>
+        <td>
+            {if $czxttotal > 0}
+            <span class="layui-badge layui-bg-black">{$czxttotal}</span>
+            {else}
+            <span class="layui-badge">{$czxttotal}</span>
+            {/if}
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>平衡</td>
+        <td>
+            <span class="layui-badge layui-bg-black">{$phtotal}</span>
+        </td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>快照</td>
+        <td></td>
+        <td>
+            <!--<button class="layui-btn layui-btn-sm s_snap" dt="{$xmId}" xmid="{$dt}">拍照</button>-->
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+

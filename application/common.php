@@ -11,6 +11,34 @@
 // 应用公共文件
 
 
+function getMonthIndex($date1,$date2)
+{
+    $int1 = strtotime($date1);
+    $int2 = strtotime($date2);
+
+//    echo     date('Y-m',$int1);
+//    echo     date('Y-m',$int2);
+
+    $tod = strtotime(date('Y-m'));
+
+    $int1 = ($int1<=$tod)?$int1:$tod;
+    $int2 = ($int2<=$tod)?$int2:$tod;
+//echo $int1,$int2;
+//    exit;
+//    echo     date('Y-m',$int1);
+//    echo     date('Y-m',$int2);
+
+    $datearr = [];
+    //===========================================================
+    while($int1 <= $int2){
+        $datearr[] = date('Y-m',$int2);//得到dataarr的日期数组。
+        $int2 = strtotime('-1 month',$int2);
+    }
+    //===========================================================
+//    print_r($datearr);
+    return $datearr;
+}
+
 //通过config函数进行调用
 function getConfig($name){
 

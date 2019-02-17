@@ -1,0 +1,262 @@
+{php}
+$xmmap= md('semxm')->getmap();
+{/php}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layuiAdmin 网站用户</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/global.css" media="all">
+    <link rel="stylesheet" href="/static/Sham.css" media="all">
+    <style>
+        .layui-table-cell {
+            padding: 0 5px;
+        }
+        .layui-table-view .layui-table td, .layui-table-view .layui-table th {
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <form>
+            <div class="layui-form">
+
+                <div class="layui-form-item layui-form-item-sm text-sm">
+                    <label class="layui-form-label">项目</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="xmflit" placeholder="请输入" autocomplete="off" class="layui-input layui-input-sm" id="demo" value="{$Think.get.xmflit}" ts-selected="{$Think.get.xmflit}">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">请选择项目</div>
+                </div>
+
+                <div class="layui-inline text-sm layui-form-item-sm">
+                    <label class="layui-form-label">日期</label>
+                    <div class="layui-input-block">
+                        <input name="dts" type="text" class="layui-input layui-input-sm" id="test6" value="{$Think.get.dts}" placeholder="限定日期">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label"></label>
+                    <button class="layui-btn layui-btn-sm" lay-submit lay-filter="LAY-user-front-search">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i> 提交
+                    </button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <div class="layui-card">
+        <div class="layui-card-head">
+        </div>
+
+
+        <div class="layui-card-body">
+
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <th>/</th>
+                    {foreach $index0 as $key=>$dt}
+                    <th>{$dt}</th>
+                    {/foreach}
+                </tr>
+                </thead>
+
+                <tbody>
+                {foreach $map as $key=>$dt}
+                <tr>
+                    <td>{$xmmap[$key]}</td>
+                    {foreach $dt as $k=>$v}
+                    <td>
+                        {:widget('sem/widget/Xmdt', ['xmid' => $key,'dt'=>$k])}
+                    </td>
+                    {/foreach}
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+
+        </div>
+        <div class="layui-card-body">
+            <span class="layui-badge">检查公式之前，请先检查余额，消费，充值 是否正确</span>
+            <span class="layui-badge layui-bg-black">检查顺序 充值 > 消费 > 余额 > 公式</span>
+
+        </div>
+    </div>
+</div>
+
+类型8 平衡对冲
+9 月底对冲
+0 正常充值
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+layui.config({
+    base: '../../../layuiadmin/' //静态资源所在路径
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'laydate','table','tableSelect'], function(){
+    var $ = layui.$
+            ,form = layui.form
+            ,admin = layui.admin
+            ,table = layui.table;
+    var tableSelect = layui.tableSelect;
+    var laydate = layui.laydate;
+    var $body = $('body');
+
+    //日期范围
+    laydate.render({
+        elem: '#test6'
+        ,range: '~'
+        ,type: 'month'
+        ,format: 'yyyy-MM'
+    });
+
+    /*
+     选择项目
+     */
+    tableSelect.render({
+        elem: '#demo',
+        searchKey: 'selkey',
+        checkedKey: 'xmId',
+        searchPlaceholder: '自定义文字和name',
+        table: {
+            url: '/api/sem.xmtree/xmsel',
+            cols: [[
+                { type: 'checkbox' },
+                { field: 'xmId', title: 'ID', width: 100 },
+                { field: 'title', title: '项目', width: 300 },
+                { field: 'enablechr', title: '状态', width: 100 }
+            ]]
+            ,page: true
+            ,limit: 8
+        },
+        done: function (elem, data) {
+            var NEWJSON = []
+            layui.each(data.data, function (index, item) {
+                NEWJSON.push(item.xmId)
+            })
+            elem.val(NEWJSON.join(","))
+        }
+    });
+
+
+    //对冲 同充值 同平衡对冲
+//    $('.s_cz').click(function(){
+//    });
+//
+//    //消费
+//    $('.s_cz').click(function(){
+//    });
+
+    //充值详细
+    $('.s_cz').click(function(){
+        var xmid = $(this).attr('xmid');
+        var dt = $(this).attr('dt');
+        layer.open({
+            type: 2
+            ,title: '充值 对冲 平衡'
+            ,content: '/sem/fin.payment/cz?dt='+dt+'&xmid='+xmid
+            ,maxmin: true
+            ,area: ['800px', '500px']
+            ,btn: ['取消']
+            ,yes: function(index, layero){
+                layer.close(index); //关闭弹层
+            }
+        });
+    });
+
+    //消费详细
+    $('.s_xf').click(function(){
+        var xmid = $(this).attr('xmid');
+        var dt = $(this).attr('dt');
+        layer.open({
+            type: 2
+            ,title: '充值 对冲 平衡'
+            ,content: '/sem/fin.payment/xf?dt='+dt+'&xmid='+xmid
+            ,maxmin: true
+            ,area: ['800px', '500px']
+            ,btn: ['取消']
+            ,yes: function(index, layero){
+                layer.close(index); //关闭弹层
+            }
+        });
+    });
+
+    //快照
+    $('.s_snap').click(function(){
+        layer.open({
+            type: 2
+            ,title: '消费'
+            ,content: '/sem/fin.payment/cz'
+            ,maxmin: true
+            ,area: ['500px', '450px']
+            ,btn: ['取消']
+            ,yes: function(index, layero){
+            }
+        });
+    });
+
+
+
+
+    $('.s_cz000000000000000000').click(function(){
+        layer.open({
+            type: 2
+            ,title: '/sem/fin.payment/addnew'
+            ,content: '/sem/fin.payment/addnew'
+            ,maxmin: true
+            ,area: ['500px', '450px']
+            ,btn: ['确定', '取消']
+            ,yes: function(index, layero){
+
+                var iframeWindow = window['layui-layer-iframe'+ index]
+                        ,submitID = 'LAY-addnew-front-submit'
+                        ,submit = layero.find('iframe').contents().find('#'+ submitID);
+
+                //监听提交
+                iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
+                    var field = data.field; //获取提交的字段
+
+                    //提交 Ajax 成功后，静态更新表格中的数据
+                    //$.ajax({});
+                    $.ajax({
+                        url: '/api/demo'
+                        ,type:'POST'
+                        ,data: data.field
+                        ,success: function(res){
+                            if(res.code==0){
+                                table.reload('LAY-content-list');
+                                //table.reload('LAY-content-list');
+                                layer.close(index);
+                            }
+                        }
+                    });
+                });
+
+                submit.trigger('click');
+            }
+        });
+    });
+
+
+    $('.layui-btn.layuiadmin-btn-useradmin').on('click', function(){
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+    });
+});
+</script>
+</body>
+</html>
