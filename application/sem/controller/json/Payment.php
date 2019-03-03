@@ -15,6 +15,38 @@ class Payment extends \app\sys\controller\Base{
     }
 
 
+
+    public function yeedit(request $request)
+    {
+        $rmb = $request->post('rmb');
+        $balance = $request->post('balance');
+        $xmid = $request->post('xmid');
+        $_dt = $request->post('dt');
+        $dt = $_dt.'-01';
+        //=================================================================
+        //获取到时间
+        $dtn = date("Y-m-d",strtotime("+1 months",strtotime($dt))-24*60*60);            //最后一天的日期
+
+
+        if(!empty($xmid)  && !empty($dtn) ){
+            //=================================================================
+            //删除该月份的数据
+            $sql = "delete from r_paymentuserdc where xmId = $xmid and date_format(dt, '%Y-%m') = '$_dt'";
+            Db::query($sql);
+            //添加新的数据
+            $rc['dt']       = $dtn;
+            $rc['rmb']      = $rmb;
+            $rc['balance']  = $balance;
+            $rc['xmId']     = $xmid;
+            md('paymentuserdc')->insert($rc);
+        }
+
+        return [
+            'code'=>0,
+            'msg'=>'成功',
+        ];
+    }
+
     public function dmonth(request $request)
     {
         //=============================================
@@ -52,8 +84,8 @@ class Payment extends \app\sys\controller\Base{
         $where = implode(' and ',$_where);
 
         //先建立索引
-        $sql = "select date_format(dt, '%Y-%m') as _dt,xmId from f_paymentuser where $where group by _dt,xmId";
-        $sql2 = "select date_format(dt, '%Y-%m') as _dt,xmId from f_paymentuserdc where $where group by _dt,xmId";
+        $sql = "select date_format(dt, '%Y-%m') as _dt,xmId from r_paymentuser where $where group by _dt,xmId";
+        $sql2 = "select date_format(dt, '%Y-%m') as _dt,xmId from r_paymentuserdc where $where group by _dt,xmId";
         $mdr = Db::query($sql);
         $mdr2 = Db::query($sql2);
 

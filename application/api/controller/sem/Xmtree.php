@@ -127,7 +127,7 @@ class Xmtree extends \app\sys\controller\Base{
         $page = $request->get('page');
         $limit = $request->get('limit');
         //返回项目列表
-        $list = md('semxm')->where('title','like',"%$selkey%")->limit(($page-1)*$limit,$limit)->select();
+        $list = md('semxm')->where('title','like',"%$selkey%")->order('enable','desc')->order('xmId','desc')->limit(($page-1)*$limit,$limit)->select();
         $count = md('semxm')->where('title','like',"%$selkey%")->limit(($page-1)*$limit,$limit)->count();
 
         foreach($list as $key=>$value){

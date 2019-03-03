@@ -11,7 +11,7 @@ namespace app\common\model;
 class Paymentuser extends \think\Model
 {
 
-    protected $table = 'f_paymentuser';
+    protected $table = 'r_paymentuser';
     protected $pk = 'puId';
 
 //    protected $autoWriteTimestamp = true;

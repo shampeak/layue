@@ -1,0 +1,37 @@
+
+{php}
+$sql = "select * from r_paymentuserdc
+where xmId = $xmId
+and date_format(dt, '%Y-%m') = '$dt'
+order by dt desc,puId desc";
+$list = think\Db::query($sql);
+
+$rmb = $balance = 0;
+if($list){
+    $rmb = $list[0]['rmb'];
+    $balance = $list[0]['balance'];
+}
+{/php}
+<!--{$xmId}:{$dt}-->
+<table class="layui-table">
+    <tbody>
+    <tr>
+        <td>
+            {if $rmb == 0}
+                <span class="layui-badge layui-bg-black">0</span>
+            {else}
+                {$rmb}
+            {/if}
+
+        </td>
+        <td>
+            {$balance}
+        </td>
+        <td width="50px">
+            <button class="layui-btn layui-btn-primary  layui-btn-sm s_yeedit" xmid="{$xmId}" dt="{$dt}">详细</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+

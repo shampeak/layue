@@ -12,7 +12,7 @@ namespace app\common\model;
 class Paymentuserdc extends \think\Model
 {
 
-    protected $table = 'f_paymentuserdc';
+    protected $table = 'r_paymentuserdc';
     protected $pk = 'puId';
 
 //    protected $deleteTime = 'deleteTime';       //删除时间

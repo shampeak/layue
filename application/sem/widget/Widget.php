@@ -12,6 +12,23 @@ use think\Db;
 
 class Widget extends Controller
 {
+
+    //消费‘余额
+    public function Xfye($xmid,$dt)
+    {
+        //=============================================
+        //消费余额数据
+
+
+
+
+
+        return $this->fetch('widget/xfye',[
+            'xmId'=>$xmid,
+            'dt'=>$dt,
+        ]);
+    }
+
     public function xmdt($xmid,$dt)
     {
 
@@ -95,7 +112,7 @@ group by xmId
     public function getXfkf($xmid,$dt)
     {
 //        return 0;
-        $sql = "select * from f_paymentuserdc
+        $sql = "select * from r_paymentuserdc
 where xmId = $xmid
 and date_format(dt, '%Y-%m') = '$dt'
 order by dt desc,puId desc limit 1";
@@ -148,7 +165,6 @@ order by dt desc,puId desc limit 1";
             return 0;
         }
     }
-
 
 
 
